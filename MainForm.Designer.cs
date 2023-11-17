@@ -42,9 +42,10 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.RightGroupBox = new System.Windows.Forms.GroupBox();
-            this.UserGroupBox = new System.Windows.Forms.GroupBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.InfoSplitContainer = new System.Windows.Forms.SplitContainer();
             this.BuildSizeGroupBox = new System.Windows.Forms.GroupBox();
+            this.BuildHeightMeterLabel = new System.Windows.Forms.Label();
+            this.BuildWidthMeterLabel = new System.Windows.Forms.Label();
             this.BuildSizeResultGroupBox = new System.Windows.Forms.GroupBox();
             this.BuildingAreaResultLabel = new System.Windows.Forms.Label();
             this.FoundationLengthResultLabel = new System.Windows.Forms.Label();
@@ -61,19 +62,18 @@
             this.BuildWidthLabel = new System.Windows.Forms.Label();
             this.BuildWidthTextBox = new System.Windows.Forms.TextBox();
             this.BuildSizeLabel = new System.Windows.Forms.Label();
-            this.MaterialsListGroupBox = new System.Windows.Forms.GroupBox();
+            this.UserGroupBox = new System.Windows.Forms.GroupBox();
             this.AuthorizeButton = new System.Windows.Forms.Button();
-            this.BuildWidthMeterLabel = new System.Windows.Forms.Label();
-            this.BuildHeightMeterLabel = new System.Windows.Forms.Label();
-            this.InfoSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.MaterialsListGroupBox = new System.Windows.Forms.GroupBox();
             this.MaterialsPanel = new System.Windows.Forms.Panel();
             this.MaterialGroupBox = new System.Windows.Forms.GroupBox();
-            this.MaterialPictureBox = new System.Windows.Forms.PictureBox();
-            this.MaterialSelectButton = new System.Windows.Forms.Button();
-            this.InputFirstLabel = new System.Windows.Forms.Label();
-            this.InputFirstComboBox = new System.Windows.Forms.ComboBox();
             this.InputSecondComboBox = new System.Windows.Forms.ComboBox();
             this.InputSecondLabel = new System.Windows.Forms.Label();
+            this.InputFirstComboBox = new System.Windows.Forms.ComboBox();
+            this.InputFirstLabel = new System.Windows.Forms.Label();
+            this.MaterialSelectButton = new System.Windows.Forms.Button();
+            this.MaterialPictureBox = new System.Windows.Forms.PictureBox();
             this.MainMenuToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitContainer)).BeginInit();
             this.MainSplitContainer.Panel1.SuspendLayout();
@@ -81,15 +81,15 @@
             this.MainSplitContainer.SuspendLayout();
             this.LeftGroupBox.SuspendLayout();
             this.RightGroupBox.SuspendLayout();
-            this.UserGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.BuildSizeGroupBox.SuspendLayout();
-            this.BuildSizeResultGroupBox.SuspendLayout();
-            this.MaterialsListGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InfoSplitContainer)).BeginInit();
             this.InfoSplitContainer.Panel1.SuspendLayout();
             this.InfoSplitContainer.Panel2.SuspendLayout();
             this.InfoSplitContainer.SuspendLayout();
+            this.BuildSizeGroupBox.SuspendLayout();
+            this.BuildSizeResultGroupBox.SuspendLayout();
+            this.UserGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.MaterialsListGroupBox.SuspendLayout();
             this.MaterialsPanel.SuspendLayout();
             this.MaterialGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MaterialPictureBox)).BeginInit();
@@ -102,7 +102,7 @@
             this.AboutProgramMenuItem});
             this.MainMenuToolStrip.Location = new System.Drawing.Point(0, 0);
             this.MainMenuToolStrip.Name = "MainMenuToolStrip";
-            this.MainMenuToolStrip.Size = new System.Drawing.Size(1274, 25);
+            this.MainMenuToolStrip.Size = new System.Drawing.Size(1338, 25);
             this.MainMenuToolStrip.TabIndex = 0;
             this.MainMenuToolStrip.Text = "menuStrip1";
             // 
@@ -114,9 +114,9 @@
             // 
             // MainStatusStrip
             // 
-            this.MainStatusStrip.Location = new System.Drawing.Point(0, 717);
+            this.MainStatusStrip.Location = new System.Drawing.Point(0, 689);
             this.MainStatusStrip.Name = "MainStatusStrip";
-            this.MainStatusStrip.Size = new System.Drawing.Size(1274, 22);
+            this.MainStatusStrip.Size = new System.Drawing.Size(1338, 22);
             this.MainStatusStrip.TabIndex = 1;
             this.MainStatusStrip.Text = "statusStrip1";
             // 
@@ -133,8 +133,8 @@
             // MainSplitContainer.Panel2
             // 
             this.MainSplitContainer.Panel2.Controls.Add(this.RightGroupBox);
-            this.MainSplitContainer.Size = new System.Drawing.Size(1274, 692);
-            this.MainSplitContainer.SplitterDistance = 241;
+            this.MainSplitContainer.Size = new System.Drawing.Size(1338, 664);
+            this.MainSplitContainer.SplitterDistance = 253;
             this.MainSplitContainer.SplitterWidth = 6;
             this.MainSplitContainer.TabIndex = 0;
             // 
@@ -152,7 +152,7 @@
             this.LeftGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.LeftGroupBox.Location = new System.Drawing.Point(0, 0);
             this.LeftGroupBox.Name = "LeftGroupBox";
-            this.LeftGroupBox.Size = new System.Drawing.Size(241, 692);
+            this.LeftGroupBox.Size = new System.Drawing.Size(253, 664);
             this.LeftGroupBox.TabIndex = 0;
             this.LeftGroupBox.TabStop = false;
             this.LeftGroupBox.Text = "Материалы";
@@ -165,7 +165,7 @@
             this.button8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button8.Location = new System.Drawing.Point(6, 306);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(229, 33);
+            this.button8.Size = new System.Drawing.Size(241, 33);
             this.button8.TabIndex = 7;
             this.button8.Text = "            8. Окна, двери";
             this.button8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -179,7 +179,7 @@
             this.button7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button7.Location = new System.Drawing.Point(6, 267);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(229, 33);
+            this.button7.Size = new System.Drawing.Size(241, 33);
             this.button7.TabIndex = 6;
             this.button7.Text = "            7. Фасад";
             this.button7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -193,7 +193,7 @@
             this.button6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button6.Location = new System.Drawing.Point(6, 228);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(229, 33);
+            this.button6.Size = new System.Drawing.Size(241, 33);
             this.button6.TabIndex = 5;
             this.button6.Text = "            6. Лестница";
             this.button6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -207,7 +207,7 @@
             this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button5.Location = new System.Drawing.Point(6, 189);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(229, 33);
+            this.button5.Size = new System.Drawing.Size(241, 33);
             this.button5.TabIndex = 4;
             this.button5.Text = "            5. Труба";
             this.button5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -221,7 +221,7 @@
             this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button4.Location = new System.Drawing.Point(6, 150);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(229, 33);
+            this.button4.Size = new System.Drawing.Size(241, 33);
             this.button4.TabIndex = 3;
             this.button4.Text = "            4. Кровля";
             this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -235,7 +235,7 @@
             this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button3.Location = new System.Drawing.Point(6, 111);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(229, 33);
+            this.button3.Size = new System.Drawing.Size(241, 33);
             this.button3.TabIndex = 2;
             this.button3.Text = "            3. Перекрытия";
             this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -249,7 +249,7 @@
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button2.Location = new System.Drawing.Point(6, 72);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(229, 33);
+            this.button2.Size = new System.Drawing.Size(241, 33);
             this.button2.TabIndex = 1;
             this.button2.Text = "            2. Стены";
             this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -263,7 +263,7 @@
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button1.Location = new System.Drawing.Point(6, 33);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(229, 33);
+            this.button1.Size = new System.Drawing.Size(241, 33);
             this.button1.TabIndex = 0;
             this.button1.Text = "            1. Фундамент";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -276,33 +276,29 @@
             this.RightGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RightGroupBox.Location = new System.Drawing.Point(0, 0);
             this.RightGroupBox.Name = "RightGroupBox";
-            this.RightGroupBox.Size = new System.Drawing.Size(1027, 692);
+            this.RightGroupBox.Size = new System.Drawing.Size(1079, 664);
             this.RightGroupBox.TabIndex = 0;
             this.RightGroupBox.TabStop = false;
             // 
-            // UserGroupBox
+            // InfoSplitContainer
             // 
-            this.UserGroupBox.Controls.Add(this.AuthorizeButton);
-            this.UserGroupBox.Controls.Add(this.pictureBox1);
-            this.UserGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.UserGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.UserGroupBox.Location = new System.Drawing.Point(0, 0);
-            this.UserGroupBox.MinimumSize = new System.Drawing.Size(261, 110);
-            this.UserGroupBox.Name = "UserGroupBox";
-            this.UserGroupBox.Size = new System.Drawing.Size(261, 110);
-            this.UserGroupBox.TabIndex = 2;
-            this.UserGroupBox.TabStop = false;
-            this.UserGroupBox.Text = "Пользователь";
+            this.InfoSplitContainer.Dock = System.Windows.Forms.DockStyle.Top;
+            this.InfoSplitContainer.Location = new System.Drawing.Point(3, 16);
+            this.InfoSplitContainer.Name = "InfoSplitContainer";
             // 
-            // pictureBox1
+            // InfoSplitContainer.Panel1
             // 
-            this.pictureBox1.Image = global::BuildCalculator.Properties.Resources.icon_user;
-            this.pictureBox1.Location = new System.Drawing.Point(6, 21);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.InfoSplitContainer.Panel1.Controls.Add(this.BuildSizeGroupBox);
+            this.InfoSplitContainer.Panel1MinSize = 730;
+            // 
+            // InfoSplitContainer.Panel2
+            // 
+            this.InfoSplitContainer.Panel2.Controls.Add(this.UserGroupBox);
+            this.InfoSplitContainer.Panel2MinSize = 261;
+            this.InfoSplitContainer.Size = new System.Drawing.Size(1073, 110);
+            this.InfoSplitContainer.SplitterDistance = 792;
+            this.InfoSplitContainer.SplitterWidth = 6;
+            this.InfoSplitContainer.TabIndex = 1;
             // 
             // BuildSizeGroupBox
             // 
@@ -322,10 +318,28 @@
             this.BuildSizeGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.BuildSizeGroupBox.Location = new System.Drawing.Point(0, 0);
             this.BuildSizeGroupBox.Name = "BuildSizeGroupBox";
-            this.BuildSizeGroupBox.Size = new System.Drawing.Size(754, 110);
+            this.BuildSizeGroupBox.Size = new System.Drawing.Size(792, 110);
             this.BuildSizeGroupBox.TabIndex = 1;
             this.BuildSizeGroupBox.TabStop = false;
             this.BuildSizeGroupBox.Text = "Строение";
+            // 
+            // BuildHeightMeterLabel
+            // 
+            this.BuildHeightMeterLabel.AutoSize = true;
+            this.BuildHeightMeterLabel.Location = new System.Drawing.Point(137, 80);
+            this.BuildHeightMeterLabel.Name = "BuildHeightMeterLabel";
+            this.BuildHeightMeterLabel.Size = new System.Drawing.Size(16, 16);
+            this.BuildHeightMeterLabel.TabIndex = 11;
+            this.BuildHeightMeterLabel.Text = "м";
+            // 
+            // BuildWidthMeterLabel
+            // 
+            this.BuildWidthMeterLabel.AutoSize = true;
+            this.BuildWidthMeterLabel.Location = new System.Drawing.Point(137, 53);
+            this.BuildWidthMeterLabel.Name = "BuildWidthMeterLabel";
+            this.BuildWidthMeterLabel.Size = new System.Drawing.Size(16, 16);
+            this.BuildWidthMeterLabel.TabIndex = 10;
+            this.BuildWidthMeterLabel.Text = "м";
             // 
             // BuildSizeResultGroupBox
             // 
@@ -337,7 +351,7 @@
             this.BuildSizeResultGroupBox.Controls.Add(this.BuildingAreaLabel);
             this.BuildSizeResultGroupBox.Controls.Add(this.FoundationLengthLabel);
             this.BuildSizeResultGroupBox.Controls.Add(this.BuildPerimeterLabel);
-            this.BuildSizeResultGroupBox.Location = new System.Drawing.Point(477, 13);
+            this.BuildSizeResultGroupBox.Location = new System.Drawing.Point(515, 13);
             this.BuildSizeResultGroupBox.Name = "BuildSizeResultGroupBox";
             this.BuildSizeResultGroupBox.Size = new System.Drawing.Size(271, 90);
             this.BuildSizeResultGroupBox.TabIndex = 9;
@@ -473,6 +487,41 @@
             this.BuildSizeLabel.TabIndex = 0;
             this.BuildSizeLabel.Text = "Размеры строения:";
             // 
+            // UserGroupBox
+            // 
+            this.UserGroupBox.Controls.Add(this.AuthorizeButton);
+            this.UserGroupBox.Controls.Add(this.pictureBox1);
+            this.UserGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.UserGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.UserGroupBox.Location = new System.Drawing.Point(0, 0);
+            this.UserGroupBox.MinimumSize = new System.Drawing.Size(261, 110);
+            this.UserGroupBox.Name = "UserGroupBox";
+            this.UserGroupBox.Size = new System.Drawing.Size(275, 110);
+            this.UserGroupBox.TabIndex = 2;
+            this.UserGroupBox.TabStop = false;
+            this.UserGroupBox.Text = "Пользователь";
+            // 
+            // AuthorizeButton
+            // 
+            this.AuthorizeButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.AuthorizeButton.Location = new System.Drawing.Point(45, 21);
+            this.AuthorizeButton.Name = "AuthorizeButton";
+            this.AuthorizeButton.Size = new System.Drawing.Size(224, 32);
+            this.AuthorizeButton.TabIndex = 1;
+            this.AuthorizeButton.Text = "Вход/Регистрация";
+            this.AuthorizeButton.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::BuildCalculator.Properties.Resources.icon_user;
+            this.pictureBox1.Location = new System.Drawing.Point(6, 21);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
             // MaterialsListGroupBox
             // 
             this.MaterialsListGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -482,68 +531,21 @@
             this.MaterialsListGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.MaterialsListGroupBox.Location = new System.Drawing.Point(2, 132);
             this.MaterialsListGroupBox.Name = "MaterialsListGroupBox";
-            this.MaterialsListGroupBox.Size = new System.Drawing.Size(1022, 557);
+            this.MaterialsListGroupBox.Size = new System.Drawing.Size(1074, 529);
             this.MaterialsListGroupBox.TabIndex = 0;
             this.MaterialsListGroupBox.TabStop = false;
             this.MaterialsListGroupBox.Text = "Материалы";
             // 
-            // AuthorizeButton
-            // 
-            this.AuthorizeButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.AuthorizeButton.Location = new System.Drawing.Point(45, 21);
-            this.AuthorizeButton.Name = "AuthorizeButton";
-            this.AuthorizeButton.Size = new System.Drawing.Size(210, 32);
-            this.AuthorizeButton.TabIndex = 1;
-            this.AuthorizeButton.Text = "Вход/Регистрация";
-            this.AuthorizeButton.UseVisualStyleBackColor = true;
-            // 
-            // BuildWidthMeterLabel
-            // 
-            this.BuildWidthMeterLabel.AutoSize = true;
-            this.BuildWidthMeterLabel.Location = new System.Drawing.Point(137, 53);
-            this.BuildWidthMeterLabel.Name = "BuildWidthMeterLabel";
-            this.BuildWidthMeterLabel.Size = new System.Drawing.Size(16, 16);
-            this.BuildWidthMeterLabel.TabIndex = 10;
-            this.BuildWidthMeterLabel.Text = "м";
-            // 
-            // BuildHeightMeterLabel
-            // 
-            this.BuildHeightMeterLabel.AutoSize = true;
-            this.BuildHeightMeterLabel.Location = new System.Drawing.Point(137, 80);
-            this.BuildHeightMeterLabel.Name = "BuildHeightMeterLabel";
-            this.BuildHeightMeterLabel.Size = new System.Drawing.Size(16, 16);
-            this.BuildHeightMeterLabel.TabIndex = 11;
-            this.BuildHeightMeterLabel.Text = "м";
-            // 
-            // InfoSplitContainer
-            // 
-            this.InfoSplitContainer.Dock = System.Windows.Forms.DockStyle.Top;
-            this.InfoSplitContainer.Location = new System.Drawing.Point(3, 16);
-            this.InfoSplitContainer.Name = "InfoSplitContainer";
-            // 
-            // InfoSplitContainer.Panel1
-            // 
-            this.InfoSplitContainer.Panel1.Controls.Add(this.BuildSizeGroupBox);
-            this.InfoSplitContainer.Panel1MinSize = 730;
-            // 
-            // InfoSplitContainer.Panel2
-            // 
-            this.InfoSplitContainer.Panel2.Controls.Add(this.UserGroupBox);
-            this.InfoSplitContainer.Panel2MinSize = 261;
-            this.InfoSplitContainer.Size = new System.Drawing.Size(1021, 110);
-            this.InfoSplitContainer.SplitterDistance = 754;
-            this.InfoSplitContainer.SplitterWidth = 6;
-            this.InfoSplitContainer.TabIndex = 1;
-            // 
             // MaterialsPanel
             // 
+            this.MaterialsPanel.AutoScroll = true;
             this.MaterialsPanel.Controls.Add(this.MaterialGroupBox);
             this.MaterialsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MaterialsPanel.Location = new System.Drawing.Point(3, 18);
             this.MaterialsPanel.Name = "MaterialsPanel";
-            this.MaterialsPanel.Size = new System.Drawing.Size(1016, 536);
+            this.MaterialsPanel.Size = new System.Drawing.Size(1068, 508);
             this.MaterialsPanel.TabIndex = 0;
+            this.MaterialsPanel.SizeChanged += new System.EventHandler(this.MaterialsPanel_SizeChanged);
             // 
             // MaterialGroupBox
             // 
@@ -560,43 +562,7 @@
             this.MaterialGroupBox.TabIndex = 0;
             this.MaterialGroupBox.TabStop = false;
             this.MaterialGroupBox.Text = "Улиточная слизь";
-            // 
-            // MaterialPictureBox
-            // 
-            this.MaterialPictureBox.Location = new System.Drawing.Point(7, 29);
-            this.MaterialPictureBox.Name = "MaterialPictureBox";
-            this.MaterialPictureBox.Size = new System.Drawing.Size(215, 110);
-            this.MaterialPictureBox.TabIndex = 0;
-            this.MaterialPictureBox.TabStop = false;
-            // 
-            // MaterialSelectButton
-            // 
-            this.MaterialSelectButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.MaterialSelectButton.Location = new System.Drawing.Point(7, 244);
-            this.MaterialSelectButton.Name = "MaterialSelectButton";
-            this.MaterialSelectButton.Size = new System.Drawing.Size(215, 33);
-            this.MaterialSelectButton.TabIndex = 1;
-            this.MaterialSelectButton.Text = "Выбрать";
-            this.MaterialSelectButton.UseVisualStyleBackColor = true;
-            // 
-            // InputFirstLabel
-            // 
-            this.InputFirstLabel.AutoSize = true;
-            this.InputFirstLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.InputFirstLabel.Location = new System.Drawing.Point(4, 146);
-            this.InputFirstLabel.Name = "InputFirstLabel";
-            this.InputFirstLabel.Size = new System.Drawing.Size(48, 16);
-            this.InputFirstLabel.TabIndex = 2;
-            this.InputFirstLabel.Text = "Input 1:";
-            // 
-            // InputFirstComboBox
-            // 
-            this.InputFirstComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.InputFirstComboBox.FormattingEnabled = true;
-            this.InputFirstComboBox.Location = new System.Drawing.Point(6, 165);
-            this.InputFirstComboBox.Name = "InputFirstComboBox";
-            this.InputFirstComboBox.Size = new System.Drawing.Size(216, 24);
-            this.InputFirstComboBox.TabIndex = 3;
+            this.MaterialGroupBox.Visible = false;
             // 
             // InputSecondComboBox
             // 
@@ -617,18 +583,58 @@
             this.InputSecondLabel.TabIndex = 4;
             this.InputSecondLabel.Text = "Input 2:";
             // 
-            // Form1
+            // InputFirstComboBox
+            // 
+            this.InputFirstComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.InputFirstComboBox.FormattingEnabled = true;
+            this.InputFirstComboBox.Location = new System.Drawing.Point(6, 165);
+            this.InputFirstComboBox.Name = "InputFirstComboBox";
+            this.InputFirstComboBox.Size = new System.Drawing.Size(216, 24);
+            this.InputFirstComboBox.TabIndex = 3;
+            // 
+            // InputFirstLabel
+            // 
+            this.InputFirstLabel.AutoSize = true;
+            this.InputFirstLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.InputFirstLabel.Location = new System.Drawing.Point(4, 146);
+            this.InputFirstLabel.Name = "InputFirstLabel";
+            this.InputFirstLabel.Size = new System.Drawing.Size(48, 16);
+            this.InputFirstLabel.TabIndex = 2;
+            this.InputFirstLabel.Text = "Input 1:";
+            // 
+            // MaterialSelectButton
+            // 
+            this.MaterialSelectButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.MaterialSelectButton.Location = new System.Drawing.Point(7, 244);
+            this.MaterialSelectButton.Name = "MaterialSelectButton";
+            this.MaterialSelectButton.Size = new System.Drawing.Size(215, 33);
+            this.MaterialSelectButton.TabIndex = 1;
+            this.MaterialSelectButton.Text = "Выбрать";
+            this.MaterialSelectButton.UseVisualStyleBackColor = true;
+            // 
+            // MaterialPictureBox
+            // 
+            this.MaterialPictureBox.Location = new System.Drawing.Point(7, 29);
+            this.MaterialPictureBox.Name = "MaterialPictureBox";
+            this.MaterialPictureBox.Size = new System.Drawing.Size(215, 110);
+            this.MaterialPictureBox.TabIndex = 0;
+            this.MaterialPictureBox.TabStop = false;
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1274, 739);
+            this.ClientSize = new System.Drawing.Size(1338, 711);
             this.Controls.Add(this.MainSplitContainer);
             this.Controls.Add(this.MainStatusStrip);
             this.Controls.Add(this.MainMenuToolStrip);
             this.DoubleBuffered = true;
-            this.Name = "Form1";
+            this.MinimumSize = new System.Drawing.Size(1354, 750);
+            this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.ResizeBegin += new System.EventHandler(this.MainForm_ResizeBegin);
+            this.ResizeEnd += new System.EventHandler(this.MainForm_ResizeEnd);
             this.MainMenuToolStrip.ResumeLayout(false);
             this.MainMenuToolStrip.PerformLayout();
             this.MainSplitContainer.Panel1.ResumeLayout(false);
@@ -637,17 +643,17 @@
             this.MainSplitContainer.ResumeLayout(false);
             this.LeftGroupBox.ResumeLayout(false);
             this.RightGroupBox.ResumeLayout(false);
-            this.UserGroupBox.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.BuildSizeGroupBox.ResumeLayout(false);
-            this.BuildSizeGroupBox.PerformLayout();
-            this.BuildSizeResultGroupBox.ResumeLayout(false);
-            this.BuildSizeResultGroupBox.PerformLayout();
-            this.MaterialsListGroupBox.ResumeLayout(false);
             this.InfoSplitContainer.Panel1.ResumeLayout(false);
             this.InfoSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.InfoSplitContainer)).EndInit();
             this.InfoSplitContainer.ResumeLayout(false);
+            this.BuildSizeGroupBox.ResumeLayout(false);
+            this.BuildSizeGroupBox.PerformLayout();
+            this.BuildSizeResultGroupBox.ResumeLayout(false);
+            this.BuildSizeResultGroupBox.PerformLayout();
+            this.UserGroupBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.MaterialsListGroupBox.ResumeLayout(false);
             this.MaterialsPanel.ResumeLayout(false);
             this.MaterialGroupBox.ResumeLayout(false);
             this.MaterialGroupBox.PerformLayout();
