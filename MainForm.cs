@@ -18,10 +18,12 @@ namespace BuildCalculator
         private const int GroupBoxMargin = 10;
         private int CurrentRow;
         private int CurrentColumn;
+        private int CurrentButtonIdx;
 
         public MainForm()
         {
             InitializeComponent();
+            CurrentButtonIdx = 0;
 
             MaterialsPanel.Controls.Clear();
             for (int i = 0; i < 10; i++)
@@ -122,6 +124,18 @@ namespace BuildCalculator
                 control.ResumeLayout(true);
             }
 #endif
+        }
+
+        private void ButtonsList_Click(object sender, EventArgs e)
+        {
+            foreach (Control control in LeftGroupBox.Controls)
+            {
+                if (control is Button)
+                    control.BackColor = Color.White;
+            }
+            Button cur_button = sender as Button;
+            CurrentButtonIdx = Convert.ToByte(cur_button.Tag.ToString());
+            cur_button.BackColor = Color.FromArgb(80, 0, 120, 215);
         }
     }
 }

@@ -33,14 +33,14 @@
             this.MainStatusStrip = new System.Windows.Forms.StatusStrip();
             this.MainSplitContainer = new System.Windows.Forms.SplitContainer();
             this.LeftGroupBox = new System.Windows.Forms.GroupBox();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.WindowAndDoorsButton = new System.Windows.Forms.Button();
+            this.FacadeButton = new System.Windows.Forms.Button();
+            this.StairButton = new System.Windows.Forms.Button();
+            this.ChimneyButton = new System.Windows.Forms.Button();
+            this.RoofButton = new System.Windows.Forms.Button();
+            this.CeilingButton = new System.Windows.Forms.Button();
+            this.WallsButton = new System.Windows.Forms.Button();
+            this.FoundationButton = new System.Windows.Forms.Button();
             this.RightGroupBox = new System.Windows.Forms.GroupBox();
             this.InfoSplitContainer = new System.Windows.Forms.SplitContainer();
             this.BuildSizeGroupBox = new System.Windows.Forms.GroupBox();
@@ -74,6 +74,7 @@
             this.InputFirstLabel = new System.Windows.Forms.Label();
             this.MaterialSelectButton = new System.Windows.Forms.Button();
             this.MaterialPictureBox = new System.Windows.Forms.PictureBox();
+            this.UserNameLabel = new System.Windows.Forms.Label();
             this.MainMenuToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitContainer)).BeginInit();
             this.MainSplitContainer.Panel1.SuspendLayout();
@@ -140,14 +141,14 @@
             // 
             // LeftGroupBox
             // 
-            this.LeftGroupBox.Controls.Add(this.button8);
-            this.LeftGroupBox.Controls.Add(this.button7);
-            this.LeftGroupBox.Controls.Add(this.button6);
-            this.LeftGroupBox.Controls.Add(this.button5);
-            this.LeftGroupBox.Controls.Add(this.button4);
-            this.LeftGroupBox.Controls.Add(this.button3);
-            this.LeftGroupBox.Controls.Add(this.button2);
-            this.LeftGroupBox.Controls.Add(this.button1);
+            this.LeftGroupBox.Controls.Add(this.WindowAndDoorsButton);
+            this.LeftGroupBox.Controls.Add(this.FacadeButton);
+            this.LeftGroupBox.Controls.Add(this.StairButton);
+            this.LeftGroupBox.Controls.Add(this.ChimneyButton);
+            this.LeftGroupBox.Controls.Add(this.RoofButton);
+            this.LeftGroupBox.Controls.Add(this.CeilingButton);
+            this.LeftGroupBox.Controls.Add(this.WallsButton);
+            this.LeftGroupBox.Controls.Add(this.FoundationButton);
             this.LeftGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LeftGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.LeftGroupBox.Location = new System.Drawing.Point(0, 0);
@@ -157,117 +158,133 @@
             this.LeftGroupBox.TabStop = false;
             this.LeftGroupBox.Text = "Материалы";
             // 
-            // button8
+            // WindowAndDoorsButton
             // 
-            this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.WindowAndDoorsButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button8.Image = global::BuildCalculator.Properties.Resources.icon_door_and_window;
-            this.button8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button8.Location = new System.Drawing.Point(6, 306);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(241, 33);
-            this.button8.TabIndex = 7;
-            this.button8.Text = "            8. Окна, двери";
-            this.button8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button8.UseVisualStyleBackColor = true;
+            this.WindowAndDoorsButton.Image = global::BuildCalculator.Properties.Resources.icon_door_and_window;
+            this.WindowAndDoorsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.WindowAndDoorsButton.Location = new System.Drawing.Point(6, 306);
+            this.WindowAndDoorsButton.Name = "WindowAndDoorsButton";
+            this.WindowAndDoorsButton.Size = new System.Drawing.Size(241, 33);
+            this.WindowAndDoorsButton.TabIndex = 7;
+            this.WindowAndDoorsButton.Tag = "7";
+            this.WindowAndDoorsButton.Text = "            8. Окна, двери";
+            this.WindowAndDoorsButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.WindowAndDoorsButton.UseVisualStyleBackColor = true;
+            this.WindowAndDoorsButton.Click += new System.EventHandler(this.ButtonsList_Click);
             // 
-            // button7
+            // FacadeButton
             // 
-            this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.FacadeButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button7.Image = global::BuildCalculator.Properties.Resources.icon_house;
-            this.button7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button7.Location = new System.Drawing.Point(6, 267);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(241, 33);
-            this.button7.TabIndex = 6;
-            this.button7.Text = "            7. Фасад";
-            this.button7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button7.UseVisualStyleBackColor = true;
+            this.FacadeButton.Image = global::BuildCalculator.Properties.Resources.icon_house;
+            this.FacadeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.FacadeButton.Location = new System.Drawing.Point(6, 267);
+            this.FacadeButton.Name = "FacadeButton";
+            this.FacadeButton.Size = new System.Drawing.Size(241, 33);
+            this.FacadeButton.TabIndex = 6;
+            this.FacadeButton.Tag = "6";
+            this.FacadeButton.Text = "            7. Фасад";
+            this.FacadeButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.FacadeButton.UseVisualStyleBackColor = true;
+            this.FacadeButton.Click += new System.EventHandler(this.ButtonsList_Click);
             // 
-            // button6
+            // StairButton
             // 
-            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.StairButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button6.Image = global::BuildCalculator.Properties.Resources.icon_stair;
-            this.button6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button6.Location = new System.Drawing.Point(6, 228);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(241, 33);
-            this.button6.TabIndex = 5;
-            this.button6.Text = "            6. Лестница";
-            this.button6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button6.UseVisualStyleBackColor = true;
+            this.StairButton.Image = global::BuildCalculator.Properties.Resources.icon_stair;
+            this.StairButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.StairButton.Location = new System.Drawing.Point(6, 228);
+            this.StairButton.Name = "StairButton";
+            this.StairButton.Size = new System.Drawing.Size(241, 33);
+            this.StairButton.TabIndex = 5;
+            this.StairButton.Tag = "5";
+            this.StairButton.Text = "            6. Лестница";
+            this.StairButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.StairButton.UseVisualStyleBackColor = true;
+            this.StairButton.Click += new System.EventHandler(this.ButtonsList_Click);
             // 
-            // button5
+            // ChimneyButton
             // 
-            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.ChimneyButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Image = global::BuildCalculator.Properties.Resources.icon_chimney_top;
-            this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button5.Location = new System.Drawing.Point(6, 189);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(241, 33);
-            this.button5.TabIndex = 4;
-            this.button5.Text = "            5. Труба";
-            this.button5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button5.UseVisualStyleBackColor = true;
+            this.ChimneyButton.Image = global::BuildCalculator.Properties.Resources.icon_chimney_top;
+            this.ChimneyButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ChimneyButton.Location = new System.Drawing.Point(6, 189);
+            this.ChimneyButton.Name = "ChimneyButton";
+            this.ChimneyButton.Size = new System.Drawing.Size(241, 33);
+            this.ChimneyButton.TabIndex = 4;
+            this.ChimneyButton.Tag = "4";
+            this.ChimneyButton.Text = "            5. Труба";
+            this.ChimneyButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ChimneyButton.UseVisualStyleBackColor = true;
+            this.ChimneyButton.Click += new System.EventHandler(this.ButtonsList_Click);
             // 
-            // button4
+            // RoofButton
             // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.RoofButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Image = global::BuildCalculator.Properties.Resources.icon_roof;
-            this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.Location = new System.Drawing.Point(6, 150);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(241, 33);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "            4. Кровля";
-            this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.UseVisualStyleBackColor = true;
+            this.RoofButton.Image = global::BuildCalculator.Properties.Resources.icon_roof;
+            this.RoofButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.RoofButton.Location = new System.Drawing.Point(6, 150);
+            this.RoofButton.Name = "RoofButton";
+            this.RoofButton.Size = new System.Drawing.Size(241, 33);
+            this.RoofButton.TabIndex = 3;
+            this.RoofButton.Tag = "3";
+            this.RoofButton.Text = "            4. Кровля";
+            this.RoofButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.RoofButton.UseVisualStyleBackColor = true;
+            this.RoofButton.Click += new System.EventHandler(this.ButtonsList_Click);
             // 
-            // button3
+            // CeilingButton
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.CeilingButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Image = global::BuildCalculator.Properties.Resources.icon_wall_raw;
-            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(6, 111);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(241, 33);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "            3. Перекрытия";
-            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.UseVisualStyleBackColor = true;
+            this.CeilingButton.Image = global::BuildCalculator.Properties.Resources.icon_wall_raw;
+            this.CeilingButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CeilingButton.Location = new System.Drawing.Point(6, 111);
+            this.CeilingButton.Name = "CeilingButton";
+            this.CeilingButton.Size = new System.Drawing.Size(241, 33);
+            this.CeilingButton.TabIndex = 2;
+            this.CeilingButton.Tag = "2";
+            this.CeilingButton.Text = "            3. Перекрытия";
+            this.CeilingButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CeilingButton.UseVisualStyleBackColor = true;
+            this.CeilingButton.Click += new System.EventHandler(this.ButtonsList_Click);
             // 
-            // button2
+            // WallsButton
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.WallsButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Image = global::BuildCalculator.Properties.Resources.icon_wall;
-            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(6, 72);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(241, 33);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "            2. Стены";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.UseVisualStyleBackColor = true;
+            this.WallsButton.Image = global::BuildCalculator.Properties.Resources.icon_wall;
+            this.WallsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.WallsButton.Location = new System.Drawing.Point(6, 72);
+            this.WallsButton.Name = "WallsButton";
+            this.WallsButton.Size = new System.Drawing.Size(241, 33);
+            this.WallsButton.TabIndex = 1;
+            this.WallsButton.Tag = "1";
+            this.WallsButton.Text = "            2. Стены";
+            this.WallsButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.WallsButton.UseVisualStyleBackColor = true;
+            this.WallsButton.Click += new System.EventHandler(this.ButtonsList_Click);
             // 
-            // button1
+            // FoundationButton
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.FoundationButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Image = global::BuildCalculator.Properties.Resources.icon_foundation;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(6, 33);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(241, 33);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "            1. Фундамент";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.UseVisualStyleBackColor = true;
+            this.FoundationButton.Image = global::BuildCalculator.Properties.Resources.icon_foundation;
+            this.FoundationButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.FoundationButton.Location = new System.Drawing.Point(6, 33);
+            this.FoundationButton.Name = "FoundationButton";
+            this.FoundationButton.Size = new System.Drawing.Size(241, 33);
+            this.FoundationButton.TabIndex = 0;
+            this.FoundationButton.Tag = "0";
+            this.FoundationButton.Text = "            1. Фундамент";
+            this.FoundationButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.FoundationButton.UseVisualStyleBackColor = true;
+            this.FoundationButton.Click += new System.EventHandler(this.ButtonsList_Click);
             // 
             // RightGroupBox
             // 
@@ -489,6 +506,7 @@
             // 
             // UserGroupBox
             // 
+            this.UserGroupBox.Controls.Add(this.UserNameLabel);
             this.UserGroupBox.Controls.Add(this.AuthorizeButton);
             this.UserGroupBox.Controls.Add(this.pictureBox1);
             this.UserGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -505,9 +523,9 @@
             // 
             this.AuthorizeButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.AuthorizeButton.Location = new System.Drawing.Point(45, 21);
+            this.AuthorizeButton.Location = new System.Drawing.Point(6, 69);
             this.AuthorizeButton.Name = "AuthorizeButton";
-            this.AuthorizeButton.Size = new System.Drawing.Size(224, 32);
+            this.AuthorizeButton.Size = new System.Drawing.Size(263, 32);
             this.AuthorizeButton.TabIndex = 1;
             this.AuthorizeButton.Text = "Вход/Регистрация";
             this.AuthorizeButton.UseVisualStyleBackColor = true;
@@ -620,6 +638,15 @@
             this.MaterialPictureBox.TabIndex = 0;
             this.MaterialPictureBox.TabStop = false;
             // 
+            // UserNameLabel
+            // 
+            this.UserNameLabel.AutoSize = true;
+            this.UserNameLabel.Location = new System.Drawing.Point(45, 22);
+            this.UserNameLabel.Name = "UserNameLabel";
+            this.UserNameLabel.Size = new System.Drawing.Size(115, 16);
+            this.UserNameLabel.TabIndex = 2;
+            this.UserNameLabel.Text = "Не авторизован";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -652,6 +679,7 @@
             this.BuildSizeResultGroupBox.ResumeLayout(false);
             this.BuildSizeResultGroupBox.PerformLayout();
             this.UserGroupBox.ResumeLayout(false);
+            this.UserGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.MaterialsListGroupBox.ResumeLayout(false);
             this.MaterialsPanel.ResumeLayout(false);
@@ -672,14 +700,14 @@
         private System.Windows.Forms.GroupBox LeftGroupBox;
         private System.Windows.Forms.GroupBox RightGroupBox;
         private System.Windows.Forms.GroupBox MaterialsListGroupBox;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button FoundationButton;
+        private System.Windows.Forms.Button WindowAndDoorsButton;
+        private System.Windows.Forms.Button FacadeButton;
+        private System.Windows.Forms.Button StairButton;
+        private System.Windows.Forms.Button ChimneyButton;
+        private System.Windows.Forms.Button RoofButton;
+        private System.Windows.Forms.Button CeilingButton;
+        private System.Windows.Forms.Button WallsButton;
         private System.Windows.Forms.GroupBox BuildSizeGroupBox;
         private System.Windows.Forms.TextBox BuildWidthTextBox;
         private System.Windows.Forms.Label BuildSizeLabel;
@@ -711,6 +739,7 @@
         private System.Windows.Forms.ComboBox InputFirstComboBox;
         private System.Windows.Forms.ComboBox InputSecondComboBox;
         private System.Windows.Forms.Label InputSecondLabel;
+        private System.Windows.Forms.Label UserNameLabel;
     }
 }
 
