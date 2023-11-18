@@ -44,7 +44,7 @@
             this.RightGroupBox = new System.Windows.Forms.GroupBox();
             this.InfoSplitContainer = new System.Windows.Forms.SplitContainer();
             this.BuildSizeGroupBox = new System.Windows.Forms.GroupBox();
-            this.BuildHeightMeterLabel = new System.Windows.Forms.Label();
+            this.BuildLengthMeterLabel = new System.Windows.Forms.Label();
             this.BuildWidthMeterLabel = new System.Windows.Forms.Label();
             this.BuildSizeResultGroupBox = new System.Windows.Forms.GroupBox();
             this.BuildingAreaResultLabel = new System.Windows.Forms.Label();
@@ -57,12 +57,13 @@
             this.FloorLabel = new System.Windows.Forms.Label();
             this.BuildSchemeComboBox = new System.Windows.Forms.ComboBox();
             this.BuildSchemeLabel = new System.Windows.Forms.Label();
-            this.BuildHeightLabel = new System.Windows.Forms.Label();
-            this.BuildHeightTextBox = new System.Windows.Forms.TextBox();
+            this.BuildLengthLabel = new System.Windows.Forms.Label();
+            this.BuildLengthTextBox = new System.Windows.Forms.TextBox();
             this.BuildWidthLabel = new System.Windows.Forms.Label();
             this.BuildWidthTextBox = new System.Windows.Forms.TextBox();
             this.BuildSizeLabel = new System.Windows.Forms.Label();
             this.UserGroupBox = new System.Windows.Forms.GroupBox();
+            this.UserNameLabel = new System.Windows.Forms.Label();
             this.AuthorizeButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MaterialsListGroupBox = new System.Windows.Forms.GroupBox();
@@ -74,7 +75,6 @@
             this.InputFirstLabel = new System.Windows.Forms.Label();
             this.MaterialSelectButton = new System.Windows.Forms.Button();
             this.MaterialPictureBox = new System.Windows.Forms.PictureBox();
-            this.UserNameLabel = new System.Windows.Forms.Label();
             this.MainMenuToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitContainer)).BeginInit();
             this.MainSplitContainer.Panel1.SuspendLayout();
@@ -319,15 +319,15 @@
             // 
             // BuildSizeGroupBox
             // 
-            this.BuildSizeGroupBox.Controls.Add(this.BuildHeightMeterLabel);
+            this.BuildSizeGroupBox.Controls.Add(this.BuildLengthMeterLabel);
             this.BuildSizeGroupBox.Controls.Add(this.BuildWidthMeterLabel);
             this.BuildSizeGroupBox.Controls.Add(this.BuildSizeResultGroupBox);
             this.BuildSizeGroupBox.Controls.Add(this.FloorComboBox);
             this.BuildSizeGroupBox.Controls.Add(this.FloorLabel);
             this.BuildSizeGroupBox.Controls.Add(this.BuildSchemeComboBox);
             this.BuildSizeGroupBox.Controls.Add(this.BuildSchemeLabel);
-            this.BuildSizeGroupBox.Controls.Add(this.BuildHeightLabel);
-            this.BuildSizeGroupBox.Controls.Add(this.BuildHeightTextBox);
+            this.BuildSizeGroupBox.Controls.Add(this.BuildLengthLabel);
+            this.BuildSizeGroupBox.Controls.Add(this.BuildLengthTextBox);
             this.BuildSizeGroupBox.Controls.Add(this.BuildWidthLabel);
             this.BuildSizeGroupBox.Controls.Add(this.BuildWidthTextBox);
             this.BuildSizeGroupBox.Controls.Add(this.BuildSizeLabel);
@@ -340,19 +340,19 @@
             this.BuildSizeGroupBox.TabStop = false;
             this.BuildSizeGroupBox.Text = "Строение";
             // 
-            // BuildHeightMeterLabel
+            // BuildLengthMeterLabel
             // 
-            this.BuildHeightMeterLabel.AutoSize = true;
-            this.BuildHeightMeterLabel.Location = new System.Drawing.Point(137, 80);
-            this.BuildHeightMeterLabel.Name = "BuildHeightMeterLabel";
-            this.BuildHeightMeterLabel.Size = new System.Drawing.Size(16, 16);
-            this.BuildHeightMeterLabel.TabIndex = 11;
-            this.BuildHeightMeterLabel.Text = "м";
+            this.BuildLengthMeterLabel.AutoSize = true;
+            this.BuildLengthMeterLabel.Location = new System.Drawing.Point(137, 52);
+            this.BuildLengthMeterLabel.Name = "BuildLengthMeterLabel";
+            this.BuildLengthMeterLabel.Size = new System.Drawing.Size(16, 16);
+            this.BuildLengthMeterLabel.TabIndex = 11;
+            this.BuildLengthMeterLabel.Text = "м";
             // 
             // BuildWidthMeterLabel
             // 
             this.BuildWidthMeterLabel.AutoSize = true;
-            this.BuildWidthMeterLabel.Location = new System.Drawing.Point(137, 53);
+            this.BuildWidthMeterLabel.Location = new System.Drawing.Point(137, 80);
             this.BuildWidthMeterLabel.Name = "BuildWidthMeterLabel";
             this.BuildWidthMeterLabel.Size = new System.Drawing.Size(16, 16);
             this.BuildWidthMeterLabel.TabIndex = 10;
@@ -380,9 +380,9 @@
             this.BuildingAreaResultLabel.AutoSize = true;
             this.BuildingAreaResultLabel.Location = new System.Drawing.Point(146, 64);
             this.BuildingAreaResultLabel.Name = "BuildingAreaResultLabel";
-            this.BuildingAreaResultLabel.Size = new System.Drawing.Size(26, 16);
+            this.BuildingAreaResultLabel.Size = new System.Drawing.Size(30, 16);
             this.BuildingAreaResultLabel.TabIndex = 5;
-            this.BuildingAreaResultLabel.Text = "0 м";
+            this.BuildingAreaResultLabel.Text = "0 м²";
             // 
             // FoundationLengthResultLabel
             // 
@@ -431,7 +431,13 @@
             // 
             // FloorComboBox
             // 
+            this.FloorComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FloorComboBox.FormattingEnabled = true;
+            this.FloorComboBox.Items.AddRange(new object[] {
+            "1 этаж",
+            "2 этажа",
+            "3 этажа",
+            "4 этажа"});
             this.FloorComboBox.Location = new System.Drawing.Point(328, 48);
             this.FloorComboBox.Name = "FloorComboBox";
             this.FloorComboBox.Size = new System.Drawing.Size(121, 24);
@@ -448,11 +454,16 @@
             // 
             // BuildSchemeComboBox
             // 
+            this.BuildSchemeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.BuildSchemeComboBox.FormattingEnabled = true;
+            this.BuildSchemeComboBox.Items.AddRange(new object[] {
+            "Пятистенок",
+            "Шестистенок"});
             this.BuildSchemeComboBox.Location = new System.Drawing.Point(171, 48);
             this.BuildSchemeComboBox.Name = "BuildSchemeComboBox";
             this.BuildSchemeComboBox.Size = new System.Drawing.Size(121, 24);
             this.BuildSchemeComboBox.TabIndex = 6;
+            this.BuildSchemeComboBox.SelectedIndexChanged += new System.EventHandler(this.BuildSchemeComboBox_SelectedIndexChanged);
             // 
             // BuildSchemeLabel
             // 
@@ -463,26 +474,30 @@
             this.BuildSchemeLabel.TabIndex = 5;
             this.BuildSchemeLabel.Text = "Схема дома:";
             // 
-            // BuildHeightLabel
+            // BuildLengthLabel
             // 
-            this.BuildHeightLabel.AutoSize = true;
-            this.BuildHeightLabel.Location = new System.Drawing.Point(10, 80);
-            this.BuildHeightLabel.Name = "BuildHeightLabel";
-            this.BuildHeightLabel.Size = new System.Drawing.Size(58, 16);
-            this.BuildHeightLabel.TabIndex = 4;
-            this.BuildHeightLabel.Text = "Высота:";
+            this.BuildLengthLabel.AutoSize = true;
+            this.BuildLengthLabel.Location = new System.Drawing.Point(10, 52);
+            this.BuildLengthLabel.Name = "BuildLengthLabel";
+            this.BuildLengthLabel.Size = new System.Drawing.Size(51, 16);
+            this.BuildLengthLabel.TabIndex = 4;
+            this.BuildLengthLabel.Text = "Длина:";
             // 
-            // BuildHeightTextBox
+            // BuildLengthTextBox
             // 
-            this.BuildHeightTextBox.Location = new System.Drawing.Point(77, 77);
-            this.BuildHeightTextBox.Name = "BuildHeightTextBox";
-            this.BuildHeightTextBox.Size = new System.Drawing.Size(58, 22);
-            this.BuildHeightTextBox.TabIndex = 3;
+            this.BuildLengthTextBox.Location = new System.Drawing.Point(77, 49);
+            this.BuildLengthTextBox.Name = "BuildLengthTextBox";
+            this.BuildLengthTextBox.Size = new System.Drawing.Size(58, 22);
+            this.BuildLengthTextBox.TabIndex = 3;
+            this.BuildLengthTextBox.Text = "0";
+            this.BuildLengthTextBox.TextChanged += new System.EventHandler(this.FloatTextBox_TextChanged);
+            this.BuildLengthTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FloatTextBox_KeyDown);
+            this.BuildLengthTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FloatTextBox_KeyPress);
             // 
             // BuildWidthLabel
             // 
             this.BuildWidthLabel.AutoSize = true;
-            this.BuildWidthLabel.Location = new System.Drawing.Point(10, 53);
+            this.BuildWidthLabel.Location = new System.Drawing.Point(10, 80);
             this.BuildWidthLabel.Name = "BuildWidthLabel";
             this.BuildWidthLabel.Size = new System.Drawing.Size(61, 16);
             this.BuildWidthLabel.TabIndex = 2;
@@ -490,10 +505,14 @@
             // 
             // BuildWidthTextBox
             // 
-            this.BuildWidthTextBox.Location = new System.Drawing.Point(77, 50);
+            this.BuildWidthTextBox.Location = new System.Drawing.Point(77, 77);
             this.BuildWidthTextBox.Name = "BuildWidthTextBox";
             this.BuildWidthTextBox.Size = new System.Drawing.Size(58, 22);
             this.BuildWidthTextBox.TabIndex = 1;
+            this.BuildWidthTextBox.Text = "0";
+            this.BuildWidthTextBox.TextChanged += new System.EventHandler(this.FloatTextBox_TextChanged);
+            this.BuildWidthTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FloatTextBox_KeyDown);
+            this.BuildWidthTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FloatTextBox_KeyPress);
             // 
             // BuildSizeLabel
             // 
@@ -519,6 +538,15 @@
             this.UserGroupBox.TabStop = false;
             this.UserGroupBox.Text = "Пользователь";
             // 
+            // UserNameLabel
+            // 
+            this.UserNameLabel.AutoSize = true;
+            this.UserNameLabel.Location = new System.Drawing.Point(45, 22);
+            this.UserNameLabel.Name = "UserNameLabel";
+            this.UserNameLabel.Size = new System.Drawing.Size(115, 16);
+            this.UserNameLabel.TabIndex = 2;
+            this.UserNameLabel.Text = "Не авторизован";
+            // 
             // AuthorizeButton
             // 
             this.AuthorizeButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -527,7 +555,7 @@
             this.AuthorizeButton.Name = "AuthorizeButton";
             this.AuthorizeButton.Size = new System.Drawing.Size(263, 32);
             this.AuthorizeButton.TabIndex = 1;
-            this.AuthorizeButton.Text = "Вход/Регистрация";
+            this.AuthorizeButton.Text = "Вход / Регистрация";
             this.AuthorizeButton.UseVisualStyleBackColor = true;
             // 
             // pictureBox1
@@ -638,15 +666,6 @@
             this.MaterialPictureBox.TabIndex = 0;
             this.MaterialPictureBox.TabStop = false;
             // 
-            // UserNameLabel
-            // 
-            this.UserNameLabel.AutoSize = true;
-            this.UserNameLabel.Location = new System.Drawing.Point(45, 22);
-            this.UserNameLabel.Name = "UserNameLabel";
-            this.UserNameLabel.Size = new System.Drawing.Size(115, 16);
-            this.UserNameLabel.TabIndex = 2;
-            this.UserNameLabel.Text = "Не авторизован";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -711,8 +730,8 @@
         private System.Windows.Forms.GroupBox BuildSizeGroupBox;
         private System.Windows.Forms.TextBox BuildWidthTextBox;
         private System.Windows.Forms.Label BuildSizeLabel;
-        private System.Windows.Forms.Label BuildHeightLabel;
-        private System.Windows.Forms.TextBox BuildHeightTextBox;
+        private System.Windows.Forms.Label BuildLengthLabel;
+        private System.Windows.Forms.TextBox BuildLengthTextBox;
         private System.Windows.Forms.Label BuildWidthLabel;
         private System.Windows.Forms.Label BuildSchemeLabel;
         private System.Windows.Forms.ComboBox BuildSchemeComboBox;
@@ -728,7 +747,7 @@
         private System.Windows.Forms.GroupBox UserGroupBox;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button AuthorizeButton;
-        private System.Windows.Forms.Label BuildHeightMeterLabel;
+        private System.Windows.Forms.Label BuildLengthMeterLabel;
         private System.Windows.Forms.Label BuildWidthMeterLabel;
         private System.Windows.Forms.SplitContainer InfoSplitContainer;
         private System.Windows.Forms.Panel MaterialsPanel;
