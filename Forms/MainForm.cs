@@ -307,18 +307,33 @@ namespace BuildCalculator
 
         private void AuthorizeButton_Click(object sender, EventArgs e)
         {
-            AuthorizeForm form = new AuthorizeForm();
-            form.ShowDialog();
+            Button button = sender as Button;
 
-            if (form.Valid)
+            if (button.Text == "Выход")
             {
-                UserToken = form.Token;
-                UserNameLabel.Text = $"{form.UserName} {form.UserLastName}";
+                button.Text = "Вход / Регистрация";
+                UserNameLabel.Text = "Не авторизован";
+                UserToken = "";
                 pSettings.Save("token", UserToken);
-                pSettings.Save("username", form.UserLogin);
-                pSettings.Save("password", form.UserPassword);
+                pSettings.Save("username", "");
+                pSettings.Save("password", "");
             }
-            form.DestroyIcon();
+            else
+            {
+                AuthorizeForm form = new AuthorizeForm();
+                form.ShowDialog();
+
+                if (form.Valid)
+                {
+                    UserToken = form.Token;
+                    UserNameLabel.Text = $"{form.UserName} {form.UserLastName}";
+                    pSettings.Save("token", UserToken);
+                    pSettings.Save("username", form.UserLogin);
+                    pSettings.Save("password", form.UserPassword);
+                    AuthorizeButton.Text = "Выход";
+                }
+                form.DestroyIcon();
+            }
         }
 
         private void RefreshUser()
@@ -349,6 +364,7 @@ namespace BuildCalculator
                             if (Response["token"] != null)
                             {
                                 UserToken = Response["token"].ToString();
+                                AuthorizeButton.Text = "Выход";
 
                                 if (Response["user"] != null)
                                 {
@@ -382,6 +398,7 @@ namespace BuildCalculator
                     if (Response["userInfo"] != null)
                     {
                         UserToken = loaded_token;
+                        AuthorizeButton.Text = "Выход";
                         JObject UserData = Response["userInfo"] as JObject;
                         if (UserData["name"] != null && UserData["lastname"] != null)
                             UserNameLabel.Text = $"{UserData["name"]} {UserData["lastname"]}";
