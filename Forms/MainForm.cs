@@ -102,12 +102,13 @@ namespace BuildCalculator
             MaterialsPanel.Controls.Clear();
         }
 
-        private void AddMaterial(int idx, string Name)
+        private void AddMaterial(int idx, JToken body)
         {
             GroupBox groupBox = new GroupBox();
             groupBox.Name = "MaterialGroupBox_" + idx;
-            groupBox.Text = Name;
+            groupBox.Text = body["name"].ToString();
             groupBox.Font = MaterialGroupBox.Font;
+            groupBox.Tag = body["id"].ToString();
 
             int x = CurrentColumn * (MaterialGroupBox.Width + GroupBoxMargin);
             int y = CurrentRow * (MaterialGroupBox.Height + GroupBoxMargin);
@@ -128,6 +129,16 @@ namespace BuildCalculator
             pictureBox.Size = MaterialPictureBox.Size;
             pictureBox.Location = MaterialPictureBox.Location;
             pictureBox.Anchor = MaterialPictureBox.Anchor;
+            pictureBox.SizeMode = MaterialPictureBox.SizeMode;
+
+            byte[] imageBytes = Convert.FromBase64String(body["img"].ToString());
+            Bitmap bitmap;
+            using (MemoryStream ms = new MemoryStream(imageBytes))
+            {
+                bitmap = new Bitmap(ms);
+            }
+            pictureBox.Image = bitmap;
+
             groupBox.Controls.Add(pictureBox);
 
             Button button = new Button();
@@ -138,6 +149,65 @@ namespace BuildCalculator
             button.Text = MaterialSelectButton.Text;
             button.Font = MaterialSelectButton.Font;
             groupBox.Controls.Add(button);
+
+            string input1_name = body["input1_name"].ToString();
+            JArray input1_values = body["input1_value"] as JArray;
+            string input2_name = body["input2_name"].ToString();
+            JArray input2_values = body["input2_value"] as JArray;
+
+            if (input1_name != "" && input1_values != null)
+            {
+                Label label1 = new Label();
+                label1.Name = "MaterialInputFirstLabel_" + idx;
+                label1.Size = new Size(groupBox.Size.Width - 8, InputFirstLabel.Size.Height);
+                label1.Location = InputFirstLabel.Location;
+                label1.Anchor = InputFirstLabel.Anchor;
+                label1.Text = input1_name;
+                label1.Font = InputFirstLabel.Font;
+                groupBox.Controls.Add(label1);
+
+                ComboBox comboBox = new ComboBox();
+                comboBox.Name = "MaterialInputFirstComboBox_" + idx;
+                comboBox.Size = InputFirstComboBox.Size;
+                comboBox.Location = InputFirstComboBox.Location;
+                comboBox.Anchor = InputFirstComboBox.Anchor;
+                comboBox.Font = InputFirstComboBox.Font;
+                comboBox.DropDownStyle = InputFirstComboBox.DropDownStyle;
+
+                foreach (JToken val in input1_values)
+                    comboBox.Items.Add(val.ToString());
+
+                comboBox.SelectedIndex = 0;
+
+                groupBox.Controls.Add(comboBox);
+            }
+
+            if (input2_name != "" && input2_values != null)
+            {
+                Label label1 = new Label();
+                label1.Name = "MaterialInputSecondLabel_" + idx;
+                label1.Size = new Size(groupBox.Size.Width - 8, InputSecondLabel.Size.Height);
+                label1.Location = InputSecondLabel.Location;
+                label1.Anchor = InputSecondLabel.Anchor;
+                label1.Text = input2_name;
+                label1.Font = InputSecondLabel.Font;
+                groupBox.Controls.Add(label1);
+
+                ComboBox comboBox = new ComboBox();
+                comboBox.Name = "MaterialInputSecondComboBox_" + idx;
+                comboBox.Size = InputSecondComboBox.Size;
+                comboBox.Location = InputSecondComboBox.Location;
+                comboBox.Anchor = InputSecondComboBox.Anchor;
+                comboBox.Font = InputSecondComboBox.Font;
+                comboBox.DropDownStyle = InputSecondComboBox.DropDownStyle;
+
+                foreach (JToken val in input2_values)
+                    comboBox.Items.Add(val.ToString());
+
+                comboBox.SelectedIndex = 0;
+
+                groupBox.Controls.Add(comboBox);
+            }
 
             MaterialsPanel.Controls.Add(groupBox);
 
@@ -215,12 +285,44 @@ namespace BuildCalculator
             ClearMaterials();
             if (CurrentButtonIdx != -1)
             {
-                for (int i = 0; i < 10; i++)
-                {
-                    AddMaterial(i, "Улиточная слизь");
-                }
+                LoadMaterials();
                 RepositionGroupBoxes();
             }    
+        }
+
+        private void LoadMaterials()
+        {
+            JObject jsonObject = new JObject(
+                new JProperty("id", CurrentButtonIdx)
+            );
+
+            JObject Response = Net.GetRequest("api/material", out _, jsonObject);
+
+            if (Response != null && Response["material"] != null)
+            {
+                JArray materials = Response["material"] as JArray;
+
+                if (materials != null)
+                {
+                    bool hasInvalidData = materials.Any(material => material["id"] == null || material["name"] == null || material["img"] == null || material["work_price"] == null || material["material_price"] == null);
+
+                    if (!hasInvalidData)
+                    {
+                        materials = new JArray(
+                            from material in materials
+                            orderby (int)material["id"]
+                            select material
+                        );
+
+                        int idx = 0;
+                        foreach (JToken material in materials)
+                        {
+                            AddMaterial(idx, material);
+                            idx++;
+                        }
+                    }
+                }
+            }
         }
 
         private void FloatTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -326,7 +428,7 @@ namespace BuildCalculator
                 if (form.Valid)
                 {
                     UserToken = form.Token;
-                    UserNameLabel.Text = $"{form.UserName} {form.UserLastName}";
+                    UserNameLabel.Text = $"{form.UserName}\n{form.UserLastName}";
                     pSettings.Save("token", UserToken);
                     pSettings.Save("username", form.UserLogin);
                     pSettings.Save("password", form.UserPassword);
@@ -371,7 +473,7 @@ namespace BuildCalculator
                                     JObject UserData = Response["user"] as JObject;
                                     if (UserData["name"] != null && UserData["lastname"] != null)
                                     {
-                                        UserNameLabel.Text = $"{UserData["name"]} {UserData["lastname"]}";
+                                        UserNameLabel.Text = $"{UserData["name"]}\n{UserData["lastname"]}";
                                     }
                                     else
                                         MessageBox.Show($"Ошибка сервера. Невозможно получить имя пользователя.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -401,7 +503,7 @@ namespace BuildCalculator
                         AuthorizeButton.Text = "Выход";
                         JObject UserData = Response["userInfo"] as JObject;
                         if (UserData["name"] != null && UserData["lastname"] != null)
-                            UserNameLabel.Text = $"{UserData["name"]} {UserData["lastname"]}";
+                            UserNameLabel.Text = $"{UserData["name"]}\n{UserData["lastname"]}";
                         else
                             MessageBox.Show($"Ошибка сервера. Невозможно получить имя пользователя.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
