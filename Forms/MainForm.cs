@@ -12,6 +12,7 @@ using System.Drawing.Printing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -25,6 +26,7 @@ namespace BuildCalculator
         private int CurrentRow;
         private int CurrentColumn;
         private int CurrentButtonIdx;
+        public static string UserToken = null;
 
         public MainForm()
         {
@@ -40,9 +42,6 @@ namespace BuildCalculator
             ClearMaterials();
 
             LoadMaterialButtons();
-
-            AuthorizeForm form = new AuthorizeForm();
-            form.ShowDialog();
         }
 
         private void LoadMaterialButtons()
@@ -298,6 +297,19 @@ namespace BuildCalculator
         private void BuildSchemeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             RecalcBuildSizeInfo();
+        }
+
+        private void AuthorizeButton_Click(object sender, EventArgs e)
+        {
+            AuthorizeForm form = new AuthorizeForm();
+            form.ShowDialog();
+
+            if (form.Valid)
+            {
+                UserToken = form.Token;
+                UserNameLabel.Text = $"{form.UserName} {form.UserLastName}";
+            }
+            form.DestroyIcon();
         }
     }
 }

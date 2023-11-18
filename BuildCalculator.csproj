@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\AutoClosingMessageBox.cs" />
     <Compile Include="Classes\MathHelper.cs" />
     <Compile Include="Classes\Net.cs" />
     <Compile Include="Forms\AuthorizeForm.cs">

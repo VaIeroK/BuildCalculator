@@ -58,12 +58,27 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.EnterRegisterPasswordTimer = new System.Windows.Forms.Timer(this.components);
             this.EnterRegisterRewritePasswordTimer = new System.Windows.Forms.Timer(this.components);
+            this.EnterRegisterNameLabel = new System.Windows.Forms.Label();
+            this.RegisterNameLabel = new System.Windows.Forms.Label();
+            this.RegisterNameTextBox = new System.Windows.Forms.TextBox();
+            this.EnterRegisterLastNameLabel = new System.Windows.Forms.Label();
+            this.RegisterLastNameLabel = new System.Windows.Forms.Label();
+            this.RegisterLastNameTextBox = new System.Windows.Forms.TextBox();
+            this.EnterRegisterNameTimer = new System.Windows.Forms.Timer(this.components);
+            this.EnterRegisterLastNameTimer = new System.Windows.Forms.Timer(this.components);
+            this.BadPasswordsTimer = new System.Windows.Forms.Timer(this.components);
             this.RegisterGroupBox.SuspendLayout();
             this.LoginGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // RegisterGroupBox
             // 
+            this.RegisterGroupBox.Controls.Add(this.EnterRegisterLastNameLabel);
+            this.RegisterGroupBox.Controls.Add(this.RegisterLastNameLabel);
+            this.RegisterGroupBox.Controls.Add(this.RegisterLastNameTextBox);
+            this.RegisterGroupBox.Controls.Add(this.EnterRegisterNameLabel);
+            this.RegisterGroupBox.Controls.Add(this.RegisterNameLabel);
+            this.RegisterGroupBox.Controls.Add(this.RegisterNameTextBox);
             this.RegisterGroupBox.Controls.Add(this.EnterRegisterRewritePasswordLabel);
             this.RegisterGroupBox.Controls.Add(this.EnterRegisterPasswordLabel);
             this.RegisterGroupBox.Controls.Add(this.RegisterRewritePasswordLabel);
@@ -78,7 +93,7 @@
             this.RegisterGroupBox.Controls.Add(this.RegisterPasswordTextBox);
             this.RegisterGroupBox.Location = new System.Drawing.Point(552, 66);
             this.RegisterGroupBox.Name = "RegisterGroupBox";
-            this.RegisterGroupBox.Size = new System.Drawing.Size(383, 171);
+            this.RegisterGroupBox.Size = new System.Drawing.Size(383, 233);
             this.RegisterGroupBox.TabIndex = 8;
             this.RegisterGroupBox.TabStop = false;
             // 
@@ -86,7 +101,7 @@
             // 
             this.RegisterRewritePasswordLabel.AutoSize = true;
             this.RegisterRewritePasswordLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.RegisterRewritePasswordLabel.Location = new System.Drawing.Point(6, 71);
+            this.RegisterRewritePasswordLabel.Location = new System.Drawing.Point(6, 127);
             this.RegisterRewritePasswordLabel.Name = "RegisterRewritePasswordLabel";
             this.RegisterRewritePasswordLabel.Size = new System.Drawing.Size(132, 16);
             this.RegisterRewritePasswordLabel.TabIndex = 8;
@@ -95,7 +110,7 @@
             // RegisterRewritePasswordTextBox
             // 
             this.RegisterRewritePasswordTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.RegisterRewritePasswordTextBox.Location = new System.Drawing.Point(144, 68);
+            this.RegisterRewritePasswordTextBox.Location = new System.Drawing.Point(144, 125);
             this.RegisterRewritePasswordTextBox.Name = "RegisterRewritePasswordTextBox";
             this.RegisterRewritePasswordTextBox.Size = new System.Drawing.Size(231, 22);
             this.RegisterRewritePasswordTextBox.TabIndex = 9;
@@ -105,7 +120,7 @@
             // 
             this.RegisterShowPasswordLabel.AutoSize = true;
             this.RegisterShowPasswordLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.RegisterShowPasswordLabel.Location = new System.Drawing.Point(5, 97);
+            this.RegisterShowPasswordLabel.Location = new System.Drawing.Point(5, 153);
             this.RegisterShowPasswordLabel.Name = "RegisterShowPasswordLabel";
             this.RegisterShowPasswordLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RegisterShowPasswordLabel.Size = new System.Drawing.Size(154, 20);
@@ -127,7 +142,7 @@
             // RegisterButton
             // 
             this.RegisterButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.RegisterButton.Location = new System.Drawing.Point(9, 126);
+            this.RegisterButton.Location = new System.Drawing.Point(9, 187);
             this.RegisterButton.Name = "RegisterButton";
             this.RegisterButton.Size = new System.Drawing.Size(366, 36);
             this.RegisterButton.TabIndex = 6;
@@ -147,7 +162,7 @@
             // 
             this.AuthorizeLink.AutoSize = true;
             this.AuthorizeLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.AuthorizeLink.Location = new System.Drawing.Point(328, 107);
+            this.AuthorizeLink.Location = new System.Drawing.Point(328, 168);
             this.AuthorizeLink.Name = "AuthorizeLink";
             this.AuthorizeLink.Size = new System.Drawing.Size(47, 16);
             this.AuthorizeLink.TabIndex = 5;
@@ -159,7 +174,7 @@
             // 
             this.RegisterPasswordLabel.AutoSize = true;
             this.RegisterPasswordLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.RegisterPasswordLabel.Location = new System.Drawing.Point(6, 43);
+            this.RegisterPasswordLabel.Location = new System.Drawing.Point(6, 100);
             this.RegisterPasswordLabel.Name = "RegisterPasswordLabel";
             this.RegisterPasswordLabel.Size = new System.Drawing.Size(59, 16);
             this.RegisterPasswordLabel.TabIndex = 2;
@@ -168,7 +183,7 @@
             // RegisterPasswordTextBox
             // 
             this.RegisterPasswordTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.RegisterPasswordTextBox.Location = new System.Drawing.Point(144, 40);
+            this.RegisterPasswordTextBox.Location = new System.Drawing.Point(144, 97);
             this.RegisterPasswordTextBox.Name = "RegisterPasswordTextBox";
             this.RegisterPasswordTextBox.Size = new System.Drawing.Size(231, 22);
             this.RegisterPasswordTextBox.TabIndex = 3;
@@ -303,7 +318,7 @@
             this.EnterRegisterPasswordLabel.AutoSize = true;
             this.EnterRegisterPasswordLabel.BackColor = System.Drawing.SystemColors.Control;
             this.EnterRegisterPasswordLabel.ForeColor = System.Drawing.Color.Red;
-            this.EnterRegisterPasswordLabel.Location = new System.Drawing.Point(147, 44);
+            this.EnterRegisterPasswordLabel.Location = new System.Drawing.Point(148, 102);
             this.EnterRegisterPasswordLabel.Name = "EnterRegisterPasswordLabel";
             this.EnterRegisterPasswordLabel.Size = new System.Drawing.Size(100, 13);
             this.EnterRegisterPasswordLabel.TabIndex = 11;
@@ -327,7 +342,7 @@
             this.EnterRegisterRewritePasswordLabel.AutoSize = true;
             this.EnterRegisterRewritePasswordLabel.BackColor = System.Drawing.SystemColors.Control;
             this.EnterRegisterRewritePasswordLabel.ForeColor = System.Drawing.Color.Red;
-            this.EnterRegisterRewritePasswordLabel.Location = new System.Drawing.Point(147, 73);
+            this.EnterRegisterRewritePasswordLabel.Location = new System.Drawing.Point(147, 130);
             this.EnterRegisterRewritePasswordLabel.Name = "EnterRegisterRewritePasswordLabel";
             this.EnterRegisterRewritePasswordLabel.Size = new System.Drawing.Size(100, 13);
             this.EnterRegisterRewritePasswordLabel.TabIndex = 12;
@@ -349,6 +364,81 @@
             this.EnterRegisterRewritePasswordTimer.Interval = 2000;
             this.EnterRegisterRewritePasswordTimer.Tick += new System.EventHandler(this.EnterRegisterRewritePasswordTimer_Tick);
             // 
+            // EnterRegisterNameLabel
+            // 
+            this.EnterRegisterNameLabel.AutoSize = true;
+            this.EnterRegisterNameLabel.BackColor = System.Drawing.SystemColors.Control;
+            this.EnterRegisterNameLabel.ForeColor = System.Drawing.Color.Red;
+            this.EnterRegisterNameLabel.Location = new System.Drawing.Point(147, 45);
+            this.EnterRegisterNameLabel.Name = "EnterRegisterNameLabel";
+            this.EnterRegisterNameLabel.Size = new System.Drawing.Size(84, 13);
+            this.EnterRegisterNameLabel.TabIndex = 15;
+            this.EnterRegisterNameLabel.Text = "Заполните имя";
+            this.EnterRegisterNameLabel.Visible = false;
+            // 
+            // RegisterNameLabel
+            // 
+            this.RegisterNameLabel.AutoSize = true;
+            this.RegisterNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.RegisterNameLabel.Location = new System.Drawing.Point(6, 44);
+            this.RegisterNameLabel.Name = "RegisterNameLabel";
+            this.RegisterNameLabel.Size = new System.Drawing.Size(36, 16);
+            this.RegisterNameLabel.TabIndex = 13;
+            this.RegisterNameLabel.Text = "Имя:";
+            // 
+            // RegisterNameTextBox
+            // 
+            this.RegisterNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.RegisterNameTextBox.Location = new System.Drawing.Point(144, 41);
+            this.RegisterNameTextBox.Name = "RegisterNameTextBox";
+            this.RegisterNameTextBox.Size = new System.Drawing.Size(231, 22);
+            this.RegisterNameTextBox.TabIndex = 14;
+            // 
+            // EnterRegisterLastNameLabel
+            // 
+            this.EnterRegisterLastNameLabel.AutoSize = true;
+            this.EnterRegisterLastNameLabel.BackColor = System.Drawing.SystemColors.Control;
+            this.EnterRegisterLastNameLabel.ForeColor = System.Drawing.Color.Red;
+            this.EnterRegisterLastNameLabel.Location = new System.Drawing.Point(147, 73);
+            this.EnterRegisterLastNameLabel.Name = "EnterRegisterLastNameLabel";
+            this.EnterRegisterLastNameLabel.Size = new System.Drawing.Size(112, 13);
+            this.EnterRegisterLastNameLabel.TabIndex = 18;
+            this.EnterRegisterLastNameLabel.Text = "Заполните фамилию";
+            this.EnterRegisterLastNameLabel.Visible = false;
+            // 
+            // RegisterLastNameLabel
+            // 
+            this.RegisterLastNameLabel.AutoSize = true;
+            this.RegisterLastNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.RegisterLastNameLabel.Location = new System.Drawing.Point(5, 72);
+            this.RegisterLastNameLabel.Name = "RegisterLastNameLabel";
+            this.RegisterLastNameLabel.Size = new System.Drawing.Size(69, 16);
+            this.RegisterLastNameLabel.TabIndex = 16;
+            this.RegisterLastNameLabel.Text = "Фамилия:";
+            // 
+            // RegisterLastNameTextBox
+            // 
+            this.RegisterLastNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.RegisterLastNameTextBox.Location = new System.Drawing.Point(144, 69);
+            this.RegisterLastNameTextBox.Name = "RegisterLastNameTextBox";
+            this.RegisterLastNameTextBox.Size = new System.Drawing.Size(231, 22);
+            this.RegisterLastNameTextBox.TabIndex = 17;
+            // 
+            // EnterRegisterNameTimer
+            // 
+            this.EnterRegisterNameTimer.Interval = 2000;
+            this.EnterRegisterNameTimer.Tick += new System.EventHandler(this.EnterRegisterNameTimer_Tick);
+            // 
+            // EnterRegisterLastNameTimer
+            // 
+            this.EnterRegisterLastNameTimer.Interval = 2000;
+            this.EnterRegisterLastNameTimer.Tick += new System.EventHandler(this.EnterRegisterLastNameTimer_Tick);
+            // 
+            // BadPasswordsTimer
+            // 
+            this.BadPasswordsTimer.Interval = 2000;
+            this.BadPasswordsTimer.Tick += new System.EventHandler(this.BadPasswordsTimer_Tick);
+            // 
             // AuthorizeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -357,10 +447,12 @@
             this.Controls.Add(this.LoginGroupBox);
             this.Controls.Add(this.RegisterGroupBox);
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "AuthorizeForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "AuthorizeForm";
+            this.Text = "Авторизация";
             this.RegisterGroupBox.ResumeLayout(false);
             this.RegisterGroupBox.PerformLayout();
             this.LoginGroupBox.ResumeLayout(false);
@@ -399,5 +491,14 @@
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Timer EnterRegisterPasswordTimer;
         private System.Windows.Forms.Timer EnterRegisterRewritePasswordTimer;
+        private System.Windows.Forms.Label EnterRegisterLastNameLabel;
+        private System.Windows.Forms.Label RegisterLastNameLabel;
+        private System.Windows.Forms.TextBox RegisterLastNameTextBox;
+        private System.Windows.Forms.Label EnterRegisterNameLabel;
+        private System.Windows.Forms.Label RegisterNameLabel;
+        private System.Windows.Forms.TextBox RegisterNameTextBox;
+        private System.Windows.Forms.Timer EnterRegisterNameTimer;
+        private System.Windows.Forms.Timer EnterRegisterLastNameTimer;
+        private System.Windows.Forms.Timer BadPasswordsTimer;
     }
 }

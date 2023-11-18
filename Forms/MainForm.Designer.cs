@@ -432,6 +432,7 @@
             this.AuthorizeButton.TabIndex = 1;
             this.AuthorizeButton.Text = "Вход / Регистрация";
             this.AuthorizeButton.UseVisualStyleBackColor = true;
+            this.AuthorizeButton.Click += new System.EventHandler(this.AuthorizeButton_Click);
             // 
             // MaterialsListGroupBox
             // 
