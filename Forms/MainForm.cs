@@ -1,6 +1,8 @@
 ﻿#define OPTIMIZE_RESIZE
 
 using BuildCalculator.Classes;
+using BuildCalculator.Forms;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +10,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +38,58 @@ namespace BuildCalculator
             FloorComboBox.SelectedIndex = 0;
 
             ClearMaterials();
+
+            LoadMaterialButtons();
+
+            AuthorizeForm form = new AuthorizeForm();
+            form.ShowDialog();
+        }
+
+        private void LoadMaterialButtons()
+        {
+            LeftGroupBox.Controls.Clear();
+
+            JObject JsonObject = Net.GetRequest("api/buttons", out _);
+            if (JsonObject != null && JsonObject["buttons"] != null)
+            {
+                JArray buttons = JsonObject["buttons"] as JArray;
+
+                bool hasInvalidData = buttons.Any(button => button["id"] == null || button["name"] == null || button["icon"] == null);
+
+                if (!hasInvalidData)
+                {
+                    buttons = new JArray(
+                        from button in buttons
+                        orderby (int)button["id"]
+                        select button
+                    );
+
+                    foreach (JToken button in buttons)
+                    {
+                        Button view_button = new Button();
+                        view_button.Name = "MaterialButton_" + button["id"].ToString();
+                        view_button.Size = MaterialButton.Size;
+                        view_button.Location = new Point(MaterialButton.Location.X, MaterialButton.Location.Y + (MaterialButton.Size.Height + 6) * (int)button["id"]);
+                        view_button.Anchor = MaterialButton.Anchor;
+                        view_button.Font = MaterialButton.Font;
+                        view_button.Text = $"         {(int)button["id"] + 1}. {button["name"]}";
+                        view_button.TextAlign = MaterialButton.TextAlign;
+                        view_button.Tag = button["id"].ToString();
+                        view_button.Click += ButtonsList_Click;
+
+                        byte[] imageBytes = Convert.FromBase64String(button["icon"].ToString());
+                        Bitmap bitmap;
+                        using (MemoryStream ms = new MemoryStream(imageBytes))
+                        {
+                            bitmap = new Bitmap(ms);
+                        }
+                        view_button.Image = bitmap;
+                        view_button.ImageAlign = MaterialButton.ImageAlign;
+
+                        LeftGroupBox.Controls.Add(view_button);
+                    }
+                }
+            }
         }
 
         private void ClearMaterials()
@@ -112,7 +167,6 @@ namespace BuildCalculator
             }
             MaterialsPanel.ResumeLayout(true);
         }
-
 
         private void MainForm_ResizeBegin(object sender, EventArgs e)
         {
