@@ -27,6 +27,7 @@ namespace BuildCalculator
         private int CurrentColumn;
         private int CurrentButtonIdx;
         public static string UserToken = null;
+        public static Settings pSettings = null;
 
         public MainForm()
         {
@@ -34,10 +35,15 @@ namespace BuildCalculator
             InitializeComponent();
             CurrentButtonIdx = -1;
 
+            pSettings = new Settings("Settings.ini");
+            pSettings.SaveVersion();
+
             FloatTextBox_TextChanged(BuildWidthTextBox, null);
             FloatTextBox_TextChanged(BuildLengthTextBox, null);
             BuildSchemeComboBox.SelectedIndex = 0;
             FloorComboBox.SelectedIndex = 0;
+
+            RefreshUser();
 
             ClearMaterials();
 
@@ -308,8 +314,84 @@ namespace BuildCalculator
             {
                 UserToken = form.Token;
                 UserNameLabel.Text = $"{form.UserName} {form.UserLastName}";
+                pSettings.Save("token", UserToken);
+                pSettings.Save("username", form.UserLogin);
+                pSettings.Save("password", form.UserPassword);
             }
             form.DestroyIcon();
+        }
+
+        private void RefreshUser()
+        {
+            UserNameLabel.Text = "Не авторизован";
+            string loaded_token = pSettings.Load("token");
+            string loaded_username = pSettings.Load("username");
+            string loaded_password = pSettings.Load("password");
+            if (loaded_token != "")
+            {
+                HttpStatusCode Status;
+                JObject jsonObject = new JObject(
+                    new JProperty("token", loaded_token)
+                );
+                var Response = Net.GetRequest("api/verify", out Status, jsonObject);
+                if (Status != HttpStatusCode.OK)
+                {
+                    jsonObject = new JObject(
+                        new JProperty("username", loaded_username),
+                        new JProperty("password", loaded_password)
+                    );
+
+                    Response = Net.GetRequest("api/login", out Status, jsonObject);
+
+                    switch (Status)
+                    {
+                        case HttpStatusCode.OK:
+                            if (Response["token"] != null)
+                            {
+                                UserToken = Response["token"].ToString();
+
+                                if (Response["user"] != null)
+                                {
+                                    JObject UserData = Response["user"] as JObject;
+                                    if (UserData["name"] != null && UserData["lastname"] != null)
+                                    {
+                                        UserNameLabel.Text = $"{UserData["name"]} {UserData["lastname"]}";
+                                    }
+                                    else
+                                        MessageBox.Show($"Ошибка сервера. Невозможно получить имя пользователя.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                                else
+                                    MessageBox.Show($"Ошибка сервера. Невозможно получить пользователя.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            else
+                                MessageBox.Show($"Невозможно войти в аккаунт! Отсутствует токен пользователя.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                        case HttpStatusCode.Unauthorized:
+                            AutoClosingMessageBox.Show("Неверный логин или пароль!", "", 2000, MessageBoxIcon.Error);
+                            break;
+                        case HttpStatusCode.InternalServerError:
+                            MessageBox.Show($"Неудается связаться с сервером.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                        default:
+                            MessageBox.Show($"Ошибка {Status}. Невозможно войти в аккаунт!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                    }
+                }
+                else
+                {
+                    if (Response["userInfo"] != null)
+                    {
+                        UserToken = loaded_token;
+                        JObject UserData = Response["userInfo"] as JObject;
+                        if (UserData["name"] != null && UserData["lastname"] != null)
+                            UserNameLabel.Text = $"{UserData["name"]} {UserData["lastname"]}";
+                        else
+                            MessageBox.Show($"Ошибка сервера. Невозможно получить имя пользователя.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                        MessageBox.Show($"Ошибка сервера. Невозможно получить пользователя.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

@@ -50,8 +50,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\AutoClosingMessageBox.cs" />
+    <Compile Include="Classes\IniFile.cs" />
     <Compile Include="Classes\MathHelper.cs" />
     <Compile Include="Classes\Net.cs" />
+    <Compile Include="Classes\Settings.cs" />
     <Compile Include="Forms\AuthorizeForm.cs">
       <SubType>Form</SubType>
     </Compile>

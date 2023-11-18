@@ -20,6 +20,8 @@ namespace BuildCalculator.Forms
         public string Token = null;
         public string UserName = null;
         public string UserLastName = null;
+        public string UserLogin = null;
+        public string UserPassword = null;
         public bool Valid = false;
         private IntPtr hIcon;
 
@@ -118,6 +120,8 @@ namespace BuildCalculator.Forms
                             {
                                 UserName = UserData["name"].ToString();
                                 UserLastName = UserData["lastname"].ToString();
+                                UserLogin = UserData["login"].ToString();
+                                UserPassword = UserData["password"].ToString();
                             }
                             else
                                 MessageBox.Show($"Ошибка сервера. Невозможно получить имя пользователя.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -243,6 +247,8 @@ namespace BuildCalculator.Forms
                             {
                                 UserName = UserData["name"].ToString();
                                 UserLastName = UserData["lastname"].ToString();
+                                UserLogin = UserData["login"].ToString();
+                                UserPassword = UserData["password"].ToString();
                             }
                             else
                                 MessageBox.Show($"Ошибка сервера. Невозможно получить имя пользователя.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
