@@ -29,6 +29,7 @@ namespace BuildCalculator
         public static string UserToken = null;
         public static Settings pSettings = null;
         private Dictionary<string, Bitmap> CachedImages;
+        private Dictionary<int, JObject> CachedMaterials;
         private Dictionary<int, int> SelectedMaterials;
 
         public MainForm()
@@ -38,20 +39,45 @@ namespace BuildCalculator
             CurrentButtonIdx = -1;
             CachedImages = new Dictionary<string, Bitmap>();
             SelectedMaterials = new Dictionary<int, int>();
+            CachedMaterials = new Dictionary<int, JObject>();
 
             pSettings = new Settings("Settings.ini");
             pSettings.SaveVersion();
 
             FloatTextBox_TextChanged(BuildWidthTextBox, null);
             FloatTextBox_TextChanged(BuildLengthTextBox, null);
-            BuildSchemeComboBox.SelectedIndex = 0;
-            FloorComboBox.SelectedIndex = 0;
 
             RefreshUser();
 
             ClearMaterials();
 
             LoadMaterialButtons();
+            LoadBuildInfo();
+        }
+
+        private void LoadBuildInfo()
+        {
+            HttpStatusCode Status;
+            var Response = Net.GetRequest("api/schema", out Status);
+            
+            if (Status == HttpStatusCode.OK)
+            {
+                if (Response != null && Response["schemaDoma"] != null && Response["floors"] != null)
+                {
+                    JArray schemes = Response["schemaDoma"] as JArray;
+
+                    foreach (JToken scheme in schemes)
+                        BuildSchemeComboBox.Items.Add(scheme.ToString());
+
+                    JArray floors = Response["floors"] as JArray;
+
+                    foreach (JToken floor in floors)
+                        FloorComboBox.Items.Add(floor.ToString());
+
+                    BuildSchemeComboBox.SelectedIndex = 0;
+                    FloorComboBox.SelectedIndex = 0;
+                }
+            }
         }
 
         private void LoadMaterialButtons()
@@ -98,6 +124,17 @@ namespace BuildCalculator
 
                         LeftGroupBox.Controls.Add(view_button);
                         SelectedMaterials.Add((int)button["id"], -1);
+
+                        if (!CachedMaterials.ContainsKey((int)button["id"]))
+                        {
+                            JObject jsonObject = new JObject(
+                                new JProperty("id", (int)button["id"])
+                            );
+                            HttpStatusCode Status;
+                            var Response = Net.GetRequest("api/material", out Status, jsonObject);
+                            if (Status == HttpStatusCode.OK)
+                                CachedMaterials.Add((int)button["id"], Response);
+                        }
                     }
                 }
             }
@@ -344,11 +381,17 @@ namespace BuildCalculator
 
         private void LoadMaterials()
         {
-            JObject jsonObject = new JObject(
-                new JProperty("id", CurrentButtonIdx)
-            );
+            JObject Response = null;
 
-            JObject Response = Net.GetRequest("api/material", out _, jsonObject);
+            if (CachedMaterials.ContainsKey(CurrentButtonIdx))
+                Response = CachedMaterials[CurrentButtonIdx];
+            else
+            {
+                JObject jsonObject = new JObject(
+                    new JProperty("id", CurrentButtonIdx)
+                );
+                Response = Net.GetRequest("api/material", out _, jsonObject);
+            }
 
             if (Response != null && Response["material"] != null)
             {
@@ -427,25 +470,25 @@ namespace BuildCalculator
 
                 if (Width > 0.0f && Length > 0.0f)
                 {
-                    float Perimeter = 0.0f, Foundation, BuildingArea = 0.0f;
+                    JObject jsonObject = new JObject(
+                        new JProperty("Width", Width),
+                        new JProperty("Length", Length),
+                        new JProperty("Schema", BuildSchemeComboBox.SelectedIndex)
+                    );
 
-                    Foundation = 2 * (Length + Width);
-                    BuildingArea = Width * Length;
+                    HttpStatusCode Status;
+                    var Response = Net.GetRequest("api/calc", out Status, jsonObject);
 
-                    switch (BuildSchemeComboBox.SelectedIndex)
+                    if (Status == HttpStatusCode.OK)
                     {
-                        case 0: // Пятистенок
-                            Perimeter = 5 * Length;
-                            break;
-                        case 1: // Шестистенок
-                            Perimeter = 6 * Length;
-                            break;
+                        if (Response != null && Response["Perimeter"] != null && Response["Foundation"] != null && Response["BuildingArea"] != null)
+                        {
+                            BuildPerimeterResultLabel.Text = Response["Perimeter"].ToString() + " м";
+                            FoundationLengthResultLabel.Text = Response["Foundation"].ToString() + " м";
+                            BuildingAreaResultLabel.Text = Response["BuildingArea"].ToString() + " м²";
+                            return;
+                        }
                     }
-
-                    BuildPerimeterResultLabel.Text = Perimeter.ToString("0.0") + " м";
-                    FoundationLengthResultLabel.Text = Foundation.ToString("0.0") + " м";
-                    BuildingAreaResultLabel.Text = BuildingArea.ToString("0.0") + " м²";
-                    return;
                 }
             }
 

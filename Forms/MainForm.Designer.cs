@@ -310,11 +310,6 @@
             // 
             this.FloorComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FloorComboBox.FormattingEnabled = true;
-            this.FloorComboBox.Items.AddRange(new object[] {
-            "1 этаж",
-            "2 этажа",
-            "3 этажа",
-            "4 этажа"});
             this.FloorComboBox.Location = new System.Drawing.Point(328, 48);
             this.FloorComboBox.Name = "FloorComboBox";
             this.FloorComboBox.Size = new System.Drawing.Size(121, 24);
@@ -333,9 +328,6 @@
             // 
             this.BuildSchemeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.BuildSchemeComboBox.FormattingEnabled = true;
-            this.BuildSchemeComboBox.Items.AddRange(new object[] {
-            "Пятистенок",
-            "Шестистенок"});
             this.BuildSchemeComboBox.Location = new System.Drawing.Point(171, 48);
             this.BuildSchemeComboBox.Name = "BuildSchemeComboBox";
             this.BuildSchemeComboBox.Size = new System.Drawing.Size(121, 24);
@@ -540,9 +532,9 @@
             // 
             // MaterialPictureBox
             // 
-            this.MaterialPictureBox.Location = new System.Drawing.Point(7, 29);
+            this.MaterialPictureBox.Location = new System.Drawing.Point(7, 42);
             this.MaterialPictureBox.Name = "MaterialPictureBox";
-            this.MaterialPictureBox.Size = new System.Drawing.Size(215, 110);
+            this.MaterialPictureBox.Size = new System.Drawing.Size(215, 97);
             this.MaterialPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.MaterialPictureBox.TabIndex = 0;
             this.MaterialPictureBox.TabStop = false;
