@@ -370,6 +370,8 @@ namespace BuildCalculator
                 SelectedMaterials[CurrentButtonIdx].SecondInputValue = -1.0f;
                 CheckBox.Checked = false;
             }
+
+            RecalcCostInfo();
         }
 
         private void MaterialFirstInput_IndexChanged(object sender, EventArgs e)
@@ -378,7 +380,10 @@ namespace BuildCalculator
             int material_id = Convert.ToInt32(ComboBox.Tag);
 
             if (SelectedMaterials[CurrentButtonIdx].MaterialId == material_id)
+            {
                 SelectedMaterials[CurrentButtonIdx].FirstInputValue = Convert.ToSingle(ComboBox.Items[ComboBox.SelectedIndex].ToString());
+                RecalcCostInfo();
+            }
         }
 
         private void MaterialSecondInput_IndexChanged(object sender, EventArgs e)
@@ -387,7 +392,10 @@ namespace BuildCalculator
             int material_id = Convert.ToInt32(ComboBox.Tag);
 
             if (SelectedMaterials[CurrentButtonIdx].MaterialId == material_id)
+            {
                 SelectedMaterials[CurrentButtonIdx].SecondInputValue = Convert.ToSingle(ComboBox.Items[ComboBox.SelectedIndex].ToString());
+                RecalcCostInfo();
+            }
         }
 
         private void MaterialsPanel_SizeChanged(object sender, EventArgs e)
@@ -579,6 +587,7 @@ namespace BuildCalculator
                             BuildPerimeterResultLabel.Text = Response["Perimeter"].ToString() + " м";
                             FoundationLengthResultLabel.Text = Response["Foundation"].ToString() + " м";
                             BuildingAreaResultLabel.Text = Response["BuildingArea"].ToString() + " м²";
+                            RecalcCostInfo();
                             return;
                         }
                     }
@@ -588,6 +597,35 @@ namespace BuildCalculator
             BuildPerimeterResultLabel.Text = "0 м";
             FoundationLengthResultLabel.Text = "0 м";
             BuildingAreaResultLabel.Text = "0 м²";
+            RecalcCostInfo();
+        }
+
+        private void RecalcCostInfo()
+        {
+            var Response = GetResultResponse();
+            if (Response != null)
+            {
+                JArray materials = Response["material"] as JArray;
+
+                if (materials != null)
+                {
+                    Dictionary<int, float> Results = new Dictionary<int, float>();
+                    foreach (JToken material in materials)
+                    {
+                        if (material["material_type_id"] != null && material["total_price"] != null)
+                            Results.Add((int)material["material_type_id"], (float)material["total_price"]);
+                    }
+
+                    int symbol_step = 10;
+                    ResultCostLabel.Text = $"{Results.Values.Sum()}";
+                    ResultCostLabel.Location = new Point((993 - (ResultCostLabel.Text.Length - 1) * symbol_step), 16);
+                }
+            }
+            else
+            {
+                ResultCostLabel.Text = "0";
+                ResultCostLabel.Location = new Point(993, 16); // дефолтная позиция
+            }
         }
 
         private void BuildSchemeComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -725,66 +763,64 @@ namespace BuildCalculator
         {
             if (!SelectedMaterials.Values.Any(value => value.MaterialId == -1))
             {
-                if (MathHelper.IsFloat(BuildWidthTextBox.Text) && MathHelper.IsFloat(BuildLengthTextBox.Text))
-                {
-                    float Width = Convert.ToSingle(BuildWidthTextBox.Text);
-                    float Length = Convert.ToSingle(BuildLengthTextBox.Text);
+                var Response = GetResultResponse();
 
-                    if (Width > 0.0f && Length > 0.0f)
-                    {
-                        var materialsList = new List<object>();
-
-                        for (int i = 0; i < SelectedMaterials.Count; i++)
-                        {
-                            int materialTypeId = SelectedMaterials.ElementAt(i).Key;
-                            int selectedMaterialId = SelectedMaterials.ElementAt(i).Value.MaterialId;
-
-                            if (selectedMaterialId == -1)
-                                continue;
-
-                            float firstInputValue = SelectedMaterials.ElementAt(i).Value.FirstInputValue;
-                            float secondInputValue = SelectedMaterials.ElementAt(i).Value.SecondInputValue;
-
-                            var materialObject = new
-                            {
-                                material_type_id = materialTypeId,
-                                selected_material_id = selectedMaterialId,
-                                first_input_value = firstInputValue,
-                                second_input_value = secondInputValue
-                            };
-
-                            materialsList.Add(materialObject);
-                        }
-
-                        var materials = new
-                        {
-                            materials = materialsList,
-                            house_info = new
-                            {
-                                width = Width,
-                                length = Length,
-                                scheme = BuildSchemeComboBox.SelectedIndex,
-                                floors = Convert.ToInt32(FloorComboBox.Items[FloorComboBox.SelectedIndex].ToString())
-                            }
-                        };
-
-                        string json = JsonConvert.SerializeObject(materials, Formatting.Indented);
-
-                        HttpStatusCode Status;
-                        var Response = Net.PostRequest("api/calcmaterial", out Status, JObject.Parse(json));
-                        if (Status == HttpStatusCode.OK)
-                        {
-                            Clipboard.SetText(Response.ToString());
-                        }
-
-                        return;
-                    }
-                }
-
-                MessageBox.Show("Пожалуйста, укажите длину и ширину строения", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
                 MessageBox.Show("Пожалуйста, выберите все материалы", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private JObject GetResultResponse()
+        {
+            if (MathHelper.IsFloat(BuildWidthTextBox.Text) && MathHelper.IsFloat(BuildLengthTextBox.Text))
+            {
+                float Width = Convert.ToSingle(BuildWidthTextBox.Text);
+                float Length = Convert.ToSingle(BuildLengthTextBox.Text);
+
+                if (Width > 0.0f && Length > 0.0f)
+                {
+                    var materialsList = new List<object>();
+
+                    for (int i = 0; i < SelectedMaterials.Count; i++)
+                    {
+                        int materialTypeId = SelectedMaterials.ElementAt(i).Key;
+                        int selectedMaterialId = SelectedMaterials.ElementAt(i).Value.MaterialId;
+
+                        if (selectedMaterialId == -1)
+                            continue;
+
+                        float firstInputValue = SelectedMaterials.ElementAt(i).Value.FirstInputValue;
+                        float secondInputValue = SelectedMaterials.ElementAt(i).Value.SecondInputValue;
+
+                        var materialObject = new
+                        {
+                            material_type_id = materialTypeId,
+                            selected_material_id = selectedMaterialId,
+                            first_input_value = firstInputValue,
+                            second_input_value = secondInputValue
+                        };
+
+                        materialsList.Add(materialObject);
+                    }
+
+                    var materials = new
+                    {
+                        materials = materialsList,
+                        house_info = new
+                        {
+                            width = Width,
+                            length = Length,
+                            scheme = BuildSchemeComboBox.SelectedIndex,
+                            floors = Convert.ToInt32(FloorComboBox.Items[FloorComboBox.SelectedIndex].ToString())
+                        }
+                    };
+
+                    string json = JsonConvert.SerializeObject(materials, Formatting.Indented);
+                    var Response = Net.PostRequest("api/calcmaterial", out _, JObject.Parse(json));
+                    return Response;
+                }
+            }
+            return null;
         }
     }
 }

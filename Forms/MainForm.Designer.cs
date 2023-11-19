@@ -72,6 +72,10 @@
             this.InputFirstLabel = new System.Windows.Forms.Label();
             this.MaterialSelectButton = new System.Windows.Forms.Button();
             this.MaterialPictureBox = new System.Windows.Forms.PictureBox();
+            this.ResultGroupBox = new System.Windows.Forms.GroupBox();
+            this.ResultLabel = new System.Windows.Forms.Label();
+            this.ResultCostLabel = new System.Windows.Forms.Label();
+            this.ResultRubLabel = new System.Windows.Forms.Label();
             this.MainMenuToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitContainer)).BeginInit();
             this.MainSplitContainer.Panel1.SuspendLayout();
@@ -92,6 +96,7 @@
             this.MaterialsPanel.SuspendLayout();
             this.MaterialGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MaterialPictureBox)).BeginInit();
+            this.ResultGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainMenuToolStrip
@@ -158,7 +163,7 @@
             this.CalculateResultButton.Name = "CalculateResultButton";
             this.CalculateResultButton.Size = new System.Drawing.Size(247, 34);
             this.CalculateResultButton.TabIndex = 2;
-            this.CalculateResultButton.Text = "Рассчитать смету";
+            this.CalculateResultButton.Text = "Рассчитать полную смету";
             this.CalculateResultButton.UseVisualStyleBackColor = true;
             this.CalculateResultButton.Click += new System.EventHandler(this.CalculateResultButton_Click);
             // 
@@ -207,6 +212,7 @@
             // 
             // RightGroupBox
             // 
+            this.RightGroupBox.Controls.Add(this.ResultGroupBox);
             this.RightGroupBox.Controls.Add(this.InfoSplitContainer);
             this.RightGroupBox.Controls.Add(this.MaterialsListGroupBox);
             this.RightGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -489,7 +495,7 @@
             this.MaterialsListGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.MaterialsListGroupBox.Location = new System.Drawing.Point(2, 132);
             this.MaterialsListGroupBox.Name = "MaterialsListGroupBox";
-            this.MaterialsListGroupBox.Size = new System.Drawing.Size(1074, 529);
+            this.MaterialsListGroupBox.Size = new System.Drawing.Size(1074, 479);
             this.MaterialsListGroupBox.TabIndex = 0;
             this.MaterialsListGroupBox.TabStop = false;
             // 
@@ -500,7 +506,7 @@
             this.MaterialsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MaterialsPanel.Location = new System.Drawing.Point(3, 18);
             this.MaterialsPanel.Name = "MaterialsPanel";
-            this.MaterialsPanel.Size = new System.Drawing.Size(1068, 508);
+            this.MaterialsPanel.Size = new System.Drawing.Size(1068, 458);
             this.MaterialsPanel.TabIndex = 0;
             this.MaterialsPanel.SizeChanged += new System.EventHandler(this.MaterialsPanel_SizeChanged);
             // 
@@ -580,6 +586,50 @@
             this.MaterialPictureBox.TabIndex = 0;
             this.MaterialPictureBox.TabStop = false;
             // 
+            // ResultGroupBox
+            // 
+            this.ResultGroupBox.Controls.Add(this.ResultRubLabel);
+            this.ResultGroupBox.Controls.Add(this.ResultCostLabel);
+            this.ResultGroupBox.Controls.Add(this.ResultLabel);
+            this.ResultGroupBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ResultGroupBox.Location = new System.Drawing.Point(3, 611);
+            this.ResultGroupBox.Name = "ResultGroupBox";
+            this.ResultGroupBox.Size = new System.Drawing.Size(1073, 50);
+            this.ResultGroupBox.TabIndex = 1;
+            this.ResultGroupBox.TabStop = false;
+            // 
+            // ResultLabel
+            // 
+            this.ResultLabel.AutoSize = true;
+            this.ResultLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ResultLabel.Location = new System.Drawing.Point(6, 7);
+            this.ResultLabel.Name = "ResultLabel";
+            this.ResultLabel.Size = new System.Drawing.Size(225, 40);
+            this.ResultLabel.TabIndex = 0;
+            this.ResultLabel.Text = "Итоговая стоимость\r\nна текущем этапе расчётов:";
+            // 
+            // ResultCostLabel
+            // 
+            this.ResultCostLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ResultCostLabel.AutoSize = true;
+            this.ResultCostLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ResultCostLabel.Location = new System.Drawing.Point(993, 16);
+            this.ResultCostLabel.Name = "ResultCostLabel";
+            this.ResultCostLabel.Size = new System.Drawing.Size(24, 25);
+            this.ResultCostLabel.TabIndex = 1;
+            this.ResultCostLabel.Text = "0";
+            this.ResultCostLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // ResultRubLabel
+            // 
+            this.ResultRubLabel.AutoSize = true;
+            this.ResultRubLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ResultRubLabel.Location = new System.Drawing.Point(1017, 17);
+            this.ResultRubLabel.Name = "ResultRubLabel";
+            this.ResultRubLabel.Size = new System.Drawing.Size(47, 24);
+            this.ResultRubLabel.TabIndex = 2;
+            this.ResultRubLabel.Text = "РУБ";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -624,6 +674,8 @@
             this.MaterialGroupBox.ResumeLayout(false);
             this.MaterialGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MaterialPictureBox)).EndInit();
+            this.ResultGroupBox.ResumeLayout(false);
+            this.ResultGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -674,6 +726,10 @@
         private System.Windows.Forms.CheckBox MaterialSelectedCheckBox;
         private System.Windows.Forms.Button CalculateResultButton;
         private System.Windows.Forms.GroupBox CalculateGroupBox;
+        private System.Windows.Forms.GroupBox ResultGroupBox;
+        private System.Windows.Forms.Label ResultLabel;
+        private System.Windows.Forms.Label ResultCostLabel;
+        private System.Windows.Forms.Label ResultRubLabel;
     }
 }
 
