@@ -68,6 +68,7 @@
             this.InputFirstLabel = new System.Windows.Forms.Label();
             this.MaterialSelectButton = new System.Windows.Forms.Button();
             this.MaterialPictureBox = new System.Windows.Forms.PictureBox();
+            this.MaterialSelectedCheckBox = new System.Windows.Forms.CheckBox();
             this.MainMenuToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitContainer)).BeginInit();
             this.MainSplitContainer.Panel1.SuspendLayout();
@@ -136,6 +137,7 @@
             // 
             // LeftGroupBox
             // 
+            this.LeftGroupBox.Controls.Add(this.MaterialSelectedCheckBox);
             this.LeftGroupBox.Controls.Add(this.MaterialButton);
             this.LeftGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LeftGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -532,12 +534,23 @@
             // 
             // MaterialPictureBox
             // 
-            this.MaterialPictureBox.Location = new System.Drawing.Point(7, 42);
+            this.MaterialPictureBox.Location = new System.Drawing.Point(7, 49);
             this.MaterialPictureBox.Name = "MaterialPictureBox";
-            this.MaterialPictureBox.Size = new System.Drawing.Size(215, 97);
+            this.MaterialPictureBox.Size = new System.Drawing.Size(215, 90);
             this.MaterialPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.MaterialPictureBox.TabIndex = 0;
             this.MaterialPictureBox.TabStop = false;
+            // 
+            // MaterialSelectedCheckBox
+            // 
+            this.MaterialSelectedCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.MaterialSelectedCheckBox.AutoSize = true;
+            this.MaterialSelectedCheckBox.Enabled = false;
+            this.MaterialSelectedCheckBox.Location = new System.Drawing.Point(224, 43);
+            this.MaterialSelectedCheckBox.Name = "MaterialSelectedCheckBox";
+            this.MaterialSelectedCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.MaterialSelectedCheckBox.TabIndex = 1;
+            this.MaterialSelectedCheckBox.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -561,6 +574,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitContainer)).EndInit();
             this.MainSplitContainer.ResumeLayout(false);
             this.LeftGroupBox.ResumeLayout(false);
+            this.LeftGroupBox.PerformLayout();
             this.RightGroupBox.ResumeLayout(false);
             this.InfoSplitContainer.Panel1.ResumeLayout(false);
             this.InfoSplitContainer.Panel2.ResumeLayout(false);
@@ -625,6 +639,7 @@
         private System.Windows.Forms.ComboBox InputSecondComboBox;
         private System.Windows.Forms.Label InputSecondLabel;
         private System.Windows.Forms.Label UserNameLabel;
+        private System.Windows.Forms.CheckBox MaterialSelectedCheckBox;
     }
 }
 

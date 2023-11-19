@@ -102,6 +102,16 @@ namespace BuildCalculator
 
                     foreach (JToken button in buttons)
                     {
+                        CheckBox view_checkbox = new CheckBox();
+                        view_checkbox.Name = "MaterialSelectCheckBox_" + button["id"].ToString();
+                        view_checkbox.Size = MaterialSelectedCheckBox.Size;
+                        view_checkbox.Location = new Point(MaterialSelectedCheckBox.Location.X, MaterialSelectedCheckBox.Location.Y + (MaterialSelectedCheckBox.Size.Height + 25) * (int)button["id"]);
+                        view_checkbox.Anchor = MaterialSelectedCheckBox.Anchor;
+                        view_checkbox.Tag = button["id"].ToString();
+                        view_checkbox.Enabled = MaterialSelectedCheckBox.Enabled;
+
+                        LeftGroupBox.Controls.Add(view_checkbox);
+
                         Button view_button = new Button();
                         view_button.Name = "MaterialButton_" + button["id"].ToString();
                         view_button.Size = MaterialButton.Size;
@@ -294,13 +304,18 @@ namespace BuildCalculator
                 }
             }
 
+            var CheckBox = LeftGroupBox.Controls["MaterialSelectCheckBox_" + CurrentButtonIdx] as CheckBox;
             if (SelectedMaterials[CurrentButtonIdx] != material_id)
             {
                 SelectedMaterials[CurrentButtonIdx] = material_id;
                 button.BackColor = Color.FromArgb(80, 0, 120, 215);
+                CheckBox.Checked = true;
             }
             else
+            {
                 SelectedMaterials[CurrentButtonIdx] = -1;
+                CheckBox.Checked = false;
+            }
         }
 
         private void MaterialsPanel_SizeChanged(object sender, EventArgs e)
