@@ -157,7 +157,7 @@
             this.MaterialButton.Size = new System.Drawing.Size(241, 33);
             this.MaterialButton.TabIndex = 0;
             this.MaterialButton.Tag = "0";
-            this.MaterialButton.Text = "            1. Test";
+            this.MaterialButton.Text = "1. Test";
             this.MaterialButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.MaterialButton.UseVisualStyleBackColor = true;
             this.MaterialButton.Visible = false;

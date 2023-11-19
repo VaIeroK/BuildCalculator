@@ -28,12 +28,16 @@ namespace BuildCalculator
         private int CurrentButtonIdx;
         public static string UserToken = null;
         public static Settings pSettings = null;
+        private Dictionary<string, Bitmap> CachedImages;
+        private Dictionary<int, int> SelectedMaterials;
 
         public MainForm()
         {
             CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
             InitializeComponent();
             CurrentButtonIdx = -1;
+            CachedImages = new Dictionary<string, Bitmap>();
+            SelectedMaterials = new Dictionary<int, int>();
 
             pSettings = new Settings("Settings.ini");
             pSettings.SaveVersion();
@@ -53,6 +57,7 @@ namespace BuildCalculator
         private void LoadMaterialButtons()
         {
             LeftGroupBox.Controls.Clear();
+            SelectedMaterials.Clear();
 
             JObject JsonObject = Net.GetRequest("api/buttons", out _);
             if (JsonObject != null && JsonObject["buttons"] != null)
@@ -92,6 +97,7 @@ namespace BuildCalculator
                         view_button.ImageAlign = MaterialButton.ImageAlign;
 
                         LeftGroupBox.Controls.Add(view_button);
+                        SelectedMaterials.Add((int)button["id"], -1);
                     }
                 }
             }
@@ -131,13 +137,27 @@ namespace BuildCalculator
             pictureBox.Anchor = MaterialPictureBox.Anchor;
             pictureBox.SizeMode = MaterialPictureBox.SizeMode;
 
-            byte[] imageBytes = Convert.FromBase64String(body["img"].ToString());
-            Bitmap bitmap;
-            using (MemoryStream ms = new MemoryStream(imageBytes))
+            if (CachedImages.ContainsKey(body["img"].ToString()))
+                pictureBox.Image = CachedImages[body["img"].ToString()];
+            else
             {
-                bitmap = new Bitmap(ms);
+                try
+                {
+                    WebClient client = new WebClient();
+                    byte[] imageData = client.DownloadData(body["img"].ToString());
+
+                    using (var stream = new System.IO.MemoryStream(imageData))
+                    {
+                        Bitmap bitmap = new Bitmap(stream);
+                        pictureBox.Image = bitmap;
+                        CachedImages.Add(body["img"].ToString(), bitmap);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при загрузке изображения: {ex.Message}");
+                }
             }
-            pictureBox.Image = bitmap;
 
             groupBox.Controls.Add(pictureBox);
 
@@ -148,6 +168,12 @@ namespace BuildCalculator
             button.Anchor = MaterialSelectButton.Anchor;
             button.Text = MaterialSelectButton.Text;
             button.Font = MaterialSelectButton.Font;
+            button.Click += MaterialSelectButton_Click;
+            button.Tag = body["id"].ToString();
+
+            if (SelectedMaterials[CurrentButtonIdx] == (int)body["id"])
+                button.BackColor = Color.FromArgb(80, 0, 120, 215);
+
             groupBox.Controls.Add(button);
 
             string input1_name = body["input1_name"].ToString();
@@ -212,6 +238,32 @@ namespace BuildCalculator
             MaterialsPanel.Controls.Add(groupBox);
 
             CurrentColumn++;
+        }
+
+        private void MaterialSelectButton_Click(object sender, EventArgs e)
+        {
+            Button button = sender as Button;
+            int material_id = Convert.ToInt32(button.Tag);
+
+            foreach (Control control in MaterialsPanel.Controls)
+            {
+                if (control is GroupBox)
+                {
+                    foreach (Control gb_control in control.Controls)
+                    {
+                        if (gb_control is Button)
+                            gb_control.BackColor = Color.White;
+                    }
+                }
+            }
+
+            if (SelectedMaterials[CurrentButtonIdx] != material_id)
+            {
+                SelectedMaterials[CurrentButtonIdx] = material_id;
+                button.BackColor = Color.FromArgb(80, 0, 120, 215);
+            }
+            else
+                SelectedMaterials[CurrentButtonIdx] = -1;
         }
 
         private void MaterialsPanel_SizeChanged(object sender, EventArgs e)
