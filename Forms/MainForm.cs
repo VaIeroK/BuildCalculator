@@ -14,6 +14,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -453,9 +454,15 @@ namespace BuildCalculator
             int OldButtonIdx = CurrentButtonIdx;
             CurrentButtonIdx = Convert.ToByte(cur_button.Tag.ToString());
             if (OldButtonIdx == CurrentButtonIdx)
+            {
                 CurrentButtonIdx = -1;
+                MaterialsListGroupBox.Text = "";
+            }
             else
+            {
                 cur_button.BackColor = Color.FromArgb(80, 0, 120, 215);
+                MaterialsListGroupBox.Text = cur_button.Text.Substring(cur_button.Text.IndexOf('.') + 2).Trim();
+            }
 
             ClearMaterials();
             if (CurrentButtonIdx != -1)
@@ -709,52 +716,64 @@ namespace BuildCalculator
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            ///if (!SelectedMaterials.Values.Any(value => value == -1))
-            {
-                var materialsList = new List<object>();
-
-                for (int i = 0; i < SelectedMaterials.Count; i++)
-                {
-                    int materialTypeId = SelectedMaterials.ElementAt(i).Key;
-                    int selectedMaterialId = SelectedMaterials.ElementAt(i).Value.MaterialId;
-                    float firstInputValue = SelectedMaterials.ElementAt(i).Value.FirstInputValue;
-                    float secondInputValue = SelectedMaterials.ElementAt(i).Value.SecondInputValue;
-
-                    var materialObject = new
-                    {
-                        material_type_id = materialTypeId,
-                        selected_material_id = selectedMaterialId,
-                        first_input_value = firstInputValue,
-                        second_input_value = secondInputValue
-                    };
-
-                    materialsList.Add(materialObject);
-                }
-
-                var materials = new
-                {
-                    materials = materialsList,
-                    house_info = new
-                    {
-                        width = Convert.ToInt32(BuildLengthTextBox.Text),
-                        length = Convert.ToInt32(BuildWidthTextBox.Text),
-                        scheme = BuildSchemeComboBox.SelectedIndex,
-                        floors = Convert.ToInt32(FloorComboBox.Items[FloorComboBox.SelectedIndex].ToString())
-                    }
-                };
-
-                string json = JsonConvert.SerializeObject(materials, Formatting.Indented);
-
-                // MessageBox.Show(json);
-                Clipboard.SetText(json);
-            }
-        }
-
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             LoaderThread.Abort();
+        }
+
+        private void CalculateResultButton_Click(object sender, EventArgs e)
+        {
+            if (!SelectedMaterials.Values.Any(value => value.MaterialId == -1))
+            {
+                if (MathHelper.IsFloat(BuildWidthTextBox.Text) && MathHelper.IsFloat(BuildLengthTextBox.Text))
+                {
+                    float Width = Convert.ToSingle(BuildWidthTextBox.Text);
+                    float Length = Convert.ToSingle(BuildLengthTextBox.Text);
+
+                    if (Width > 0.0f && Length > 0.0f)
+                    {
+                        var materialsList = new List<object>();
+
+                        for (int i = 0; i < SelectedMaterials.Count; i++)
+                        {
+                            int materialTypeId = SelectedMaterials.ElementAt(i).Key;
+                            int selectedMaterialId = SelectedMaterials.ElementAt(i).Value.MaterialId;
+                            float firstInputValue = SelectedMaterials.ElementAt(i).Value.FirstInputValue;
+                            float secondInputValue = SelectedMaterials.ElementAt(i).Value.SecondInputValue;
+
+                            var materialObject = new
+                            {
+                                material_type_id = materialTypeId,
+                                selected_material_id = selectedMaterialId,
+                                first_input_value = firstInputValue,
+                                second_input_value = secondInputValue
+                            };
+
+                            materialsList.Add(materialObject);
+                        }
+
+                        var materials = new
+                        {
+                            materials = materialsList,
+                            house_info = new
+                            {
+                                width = Width,
+                                length = Length,
+                                scheme = BuildSchemeComboBox.SelectedIndex,
+                                floors = Convert.ToInt32(FloorComboBox.Items[FloorComboBox.SelectedIndex].ToString())
+                            }
+                        };
+
+                        string json = JsonConvert.SerializeObject(materials, Formatting.Indented);
+
+                        return;
+                    }
+                }
+
+                MessageBox.Show("Пожалуйста, укажите длину и ширину строения", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+                MessageBox.Show("Пожалуйста, выберите все материалы", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
