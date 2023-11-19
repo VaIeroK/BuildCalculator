@@ -59,7 +59,6 @@
             this.UserGroupBox = new System.Windows.Forms.GroupBox();
             this.UserNameLabel = new System.Windows.Forms.Label();
             this.AuthorizeButton = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MaterialsListGroupBox = new System.Windows.Forms.GroupBox();
             this.MaterialsPanel = new System.Windows.Forms.Panel();
             this.MaterialGroupBox = new System.Windows.Forms.GroupBox();
@@ -68,8 +67,9 @@
             this.InputFirstComboBox = new System.Windows.Forms.ComboBox();
             this.InputFirstLabel = new System.Windows.Forms.Label();
             this.MaterialSelectButton = new System.Windows.Forms.Button();
-            this.MaterialPictureBox = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.MaterialPictureBox = new System.Windows.Forms.PictureBox();
             this.MainMenuToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitContainer)).BeginInit();
             this.MainSplitContainer.Panel1.SuspendLayout();
@@ -84,10 +84,10 @@
             this.BuildSizeGroupBox.SuspendLayout();
             this.BuildSizeResultGroupBox.SuspendLayout();
             this.UserGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.MaterialsListGroupBox.SuspendLayout();
             this.MaterialsPanel.SuspendLayout();
             this.MaterialGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaterialPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -100,7 +100,7 @@
             this.MainMenuToolStrip.Name = "MainMenuToolStrip";
             this.MainMenuToolStrip.Size = new System.Drawing.Size(1338, 25);
             this.MainMenuToolStrip.TabIndex = 0;
-            this.MainMenuToolStrip.Text = "menuStrip1";
+            this.MainMenuToolStrip.Text = "MainMenuStrip";
             // 
             // AboutProgramMenuItem
             // 
@@ -114,7 +114,7 @@
             this.MainStatusStrip.Name = "MainStatusStrip";
             this.MainStatusStrip.Size = new System.Drawing.Size(1338, 22);
             this.MainStatusStrip.TabIndex = 1;
-            this.MainStatusStrip.Text = "statusStrip1";
+            this.MainStatusStrip.Text = "MainStatusStrip";
             // 
             // MainSplitContainer
             // 
@@ -442,16 +442,6 @@
             this.AuthorizeButton.UseVisualStyleBackColor = true;
             this.AuthorizeButton.Click += new System.EventHandler(this.AuthorizeButton_Click);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::BuildCalculator.Properties.Resources.icon_user;
-            this.pictureBox1.Location = new System.Drawing.Point(6, 21);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
             // MaterialsListGroupBox
             // 
             this.MaterialsListGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -544,15 +534,6 @@
             this.MaterialSelectButton.Text = "Выбрать";
             this.MaterialSelectButton.UseVisualStyleBackColor = true;
             // 
-            // MaterialPictureBox
-            // 
-            this.MaterialPictureBox.Location = new System.Drawing.Point(7, 49);
-            this.MaterialPictureBox.Name = "MaterialPictureBox";
-            this.MaterialPictureBox.Size = new System.Drawing.Size(215, 90);
-            this.MaterialPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.MaterialPictureBox.TabIndex = 0;
-            this.MaterialPictureBox.TabStop = false;
-            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(322, 689);
@@ -562,6 +543,25 @@
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::BuildCalculator.Properties.Resources.icon_user;
+            this.pictureBox1.Location = new System.Drawing.Point(6, 21);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
+            // MaterialPictureBox
+            // 
+            this.MaterialPictureBox.Location = new System.Drawing.Point(7, 49);
+            this.MaterialPictureBox.Name = "MaterialPictureBox";
+            this.MaterialPictureBox.Size = new System.Drawing.Size(215, 90);
+            this.MaterialPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.MaterialPictureBox.TabIndex = 0;
+            this.MaterialPictureBox.TabStop = false;
             // 
             // MainForm
             // 
@@ -600,11 +600,11 @@
             this.BuildSizeResultGroupBox.PerformLayout();
             this.UserGroupBox.ResumeLayout(false);
             this.UserGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.MaterialsListGroupBox.ResumeLayout(false);
             this.MaterialsPanel.ResumeLayout(false);
             this.MaterialGroupBox.ResumeLayout(false);
             this.MaterialGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaterialPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

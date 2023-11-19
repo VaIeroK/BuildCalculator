@@ -56,6 +56,7 @@ namespace BuildCalculator
             var gb = LoadAnimation.StartAnimation(5, 1.0f, 3, this);
             Controls.Add(gb);
             Controls.SetChildIndex(gb, 0);
+            Controls["MainMenuToolStrip"].Visible = false;
 
             LoaderThread = new Thread(LoadServerInfo);
             LoaderThread.Start();
