@@ -738,6 +738,10 @@ namespace BuildCalculator
                         {
                             int materialTypeId = SelectedMaterials.ElementAt(i).Key;
                             int selectedMaterialId = SelectedMaterials.ElementAt(i).Value.MaterialId;
+
+                            if (selectedMaterialId == -1)
+                                continue;
+
                             float firstInputValue = SelectedMaterials.ElementAt(i).Value.FirstInputValue;
                             float secondInputValue = SelectedMaterials.ElementAt(i).Value.SecondInputValue;
 
@@ -765,6 +769,13 @@ namespace BuildCalculator
                         };
 
                         string json = JsonConvert.SerializeObject(materials, Formatting.Indented);
+
+                        HttpStatusCode Status;
+                        var Response = Net.PostRequest("api/calcmaterial", out Status, JObject.Parse(json));
+                        if (Status == HttpStatusCode.OK)
+                        {
+                            Clipboard.SetText(Response.ToString());
+                        }
 
                         return;
                     }

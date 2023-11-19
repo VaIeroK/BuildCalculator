@@ -28,10 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MainMenuToolStrip = new System.Windows.Forms.MenuStrip();
             this.AboutProgramMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainStatusStrip = new System.Windows.Forms.StatusStrip();
             this.MainSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.CalculateGroupBox = new System.Windows.Forms.GroupBox();
+            this.CalculateResultButton = new System.Windows.Forms.Button();
             this.LeftGroupBox = new System.Windows.Forms.GroupBox();
             this.MaterialSelectedCheckBox = new System.Windows.Forms.CheckBox();
             this.MaterialButton = new System.Windows.Forms.Button();
@@ -59,6 +62,7 @@
             this.UserGroupBox = new System.Windows.Forms.GroupBox();
             this.UserNameLabel = new System.Windows.Forms.Label();
             this.AuthorizeButton = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MaterialsListGroupBox = new System.Windows.Forms.GroupBox();
             this.MaterialsPanel = new System.Windows.Forms.Panel();
             this.MaterialGroupBox = new System.Windows.Forms.GroupBox();
@@ -67,15 +71,13 @@
             this.InputFirstComboBox = new System.Windows.Forms.ComboBox();
             this.InputFirstLabel = new System.Windows.Forms.Label();
             this.MaterialSelectButton = new System.Windows.Forms.Button();
-            this.CalculateResultButton = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MaterialPictureBox = new System.Windows.Forms.PictureBox();
-            this.CalculateGroupBox = new System.Windows.Forms.GroupBox();
             this.MainMenuToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitContainer)).BeginInit();
             this.MainSplitContainer.Panel1.SuspendLayout();
             this.MainSplitContainer.Panel2.SuspendLayout();
             this.MainSplitContainer.SuspendLayout();
+            this.CalculateGroupBox.SuspendLayout();
             this.LeftGroupBox.SuspendLayout();
             this.RightGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InfoSplitContainer)).BeginInit();
@@ -85,12 +87,11 @@
             this.BuildSizeGroupBox.SuspendLayout();
             this.BuildSizeResultGroupBox.SuspendLayout();
             this.UserGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.MaterialsListGroupBox.SuspendLayout();
             this.MaterialsPanel.SuspendLayout();
             this.MaterialGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaterialPictureBox)).BeginInit();
-            this.CalculateGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainMenuToolStrip
@@ -138,6 +139,28 @@
             this.MainSplitContainer.SplitterDistance = 253;
             this.MainSplitContainer.SplitterWidth = 6;
             this.MainSplitContainer.TabIndex = 0;
+            // 
+            // CalculateGroupBox
+            // 
+            this.CalculateGroupBox.Controls.Add(this.CalculateResultButton);
+            this.CalculateGroupBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.CalculateGroupBox.Location = new System.Drawing.Point(0, 611);
+            this.CalculateGroupBox.Name = "CalculateGroupBox";
+            this.CalculateGroupBox.Size = new System.Drawing.Size(253, 53);
+            this.CalculateGroupBox.TabIndex = 1;
+            this.CalculateGroupBox.TabStop = false;
+            // 
+            // CalculateResultButton
+            // 
+            this.CalculateResultButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CalculateResultButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CalculateResultButton.Location = new System.Drawing.Point(3, 16);
+            this.CalculateResultButton.Name = "CalculateResultButton";
+            this.CalculateResultButton.Size = new System.Drawing.Size(247, 34);
+            this.CalculateResultButton.TabIndex = 2;
+            this.CalculateResultButton.Text = "Рассчитать смету";
+            this.CalculateResultButton.UseVisualStyleBackColor = true;
+            this.CalculateResultButton.Click += new System.EventHandler(this.CalculateResultButton_Click);
             // 
             // LeftGroupBox
             // 
@@ -447,6 +470,16 @@
             this.AuthorizeButton.UseVisualStyleBackColor = true;
             this.AuthorizeButton.Click += new System.EventHandler(this.AuthorizeButton_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::BuildCalculator.Properties.Resources.icon_user;
+            this.pictureBox1.Location = new System.Drawing.Point(6, 21);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
             // MaterialsListGroupBox
             // 
             this.MaterialsListGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -538,28 +571,6 @@
             this.MaterialSelectButton.Text = "Выбрать";
             this.MaterialSelectButton.UseVisualStyleBackColor = true;
             // 
-            // CalculateResultButton
-            // 
-            this.CalculateResultButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CalculateResultButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CalculateResultButton.Location = new System.Drawing.Point(3, 16);
-            this.CalculateResultButton.Name = "CalculateResultButton";
-            this.CalculateResultButton.Size = new System.Drawing.Size(247, 34);
-            this.CalculateResultButton.TabIndex = 2;
-            this.CalculateResultButton.Text = "Рассчитать смету";
-            this.CalculateResultButton.UseVisualStyleBackColor = true;
-            this.CalculateResultButton.Click += new System.EventHandler(this.CalculateResultButton_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::BuildCalculator.Properties.Resources.icon_user;
-            this.pictureBox1.Location = new System.Drawing.Point(6, 21);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
             // MaterialPictureBox
             // 
             this.MaterialPictureBox.Location = new System.Drawing.Point(7, 49);
@@ -568,16 +579,6 @@
             this.MaterialPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.MaterialPictureBox.TabIndex = 0;
             this.MaterialPictureBox.TabStop = false;
-            // 
-            // CalculateGroupBox
-            // 
-            this.CalculateGroupBox.Controls.Add(this.CalculateResultButton);
-            this.CalculateGroupBox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.CalculateGroupBox.Location = new System.Drawing.Point(0, 611);
-            this.CalculateGroupBox.Name = "CalculateGroupBox";
-            this.CalculateGroupBox.Size = new System.Drawing.Size(253, 53);
-            this.CalculateGroupBox.TabIndex = 1;
-            this.CalculateGroupBox.TabStop = false;
             // 
             // MainForm
             // 
@@ -588,10 +589,11 @@
             this.Controls.Add(this.MainStatusStrip);
             this.Controls.Add(this.MainMenuToolStrip);
             this.DoubleBuffered = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1354, 750);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Калькулятор сметы «Дом ремонта»";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResizeBegin += new System.EventHandler(this.MainForm_ResizeBegin);
@@ -602,6 +604,7 @@
             this.MainSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitContainer)).EndInit();
             this.MainSplitContainer.ResumeLayout(false);
+            this.CalculateGroupBox.ResumeLayout(false);
             this.LeftGroupBox.ResumeLayout(false);
             this.LeftGroupBox.PerformLayout();
             this.RightGroupBox.ResumeLayout(false);
@@ -615,13 +618,12 @@
             this.BuildSizeResultGroupBox.PerformLayout();
             this.UserGroupBox.ResumeLayout(false);
             this.UserGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.MaterialsListGroupBox.ResumeLayout(false);
             this.MaterialsPanel.ResumeLayout(false);
             this.MaterialGroupBox.ResumeLayout(false);
             this.MaterialGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaterialPictureBox)).EndInit();
-            this.CalculateGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
