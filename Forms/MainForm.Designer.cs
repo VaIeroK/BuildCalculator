@@ -33,6 +33,7 @@
             this.MainStatusStrip = new System.Windows.Forms.StatusStrip();
             this.MainSplitContainer = new System.Windows.Forms.SplitContainer();
             this.LeftGroupBox = new System.Windows.Forms.GroupBox();
+            this.MaterialSelectedCheckBox = new System.Windows.Forms.CheckBox();
             this.MaterialButton = new System.Windows.Forms.Button();
             this.RightGroupBox = new System.Windows.Forms.GroupBox();
             this.InfoSplitContainer = new System.Windows.Forms.SplitContainer();
@@ -68,7 +69,7 @@
             this.InputFirstLabel = new System.Windows.Forms.Label();
             this.MaterialSelectButton = new System.Windows.Forms.Button();
             this.MaterialPictureBox = new System.Windows.Forms.PictureBox();
-            this.MaterialSelectedCheckBox = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.MainMenuToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitContainer)).BeginInit();
             this.MainSplitContainer.Panel1.SuspendLayout();
@@ -147,6 +148,17 @@
             this.LeftGroupBox.TabIndex = 0;
             this.LeftGroupBox.TabStop = false;
             this.LeftGroupBox.Text = "Материалы";
+            // 
+            // MaterialSelectedCheckBox
+            // 
+            this.MaterialSelectedCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.MaterialSelectedCheckBox.AutoSize = true;
+            this.MaterialSelectedCheckBox.Enabled = false;
+            this.MaterialSelectedCheckBox.Location = new System.Drawing.Point(224, 43);
+            this.MaterialSelectedCheckBox.Name = "MaterialSelectedCheckBox";
+            this.MaterialSelectedCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.MaterialSelectedCheckBox.TabIndex = 1;
+            this.MaterialSelectedCheckBox.UseVisualStyleBackColor = true;
             // 
             // MaterialButton
             // 
@@ -541,22 +553,22 @@
             this.MaterialPictureBox.TabIndex = 0;
             this.MaterialPictureBox.TabStop = false;
             // 
-            // MaterialSelectedCheckBox
+            // button1
             // 
-            this.MaterialSelectedCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.MaterialSelectedCheckBox.AutoSize = true;
-            this.MaterialSelectedCheckBox.Enabled = false;
-            this.MaterialSelectedCheckBox.Location = new System.Drawing.Point(224, 43);
-            this.MaterialSelectedCheckBox.Name = "MaterialSelectedCheckBox";
-            this.MaterialSelectedCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.MaterialSelectedCheckBox.TabIndex = 1;
-            this.MaterialSelectedCheckBox.UseVisualStyleBackColor = true;
+            this.button1.Location = new System.Drawing.Point(322, 689);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1338, 711);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.MainSplitContainer);
             this.Controls.Add(this.MainStatusStrip);
             this.Controls.Add(this.MainMenuToolStrip);
@@ -565,6 +577,8 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResizeBegin += new System.EventHandler(this.MainForm_ResizeBegin);
             this.ResizeEnd += new System.EventHandler(this.MainForm_ResizeEnd);
             this.MainMenuToolStrip.ResumeLayout(false);
@@ -640,6 +654,7 @@
         private System.Windows.Forms.Label InputSecondLabel;
         private System.Windows.Forms.Label UserNameLabel;
         private System.Windows.Forms.CheckBox MaterialSelectedCheckBox;
+        private System.Windows.Forms.Button button1;
     }
 }
 

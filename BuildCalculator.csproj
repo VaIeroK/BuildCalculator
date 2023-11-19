@@ -51,6 +51,8 @@
   <ItemGroup>
     <Compile Include="Classes\AutoClosingMessageBox.cs" />
     <Compile Include="Classes\IniFile.cs" />
+    <Compile Include="Classes\LoadAnimation.cs" />
+    <Compile Include="Classes\MaterialObject.cs" />
     <Compile Include="Classes\MathHelper.cs" />
     <Compile Include="Classes\Net.cs" />
     <Compile Include="Classes\Settings.cs" />
@@ -124,6 +126,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icon_user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Loading.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
