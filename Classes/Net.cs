@@ -13,7 +13,7 @@ namespace BuildCalculator.Classes
 {
     public static class Net
     {
-        private static string api = "https://a13e-94-141-126-221.ngrok-free.app/";
+        private static string api = "https://6cf7-94-141-126-221.ngrok-free.app/";
 
         public static JObject GetRequest(string url, out HttpStatusCode status, JObject body = null)
         {

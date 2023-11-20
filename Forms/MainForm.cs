@@ -137,11 +137,6 @@ namespace BuildCalculator
                         view_checkbox.Tag = button["id"].ToString();
                         view_checkbox.Enabled = MaterialSelectedCheckBox.Enabled;
 
-                        Invoke((MethodInvoker)delegate ()
-                        {
-                            LeftGroupBox.Controls.Add(view_checkbox);
-                        });
-
                         Button view_button = new Button();
                         view_button.Name = "MaterialButton_" + button["id"].ToString();
                         view_button.Size = MaterialButton.Size;
@@ -164,6 +159,7 @@ namespace BuildCalculator
 
                         Invoke((MethodInvoker)delegate ()
                         {
+                            LeftGroupBox.Controls.Add(view_checkbox);
                             LeftGroupBox.Controls.Add(view_button);
                         });
                         SelectedMaterials.Add((int)button["id"], new MaterialObject());
@@ -469,7 +465,11 @@ namespace BuildCalculator
             else
             {
                 cur_button.BackColor = Color.FromArgb(80, 0, 120, 215);
-                MaterialsListGroupBox.Text = cur_button.Text.Substring(cur_button.Text.IndexOf('.') + 2).Trim();
+                string gb_text = cur_button.Text.Substring(cur_button.Text.IndexOf('.') + 2).Trim();
+                int indexOfColon = gb_text.IndexOf(':');
+                if (indexOfColon != -1)
+                    gb_text = gb_text.Substring(0, indexOfColon);
+                MaterialsListGroupBox.Text = gb_text;
             }
 
             ClearMaterials();
@@ -616,15 +616,31 @@ namespace BuildCalculator
                             Results.Add((int)material["material_type_id"], (float)material["total_price"]);
                     }
 
+                    foreach (Control control in LeftGroupBox.Controls)
+                    {
+                        if (control is Button)
+                        {
+                            int b_id = Convert.ToInt32(control.Tag.ToString());
+
+                            int indexOfColon = control.Text.IndexOf(':');
+
+                            if (indexOfColon != -1)
+                                control.Text = control.Text.Substring(0, indexOfColon);
+
+                            if (Results.ContainsKey(b_id))
+                                control.Text += $": {Results[b_id]} руб";
+                        }
+                    }
+
                     int symbol_step = 10;
                     ResultCostLabel.Text = $"{Results.Values.Sum()}";
-                    ResultCostLabel.Location = new Point((993 - (ResultCostLabel.Text.Length - 1) * symbol_step), 16);
+                    ResultCostLabel.Location = new Point((916 - (ResultCostLabel.Text.Length - 1) * symbol_step), 16);
                 }
             }
             else
             {
                 ResultCostLabel.Text = "0";
-                ResultCostLabel.Location = new Point(993, 16); // дефолтная позиция
+                ResultCostLabel.Location = new Point(916, 16); // дефолтная позиция
             }
         }
 
