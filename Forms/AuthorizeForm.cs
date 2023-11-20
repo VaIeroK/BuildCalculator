@@ -18,6 +18,7 @@ namespace BuildCalculator.Forms
     public partial class AuthorizeForm : Form
     {
         public string Token = null;
+        public int UserId = -1;
         public string UserName = null;
         public string UserLastName = null;
         public string UserLogin = null;
@@ -116,15 +117,16 @@ namespace BuildCalculator.Forms
                         if (Response["user"] != null)
                         {
                             JObject UserData = Response["user"] as JObject;
-                            if (UserData["name"] != null && UserData["lastname"] != null)
+                            if (UserData["name"] != null && UserData["lastname"] != null && UserData["login"] != null && UserData["password"] != null && UserData["id"] != null)
                             {
                                 UserName = UserData["name"].ToString();
                                 UserLastName = UserData["lastname"].ToString();
                                 UserLogin = UserData["login"].ToString();
                                 UserPassword = UserData["password"].ToString();
+                                UserId = (int)UserData["id"];
                             }
                             else
-                                MessageBox.Show($"Ошибка сервера. Невозможно получить имя пользователя.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show($"Ошибка сервера. Невозможно получить информацию о пользователе.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else
                             MessageBox.Show($"Ошибка сервера. Невозможно получить пользователя.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -236,22 +238,23 @@ namespace BuildCalculator.Forms
             switch (Status)
             {
                 case HttpStatusCode.Created:
-                    if (Response["token"] != null)
+                    if (Response["token"] != null && Response["id"] != null)
                     {
                         Token = Response["token"].ToString();
 
                         if (Response["user"] != null)
                         {
                             JObject UserData = Response["user"] as JObject;
-                            if (UserData["name"] != null && UserData["lastname"] != null)
+                            if (UserData["name"] != null && UserData["lastname"] != null && UserData["login"] != null && UserData["password"] != null && UserData["id"] != null)
                             {
                                 UserName = UserData["name"].ToString();
                                 UserLastName = UserData["lastname"].ToString();
                                 UserLogin = UserData["login"].ToString();
                                 UserPassword = UserData["password"].ToString();
+                                UserId = (int)UserData["id"];
                             }
                             else
-                                MessageBox.Show($"Ошибка сервера. Невозможно получить имя пользователя.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show($"Ошибка сервера. Невозможно получить информацию о пользователе.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else
                             MessageBox.Show($"Ошибка сервера. Невозможно получить пользователя.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);

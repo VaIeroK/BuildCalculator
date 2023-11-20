@@ -32,22 +32,22 @@
             this.HistoryGroupBox = new System.Windows.Forms.GroupBox();
             this.HistoryListBox = new System.Windows.Forms.ListBox();
             this.MaterialsListGroupBox = new System.Windows.Forms.GroupBox();
-            this.InformationGroupBox = new System.Windows.Forms.GroupBox();
             this.MaterialsListPanel = new System.Windows.Forms.Panel();
             this.MaterialButton = new System.Windows.Forms.Button();
-            this.MaterialPictureBox = new System.Windows.Forms.PictureBox();
-            this.InputSecondLabel = new System.Windows.Forms.Label();
-            this.InputFirstLabel = new System.Windows.Forms.Label();
+            this.InformationGroupBox = new System.Windows.Forms.GroupBox();
+            this.InputSecondTextBox = new System.Windows.Forms.TextBox();
+            this.InputFirstTextBox = new System.Windows.Forms.TextBox();
             this.ResultGroupBox = new System.Windows.Forms.GroupBox();
             this.ResultLabel = new System.Windows.Forms.Label();
-            this.InputFirstTextBox = new System.Windows.Forms.TextBox();
-            this.InputSecondTextBox = new System.Windows.Forms.TextBox();
+            this.InputSecondLabel = new System.Windows.Forms.Label();
+            this.InputFirstLabel = new System.Windows.Forms.Label();
+            this.MaterialPictureBox = new System.Windows.Forms.PictureBox();
             this.HistoryGroupBox.SuspendLayout();
             this.MaterialsListGroupBox.SuspendLayout();
-            this.InformationGroupBox.SuspendLayout();
             this.MaterialsListPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MaterialPictureBox)).BeginInit();
+            this.InformationGroupBox.SuspendLayout();
             this.ResultGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MaterialPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // HistoryGroupBox
@@ -89,25 +89,6 @@
             this.MaterialsListGroupBox.TabStop = false;
             this.MaterialsListGroupBox.Text = "Список материалов";
             // 
-            // InformationGroupBox
-            // 
-            this.InformationGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.InformationGroupBox.Controls.Add(this.InputSecondTextBox);
-            this.InformationGroupBox.Controls.Add(this.InputFirstTextBox);
-            this.InformationGroupBox.Controls.Add(this.ResultGroupBox);
-            this.InformationGroupBox.Controls.Add(this.InputSecondLabel);
-            this.InformationGroupBox.Controls.Add(this.InputFirstLabel);
-            this.InformationGroupBox.Controls.Add(this.MaterialPictureBox);
-            this.InformationGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.InformationGroupBox.Location = new System.Drawing.Point(466, 13);
-            this.InformationGroupBox.Name = "InformationGroupBox";
-            this.InformationGroupBox.Size = new System.Drawing.Size(341, 360);
-            this.InformationGroupBox.TabIndex = 2;
-            this.InformationGroupBox.TabStop = false;
-            this.InformationGroupBox.Text = "Информация";
-            // 
             // MaterialsListPanel
             // 
             this.MaterialsListPanel.AutoScroll = true;
@@ -132,34 +113,40 @@
             this.MaterialButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.MaterialButton.UseVisualStyleBackColor = true;
             // 
-            // MaterialPictureBox
+            // InformationGroupBox
             // 
-            this.MaterialPictureBox.Location = new System.Drawing.Point(6, 21);
-            this.MaterialPictureBox.Name = "MaterialPictureBox";
-            this.MaterialPictureBox.Size = new System.Drawing.Size(329, 140);
-            this.MaterialPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.MaterialPictureBox.TabIndex = 1;
-            this.MaterialPictureBox.TabStop = false;
+            this.InformationGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.InformationGroupBox.Controls.Add(this.InputSecondTextBox);
+            this.InformationGroupBox.Controls.Add(this.InputFirstTextBox);
+            this.InformationGroupBox.Controls.Add(this.ResultGroupBox);
+            this.InformationGroupBox.Controls.Add(this.InputSecondLabel);
+            this.InformationGroupBox.Controls.Add(this.InputFirstLabel);
+            this.InformationGroupBox.Controls.Add(this.MaterialPictureBox);
+            this.InformationGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.InformationGroupBox.Location = new System.Drawing.Point(466, 13);
+            this.InformationGroupBox.Name = "InformationGroupBox";
+            this.InformationGroupBox.Size = new System.Drawing.Size(341, 360);
+            this.InformationGroupBox.TabIndex = 2;
+            this.InformationGroupBox.TabStop = false;
+            this.InformationGroupBox.Text = "Информация";
             // 
-            // InputSecondLabel
+            // InputSecondTextBox
             // 
-            this.InputSecondLabel.AutoSize = true;
-            this.InputSecondLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.InputSecondLabel.Location = new System.Drawing.Point(4, 216);
-            this.InputSecondLabel.Name = "InputSecondLabel";
-            this.InputSecondLabel.Size = new System.Drawing.Size(48, 16);
-            this.InputSecondLabel.TabIndex = 8;
-            this.InputSecondLabel.Text = "Input 2:";
+            this.InputSecondTextBox.Location = new System.Drawing.Point(7, 237);
+            this.InputSecondTextBox.Name = "InputSecondTextBox";
+            this.InputSecondTextBox.ReadOnly = true;
+            this.InputSecondTextBox.Size = new System.Drawing.Size(328, 22);
+            this.InputSecondTextBox.TabIndex = 12;
             // 
-            // InputFirstLabel
+            // InputFirstTextBox
             // 
-            this.InputFirstLabel.AutoSize = true;
-            this.InputFirstLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.InputFirstLabel.Location = new System.Drawing.Point(4, 167);
-            this.InputFirstLabel.Name = "InputFirstLabel";
-            this.InputFirstLabel.Size = new System.Drawing.Size(48, 16);
-            this.InputFirstLabel.TabIndex = 6;
-            this.InputFirstLabel.Text = "Input 1:";
+            this.InputFirstTextBox.Location = new System.Drawing.Point(7, 187);
+            this.InputFirstTextBox.Name = "InputFirstTextBox";
+            this.InputFirstTextBox.ReadOnly = true;
+            this.InputFirstTextBox.Size = new System.Drawing.Size(328, 22);
+            this.InputFirstTextBox.TabIndex = 11;
             // 
             // ResultGroupBox
             // 
@@ -184,21 +171,34 @@
             this.ResultLabel.TabIndex = 1;
             this.ResultLabel.Text = "0 руб";
             // 
-            // InputFirstTextBox
+            // InputSecondLabel
             // 
-            this.InputFirstTextBox.Location = new System.Drawing.Point(7, 187);
-            this.InputFirstTextBox.Name = "InputFirstTextBox";
-            this.InputFirstTextBox.ReadOnly = true;
-            this.InputFirstTextBox.Size = new System.Drawing.Size(328, 22);
-            this.InputFirstTextBox.TabIndex = 11;
+            this.InputSecondLabel.AutoSize = true;
+            this.InputSecondLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.InputSecondLabel.Location = new System.Drawing.Point(4, 216);
+            this.InputSecondLabel.Name = "InputSecondLabel";
+            this.InputSecondLabel.Size = new System.Drawing.Size(48, 16);
+            this.InputSecondLabel.TabIndex = 8;
+            this.InputSecondLabel.Text = "Input 2:";
             // 
-            // InputSecondTextBox
+            // InputFirstLabel
             // 
-            this.InputSecondTextBox.Location = new System.Drawing.Point(7, 237);
-            this.InputSecondTextBox.Name = "InputSecondTextBox";
-            this.InputSecondTextBox.ReadOnly = true;
-            this.InputSecondTextBox.Size = new System.Drawing.Size(328, 22);
-            this.InputSecondTextBox.TabIndex = 12;
+            this.InputFirstLabel.AutoSize = true;
+            this.InputFirstLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.InputFirstLabel.Location = new System.Drawing.Point(4, 167);
+            this.InputFirstLabel.Name = "InputFirstLabel";
+            this.InputFirstLabel.Size = new System.Drawing.Size(48, 16);
+            this.InputFirstLabel.TabIndex = 6;
+            this.InputFirstLabel.Text = "Input 1:";
+            // 
+            // MaterialPictureBox
+            // 
+            this.MaterialPictureBox.Location = new System.Drawing.Point(6, 21);
+            this.MaterialPictureBox.Name = "MaterialPictureBox";
+            this.MaterialPictureBox.Size = new System.Drawing.Size(329, 140);
+            this.MaterialPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.MaterialPictureBox.TabIndex = 1;
+            this.MaterialPictureBox.TabStop = false;
             // 
             // SmetaHistory
             // 
@@ -208,8 +208,10 @@
             this.Controls.Add(this.InformationGroupBox);
             this.Controls.Add(this.MaterialsListGroupBox);
             this.Controls.Add(this.HistoryGroupBox);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "SmetaHistory";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "История";
@@ -217,12 +219,12 @@
             this.Load += new System.EventHandler(this.SmetaHistory_Load);
             this.HistoryGroupBox.ResumeLayout(false);
             this.MaterialsListGroupBox.ResumeLayout(false);
+            this.MaterialsListPanel.ResumeLayout(false);
             this.InformationGroupBox.ResumeLayout(false);
             this.InformationGroupBox.PerformLayout();
-            this.MaterialsListPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.MaterialPictureBox)).EndInit();
             this.ResultGroupBox.ResumeLayout(false);
             this.ResultGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MaterialPictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }

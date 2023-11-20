@@ -16,6 +16,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Security.Policy;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,6 +32,7 @@ namespace BuildCalculator
         private int CurrentColumn;
         private int CurrentButtonIdx;
         public static string UserToken = "";
+        public static int UserId = -1;
         public static ProgramSettings pSettings = null;
         private Dictionary<string, Bitmap> CachedImages;
         private Dictionary<int, JObject> CachedMaterials;
@@ -351,15 +353,31 @@ namespace BuildCalculator
             {
                 ComboBox FirstComboBox = MaterialsPanel.Controls["MaterialGroupBox_" + material_id].Controls["MaterialInputFirstComboBox_" + material_id] as ComboBox;
                 if (FirstComboBox != null)
-                    SelectedMaterials[CurrentButtonIdx].FirstInputValue = Convert.ToSingle(FirstComboBox.Items[FirstComboBox.SelectedIndex].ToString());
+                {
+                    if (MathHelper.IsFloat(FirstComboBox.Items[FirstComboBox.SelectedIndex].ToString()))
+                        SelectedMaterials[CurrentButtonIdx].FirstInputValue = Convert.ToSingle(FirstComboBox.Items[FirstComboBox.SelectedIndex].ToString());
+                    else
+                    {
+                        MessageBox.Show($"Ошибка сервера. Первое входное значение не является числом", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        SelectedMaterials[CurrentButtonIdx].FirstInputValue = 0.0f;
+                    }
+                }
                 else
-                    SelectedMaterials[CurrentButtonIdx].FirstInputValue = -1;
+                    SelectedMaterials[CurrentButtonIdx].FirstInputValue = -1.0f;
 
                 ComboBox SecondComboBox = MaterialsPanel.Controls["MaterialGroupBox_" + material_id].Controls["MaterialInputSecondComboBox_" + material_id] as ComboBox;
                 if (SecondComboBox != null)
-                    SelectedMaterials[CurrentButtonIdx].SecondInputValue = Convert.ToSingle(SecondComboBox.Items[FirstComboBox.SelectedIndex].ToString());
+                {
+                    if (MathHelper.IsFloat(SecondComboBox.Items[SecondComboBox.SelectedIndex].ToString()))
+                        SelectedMaterials[CurrentButtonIdx].SecondInputValue = Convert.ToSingle(SecondComboBox.Items[SecondComboBox.SelectedIndex].ToString());
+                    else
+                    {
+                        MessageBox.Show($"Ошибка сервера. Второе входное значение не является числом", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        SelectedMaterials[CurrentButtonIdx].SecondInputValue = 0.0f;
+                    }
+                }
                 else
-                    SelectedMaterials[CurrentButtonIdx].SecondInputValue = -1;
+                    SelectedMaterials[CurrentButtonIdx].SecondInputValue = -1.0f;
 
                 SelectedMaterials[CurrentButtonIdx].MaterialId = material_id;
                 button.BackColor = Color.FromArgb(80, 0, 120, 215);
@@ -618,8 +636,8 @@ namespace BuildCalculator
                     Dictionary<int, float> Results = new Dictionary<int, float>();
                     foreach (JToken material in materials)
                     {
-                        if (material["material_type_id"] != null && material["total_price"] != null)
-                            Results.Add((int)material["material_type_id"], (float)material["total_price"]);
+                        if (material["material_type_id"] != null && material["price"] != null)
+                            Results.Add((int)material["material_type_id"], (float)material["price"]);
                     }
 
                     foreach (Control control in MaterialsListPanel.Controls)
@@ -678,6 +696,7 @@ namespace BuildCalculator
                 if (form.Valid)
                 {
                     UserToken = form.Token;
+                    UserId = form.UserId;
                     UserNameLabel.Text = $"{form.UserName}\n{form.UserLastName}";
                     pSettings.Save("token", UserToken);
                     pSettings.Save("username", form.UserLogin);
@@ -704,7 +723,7 @@ namespace BuildCalculator
                     new JProperty("token", loaded_token)
                 );
                 var Response = Net.GetRequest("api/verify", out Status, jsonObject);
-                
+
                 if (Status != HttpStatusCode.OK)
                 {
                     jsonObject = new JObject(
@@ -731,8 +750,9 @@ namespace BuildCalculator
                                 if (Response["user"] != null)
                                 {
                                     JObject UserData = Response["user"] as JObject;
-                                    if (UserData["name"] != null && UserData["lastname"] != null)
+                                    if (UserData["name"] != null && UserData["lastname"] != null && UserData["id"] != null)
                                     {
+                                        UserId = (int)UserData["id"];
                                         Invoke((MethodInvoker)delegate ()
                                         {
                                             UserNameLabel.Text = $"{UserData["name"]}\n{UserData["lastname"]}";
@@ -771,8 +791,9 @@ namespace BuildCalculator
                             UserCabinetMenuItem.Enabled = true;
                         });
                         JObject UserData = Response["userInfo"] as JObject;
-                        if (UserData["name"] != null && UserData["lastname"] != null)
+                        if (UserData["name"] != null && UserData["lastname"] != null && UserData["id"] != null)
                         {
+                            UserId = (int)UserData["id"];
                             Invoke((MethodInvoker)delegate ()
                             {
                                 UserNameLabel.Text = $"{UserData["name"]}\n{UserData["lastname"]}";
@@ -796,14 +817,28 @@ namespace BuildCalculator
         {
             if (!SelectedMaterials.Values.Any(value => value.MaterialId == -1))
             {
-                var Response = GetResultResponse();
+                if (UserId != -1)
+                {
+                    var Response = GetResultResponse(true);
 
+
+                    var user = new
+                    {
+                        userID = UserId
+                    };
+                    string json = JsonConvert.SerializeObject(user, Formatting.Indented);
+                    var rResponse = Net.GetRequest("api/orderhistory", out _, JObject.Parse(json));
+                    if (rResponse != null)
+                        Clipboard.SetText(rResponse.ToString());
+                }
+                else
+                    MessageBox.Show("Для рассчета сметы необходима авторизация", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
                 MessageBox.Show("Пожалуйста, выберите все материалы", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private JObject GetResultResponse()
+        private JObject GetResultResponse(bool write = false)
         {
             if (MathHelper.IsFloat(BuildWidthTextBox.Text) && MathHelper.IsFloat(BuildLengthTextBox.Text))
             {
@@ -848,8 +883,14 @@ namespace BuildCalculator
                         }
                     };
 
+                    var user = new
+                    {
+                        userID = (write ? UserId : 0)
+                    };
+
                     string json = JsonConvert.SerializeObject(materials, Formatting.Indented);
-                    var Response = Net.PostRequest("api/calcmaterial", out _, JObject.Parse(json));
+                    string user_json = JsonConvert.SerializeObject(user, Formatting.Indented);
+                    var Response = Net.PostRequest("api/calcmaterial", out _, JObject.Parse(json), JObject.Parse(user_json));
                     return Response;
                 }
             }

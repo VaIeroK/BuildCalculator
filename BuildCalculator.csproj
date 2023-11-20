@@ -147,6 +147,7 @@
     <None Include="Resources\Smeta.png" />
     <None Include="Resources\Enter.png" />
     <None Include="Resources\Exit.png" />
+    <Content Include="Resources\HistoryIcon.ico" />
     <Content Include="Resources\MainIcon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

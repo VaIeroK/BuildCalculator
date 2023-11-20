@@ -15,11 +15,11 @@ namespace BuildCalculator.Classes
     {
         private static string api = "https://6cf7-94-141-126-221.ngrok-free.app/";
 
-        public static JObject GetRequest(string url, out HttpStatusCode status, JObject body = null)
+        public static JObject GetRequest(string url, out HttpStatusCode status, JObject url_body = null)
         {
             using (HttpClient client = new HttpClient())
             {
-                string queryString = (body != null) ? ToQueryString(body) : string.Empty;
+                string queryString = (url_body != null) ? ToQueryString(url_body) : string.Empty;
 
                 HttpResponseMessage response = client.GetAsync(api + url + queryString).Result;
                 status = response.StatusCode;
@@ -31,7 +31,7 @@ namespace BuildCalculator.Classes
             }
         }
 
-        public static JObject PostRequest(string url, out HttpStatusCode status, JObject body = null)
+        public static JObject PostRequest(string url, out HttpStatusCode status, JObject body = null, JObject url_body = null)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -39,7 +39,9 @@ namespace BuildCalculator.Classes
                 if (body != null)
                     content = new StringContent(body.ToString(), Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = client.PostAsync(api + url, content).Result;
+                string queryString = (url_body != null) ? ToQueryString(url_body) : string.Empty;
+
+                HttpResponseMessage response = client.PostAsync(api + url + queryString, content).Result;
                 status = response.StatusCode;
 
                 if (response.IsSuccessStatusCode)
