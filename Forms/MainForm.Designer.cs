@@ -79,6 +79,7 @@
             this.AuthorizeButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MaterialPictureBox = new System.Windows.Forms.PictureBox();
+            this.HelpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitContainer)).BeginInit();
             this.MainSplitContainer.Panel1.SuspendLayout();
@@ -108,6 +109,7 @@
             this.MainMenuToolStrip.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.MainMenuToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.UserCabinetMenuItem,
+            this.HelpMenuItem,
             this.AboutProgramMenuItem});
             this.MainMenuToolStrip.Location = new System.Drawing.Point(0, 0);
             this.MainMenuToolStrip.Name = "MainMenuToolStrip";
@@ -666,6 +668,12 @@
             this.MaterialPictureBox.TabIndex = 0;
             this.MaterialPictureBox.TabStop = false;
             // 
+            // HelpMenuItem
+            // 
+            this.HelpMenuItem.Name = "HelpMenuItem";
+            this.HelpMenuItem.Size = new System.Drawing.Size(70, 21);
+            this.HelpMenuItem.Text = "Справка";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -770,6 +778,7 @@
         private System.Windows.Forms.ToolStripMenuItem UserCabinetMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ShowSmetaMenuItem;
         private System.Windows.Forms.Panel MaterialsListPanel;
+        private System.Windows.Forms.ToolStripMenuItem HelpMenuItem;
     }
 }
 
