@@ -108,7 +108,7 @@ namespace BuildCalculator
             LoadAnimation.IncrementBar();
             Invoke((MethodInvoker)delegate ()
             {
-                LeftGroupBox.Controls.Clear();
+                MaterialsListPanel.Controls.Clear();
             });
             SelectedMaterials.Clear();
 
@@ -159,8 +159,8 @@ namespace BuildCalculator
 
                         Invoke((MethodInvoker)delegate ()
                         {
-                            LeftGroupBox.Controls.Add(view_checkbox);
-                            LeftGroupBox.Controls.Add(view_button);
+                            MaterialsListPanel.Controls.Add(view_checkbox);
+                            MaterialsListPanel.Controls.Add(view_button);
                         });
                         SelectedMaterials.Add((int)button["id"], new MaterialObject());
 
@@ -340,7 +340,7 @@ namespace BuildCalculator
                 }
             }
 
-            var CheckBox = LeftGroupBox.Controls["MaterialSelectCheckBox_" + CurrentButtonIdx] as CheckBox;
+            var CheckBox = MaterialsListPanel.Controls["MaterialSelectCheckBox_" + CurrentButtonIdx] as CheckBox;
             if (SelectedMaterials[CurrentButtonIdx].MaterialId != material_id)
             {
                 ComboBox FirstComboBox = MaterialsPanel.Controls["MaterialGroupBox_" + material_id].Controls["MaterialInputFirstComboBox_" + material_id] as ComboBox;
@@ -449,7 +449,7 @@ namespace BuildCalculator
 
         private void ButtonsList_Click(object sender, EventArgs e)
         {
-            foreach (Control control in LeftGroupBox.Controls)
+            foreach (Control control in MaterialsListPanel.Controls)
             {
                 if (control is Button)
                     control.BackColor = Color.White;
@@ -616,7 +616,7 @@ namespace BuildCalculator
                             Results.Add((int)material["material_type_id"], (float)material["total_price"]);
                     }
 
-                    foreach (Control control in LeftGroupBox.Controls)
+                    foreach (Control control in MaterialsListPanel.Controls)
                     {
                         if (control is Button)
                         {
@@ -694,6 +694,7 @@ namespace BuildCalculator
                     new JProperty("token", loaded_token)
                 );
                 var Response = Net.GetRequest("api/verify", out Status, jsonObject);
+                
                 if (Status != HttpStatusCode.OK)
                 {
                     jsonObject = new JObject(
@@ -709,6 +710,7 @@ namespace BuildCalculator
                             if (Response["token"] != null)
                             {
                                 UserToken = Response["token"].ToString();
+                                pSettings.Save("token", UserToken);
                                 Invoke((MethodInvoker)delegate ()
                                 {
                                     AuthorizeButton.Text = "Выход";
@@ -749,6 +751,7 @@ namespace BuildCalculator
                     if (Response["userInfo"] != null)
                     {
                         UserToken = loaded_token;
+                        pSettings.Save("token", UserToken);
                         Invoke((MethodInvoker)delegate ()
                         {
                             AuthorizeButton.Text = "Выход";

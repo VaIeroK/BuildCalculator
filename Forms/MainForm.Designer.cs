@@ -76,6 +76,9 @@
             this.InputFirstLabel = new System.Windows.Forms.Label();
             this.MaterialSelectButton = new System.Windows.Forms.Button();
             this.MaterialPictureBox = new System.Windows.Forms.PictureBox();
+            this.UserCabinetMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ShowSmetaMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MaterialsListPanel = new System.Windows.Forms.Panel();
             this.MainMenuToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitContainer)).BeginInit();
             this.MainSplitContainer.Panel1.SuspendLayout();
@@ -97,12 +100,14 @@
             this.MaterialsPanel.SuspendLayout();
             this.MaterialGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MaterialPictureBox)).BeginInit();
+            this.MaterialsListPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainMenuToolStrip
             // 
             this.MainMenuToolStrip.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.MainMenuToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.UserCabinetMenuItem,
             this.AboutProgramMenuItem});
             this.MainMenuToolStrip.Location = new System.Drawing.Point(0, 0);
             this.MainMenuToolStrip.Name = "MainMenuToolStrip";
@@ -147,11 +152,12 @@
             // 
             // CalculateGroupBox
             // 
+            this.CalculateGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.CalculateGroupBox.Controls.Add(this.CalculateResultButton);
-            this.CalculateGroupBox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.CalculateGroupBox.Location = new System.Drawing.Point(0, 611);
+            this.CalculateGroupBox.Location = new System.Drawing.Point(3, 611);
             this.CalculateGroupBox.Name = "CalculateGroupBox";
-            this.CalculateGroupBox.Size = new System.Drawing.Size(330, 53);
+            this.CalculateGroupBox.Size = new System.Drawing.Size(327, 53);
             this.CalculateGroupBox.TabIndex = 1;
             this.CalculateGroupBox.TabStop = false;
             // 
@@ -161,7 +167,7 @@
             this.CalculateResultButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CalculateResultButton.Location = new System.Drawing.Point(3, 16);
             this.CalculateResultButton.Name = "CalculateResultButton";
-            this.CalculateResultButton.Size = new System.Drawing.Size(324, 34);
+            this.CalculateResultButton.Size = new System.Drawing.Size(321, 34);
             this.CalculateResultButton.TabIndex = 2;
             this.CalculateResultButton.Text = "Рассчитать полную смету";
             this.CalculateResultButton.UseVisualStyleBackColor = true;
@@ -172,12 +178,11 @@
             this.LeftGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.LeftGroupBox.Controls.Add(this.MaterialSelectedCheckBox);
-            this.LeftGroupBox.Controls.Add(this.MaterialButton);
+            this.LeftGroupBox.Controls.Add(this.MaterialsListPanel);
             this.LeftGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.LeftGroupBox.Location = new System.Drawing.Point(0, 0);
+            this.LeftGroupBox.Location = new System.Drawing.Point(3, 0);
             this.LeftGroupBox.Name = "LeftGroupBox";
-            this.LeftGroupBox.Size = new System.Drawing.Size(330, 611);
+            this.LeftGroupBox.Size = new System.Drawing.Size(327, 611);
             this.LeftGroupBox.TabIndex = 0;
             this.LeftGroupBox.TabStop = false;
             this.LeftGroupBox.Text = "Материалы";
@@ -187,7 +192,7 @@
             this.MaterialSelectedCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.MaterialSelectedCheckBox.AutoSize = true;
             this.MaterialSelectedCheckBox.Enabled = false;
-            this.MaterialSelectedCheckBox.Location = new System.Drawing.Point(301, 43);
+            this.MaterialSelectedCheckBox.Location = new System.Drawing.Point(291, 19);
             this.MaterialSelectedCheckBox.Name = "MaterialSelectedCheckBox";
             this.MaterialSelectedCheckBox.Size = new System.Drawing.Size(15, 14);
             this.MaterialSelectedCheckBox.TabIndex = 1;
@@ -199,9 +204,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.MaterialButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.MaterialButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.MaterialButton.Location = new System.Drawing.Point(6, 33);
+            this.MaterialButton.Location = new System.Drawing.Point(9, 9);
             this.MaterialButton.Name = "MaterialButton";
-            this.MaterialButton.Size = new System.Drawing.Size(318, 33);
+            this.MaterialButton.Size = new System.Drawing.Size(305, 33);
             this.MaterialButton.TabIndex = 0;
             this.MaterialButton.Tag = "0";
             this.MaterialButton.Text = "1. Test";
@@ -513,9 +518,9 @@
             // 
             this.AuthorizeButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.AuthorizeButton.Location = new System.Drawing.Point(6, 69);
+            this.AuthorizeButton.Location = new System.Drawing.Point(6, 68);
             this.AuthorizeButton.Name = "AuthorizeButton";
-            this.AuthorizeButton.Size = new System.Drawing.Size(249, 32);
+            this.AuthorizeButton.Size = new System.Drawing.Size(249, 35);
             this.AuthorizeButton.TabIndex = 1;
             this.AuthorizeButton.Text = "Вход / Регистрация";
             this.AuthorizeButton.UseVisualStyleBackColor = true;
@@ -631,6 +636,31 @@
             this.MaterialPictureBox.TabIndex = 0;
             this.MaterialPictureBox.TabStop = false;
             // 
+            // UserCabinetMenuItem
+            // 
+            this.UserCabinetMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ShowSmetaMenuItem});
+            this.UserCabinetMenuItem.Name = "UserCabinetMenuItem";
+            this.UserCabinetMenuItem.Size = new System.Drawing.Size(117, 21);
+            this.UserCabinetMenuItem.Text = "Личный кабинет";
+            // 
+            // ShowSmetaMenuItem
+            // 
+            this.ShowSmetaMenuItem.Name = "ShowSmetaMenuItem";
+            this.ShowSmetaMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ShowSmetaMenuItem.Text = "История смет";
+            // 
+            // MaterialsListPanel
+            // 
+            this.MaterialsListPanel.AutoScroll = true;
+            this.MaterialsListPanel.Controls.Add(this.MaterialSelectedCheckBox);
+            this.MaterialsListPanel.Controls.Add(this.MaterialButton);
+            this.MaterialsListPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MaterialsListPanel.Location = new System.Drawing.Point(3, 18);
+            this.MaterialsListPanel.Name = "MaterialsListPanel";
+            this.MaterialsListPanel.Size = new System.Drawing.Size(321, 590);
+            this.MaterialsListPanel.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -657,7 +687,6 @@
             this.MainSplitContainer.ResumeLayout(false);
             this.CalculateGroupBox.ResumeLayout(false);
             this.LeftGroupBox.ResumeLayout(false);
-            this.LeftGroupBox.PerformLayout();
             this.RightGroupBox.ResumeLayout(false);
             this.ResultGroupBox.ResumeLayout(false);
             this.ResultGroupBox.PerformLayout();
@@ -677,6 +706,8 @@
             this.MaterialGroupBox.ResumeLayout(false);
             this.MaterialGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MaterialPictureBox)).EndInit();
+            this.MaterialsListPanel.ResumeLayout(false);
+            this.MaterialsListPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -731,6 +762,9 @@
         private System.Windows.Forms.Label ResultLabel;
         private System.Windows.Forms.Label ResultCostLabel;
         private System.Windows.Forms.Label ResultRubLabel;
+        private System.Windows.Forms.ToolStripMenuItem UserCabinetMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ShowSmetaMenuItem;
+        private System.Windows.Forms.Panel MaterialsListPanel;
     }
 }
 
