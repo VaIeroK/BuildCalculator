@@ -192,7 +192,7 @@
             this.MaterialSelectedCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.MaterialSelectedCheckBox.AutoSize = true;
             this.MaterialSelectedCheckBox.Enabled = false;
-            this.MaterialSelectedCheckBox.Location = new System.Drawing.Point(291, 19);
+            this.MaterialSelectedCheckBox.Location = new System.Drawing.Point(290, 19);
             this.MaterialSelectedCheckBox.Name = "MaterialSelectedCheckBox";
             this.MaterialSelectedCheckBox.Size = new System.Drawing.Size(15, 14);
             this.MaterialSelectedCheckBox.TabIndex = 1;
@@ -204,7 +204,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.MaterialButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.MaterialButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.MaterialButton.Location = new System.Drawing.Point(9, 9);
+            this.MaterialButton.Location = new System.Drawing.Point(8, 9);
             this.MaterialButton.Name = "MaterialButton";
             this.MaterialButton.Size = new System.Drawing.Size(305, 33);
             this.MaterialButton.TabIndex = 0;
@@ -640,6 +640,7 @@
             // 
             this.UserCabinetMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ShowSmetaMenuItem});
+            this.UserCabinetMenuItem.Enabled = false;
             this.UserCabinetMenuItem.Name = "UserCabinetMenuItem";
             this.UserCabinetMenuItem.Size = new System.Drawing.Size(117, 21);
             this.UserCabinetMenuItem.Text = "Личный кабинет";
@@ -649,6 +650,7 @@
             this.ShowSmetaMenuItem.Name = "ShowSmetaMenuItem";
             this.ShowSmetaMenuItem.Size = new System.Drawing.Size(180, 22);
             this.ShowSmetaMenuItem.Text = "История смет";
+            this.ShowSmetaMenuItem.Click += new System.EventHandler(this.ShowSmetaMenuItem_Click);
             // 
             // MaterialsListPanel
             // 

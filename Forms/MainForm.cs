@@ -29,7 +29,7 @@ namespace BuildCalculator
         private int CurrentRow;
         private int CurrentColumn;
         private int CurrentButtonIdx;
-        public static string UserToken = null;
+        public static string UserToken = "";
         public static Settings pSettings = null;
         private Dictionary<string, Bitmap> CachedImages;
         private Dictionary<int, JObject> CachedMaterials;
@@ -40,6 +40,7 @@ namespace BuildCalculator
         {
             CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
             InitializeComponent();
+
             CurrentButtonIdx = -1;
             CachedImages = new Dictionary<string, Bitmap>();
             SelectedMaterials = new Dictionary<int, MaterialObject>();
@@ -72,6 +73,10 @@ namespace BuildCalculator
             LoadMaterialButtons();
             LoadBuildInfo();
             LoadAnimation.StopAnimation();
+            Invoke((MethodInvoker)delegate ()
+            {
+                Controls["MainMenuToolStrip"].Visible = true;
+            });
         }
 
         private void LoadBuildInfo()
@@ -661,6 +666,7 @@ namespace BuildCalculator
                 pSettings.Save("token", UserToken);
                 pSettings.Save("username", "");
                 pSettings.Save("password", "");
+                UserCabinetMenuItem.Enabled = false;
             }
             else
             {
@@ -675,6 +681,7 @@ namespace BuildCalculator
                     pSettings.Save("username", form.UserLogin);
                     pSettings.Save("password", form.UserPassword);
                     AuthorizeButton.Text = "Выход";
+                    UserCabinetMenuItem.Enabled = true;
                 }
                 form.DestroyIcon();
             }
@@ -714,6 +721,7 @@ namespace BuildCalculator
                                 Invoke((MethodInvoker)delegate ()
                                 {
                                     AuthorizeButton.Text = "Выход";
+                                    UserCabinetMenuItem.Enabled = true;
                                 });
 
                                 if (Response["user"] != null)
@@ -755,6 +763,7 @@ namespace BuildCalculator
                         Invoke((MethodInvoker)delegate ()
                         {
                             AuthorizeButton.Text = "Выход";
+                            UserCabinetMenuItem.Enabled = true;
                         });
                         JObject UserData = Response["userInfo"] as JObject;
                         if (UserData["name"] != null && UserData["lastname"] != null)
@@ -840,6 +849,17 @@ namespace BuildCalculator
                 }
             }
             return null;
+        }
+
+        private void ShowSmetaMenuItem_Click(object sender, EventArgs e)
+        {
+            if (UserToken != "")
+            {
+                SmetaHistory smetaHistory = new SmetaHistory();
+                smetaHistory.ShowDialog();
+            }
+            else
+                MessageBox.Show("Ошибка. Пользователь не залогинен в аккаунт", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

@@ -79,7 +79,6 @@ namespace BuildCalculator.Classes
             ParentForm.Invoke((MethodInvoker)delegate ()
             {
                 ParentForm.Controls.Remove(ParentForm.Controls["AnimationGroupBox"]);
-                ParentForm.Controls["MainMenuToolStrip"].Visible = true;
             });
         }
 
