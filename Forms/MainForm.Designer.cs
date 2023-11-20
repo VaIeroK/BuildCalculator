@@ -30,12 +30,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MainMenuToolStrip = new System.Windows.Forms.MenuStrip();
+            this.UserCabinetMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ShowSmetaMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutProgramMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainStatusStrip = new System.Windows.Forms.StatusStrip();
             this.MainSplitContainer = new System.Windows.Forms.SplitContainer();
             this.CalculateGroupBox = new System.Windows.Forms.GroupBox();
             this.CalculateResultButton = new System.Windows.Forms.Button();
             this.LeftGroupBox = new System.Windows.Forms.GroupBox();
+            this.MaterialsListPanel = new System.Windows.Forms.Panel();
             this.MaterialSelectedCheckBox = new System.Windows.Forms.CheckBox();
             this.MaterialButton = new System.Windows.Forms.Button();
             this.RightGroupBox = new System.Windows.Forms.GroupBox();
@@ -76,9 +79,6 @@
             this.InputFirstLabel = new System.Windows.Forms.Label();
             this.MaterialSelectButton = new System.Windows.Forms.Button();
             this.MaterialPictureBox = new System.Windows.Forms.PictureBox();
-            this.UserCabinetMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ShowSmetaMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.MaterialsListPanel = new System.Windows.Forms.Panel();
             this.MainMenuToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitContainer)).BeginInit();
             this.MainSplitContainer.Panel1.SuspendLayout();
@@ -86,6 +86,7 @@
             this.MainSplitContainer.SuspendLayout();
             this.CalculateGroupBox.SuspendLayout();
             this.LeftGroupBox.SuspendLayout();
+            this.MaterialsListPanel.SuspendLayout();
             this.RightGroupBox.SuspendLayout();
             this.ResultGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InfoSplitContainer)).BeginInit();
@@ -100,7 +101,6 @@
             this.MaterialsPanel.SuspendLayout();
             this.MaterialGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MaterialPictureBox)).BeginInit();
-            this.MaterialsListPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainMenuToolStrip
@@ -114,6 +114,22 @@
             this.MainMenuToolStrip.Size = new System.Drawing.Size(1338, 25);
             this.MainMenuToolStrip.TabIndex = 0;
             this.MainMenuToolStrip.Text = "MainMenuStrip";
+            // 
+            // UserCabinetMenuItem
+            // 
+            this.UserCabinetMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ShowSmetaMenuItem});
+            this.UserCabinetMenuItem.Enabled = false;
+            this.UserCabinetMenuItem.Name = "UserCabinetMenuItem";
+            this.UserCabinetMenuItem.Size = new System.Drawing.Size(117, 21);
+            this.UserCabinetMenuItem.Text = "Личный кабинет";
+            // 
+            // ShowSmetaMenuItem
+            // 
+            this.ShowSmetaMenuItem.Name = "ShowSmetaMenuItem";
+            this.ShowSmetaMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.ShowSmetaMenuItem.Text = "История смет";
+            this.ShowSmetaMenuItem.Click += new System.EventHandler(this.ShowSmetaMenuItem_Click);
             // 
             // AboutProgramMenuItem
             // 
@@ -186,6 +202,17 @@
             this.LeftGroupBox.TabIndex = 0;
             this.LeftGroupBox.TabStop = false;
             this.LeftGroupBox.Text = "Материалы";
+            // 
+            // MaterialsListPanel
+            // 
+            this.MaterialsListPanel.AutoScroll = true;
+            this.MaterialsListPanel.Controls.Add(this.MaterialSelectedCheckBox);
+            this.MaterialsListPanel.Controls.Add(this.MaterialButton);
+            this.MaterialsListPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MaterialsListPanel.Location = new System.Drawing.Point(3, 18);
+            this.MaterialsListPanel.Name = "MaterialsListPanel";
+            this.MaterialsListPanel.Size = new System.Drawing.Size(321, 590);
+            this.MaterialsListPanel.TabIndex = 0;
             // 
             // MaterialSelectedCheckBox
             // 
@@ -289,7 +316,6 @@
             this.InfoSplitContainer.Panel2MinSize = 261;
             this.InfoSplitContainer.Size = new System.Drawing.Size(996, 110);
             this.InfoSplitContainer.SplitterDistance = 731;
-            this.InfoSplitContainer.SplitterWidth = 6;
             this.InfoSplitContainer.TabIndex = 1;
             // 
             // BuildSizeGroupBox
@@ -518,6 +544,8 @@
             // 
             this.AuthorizeButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.AuthorizeButton.Image = global::BuildCalculator.Properties.Resources.Enter;
+            this.AuthorizeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.AuthorizeButton.Location = new System.Drawing.Point(6, 68);
             this.AuthorizeButton.Name = "AuthorizeButton";
             this.AuthorizeButton.Size = new System.Drawing.Size(249, 35);
@@ -636,33 +664,6 @@
             this.MaterialPictureBox.TabIndex = 0;
             this.MaterialPictureBox.TabStop = false;
             // 
-            // UserCabinetMenuItem
-            // 
-            this.UserCabinetMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ShowSmetaMenuItem});
-            this.UserCabinetMenuItem.Enabled = false;
-            this.UserCabinetMenuItem.Name = "UserCabinetMenuItem";
-            this.UserCabinetMenuItem.Size = new System.Drawing.Size(117, 21);
-            this.UserCabinetMenuItem.Text = "Личный кабинет";
-            // 
-            // ShowSmetaMenuItem
-            // 
-            this.ShowSmetaMenuItem.Name = "ShowSmetaMenuItem";
-            this.ShowSmetaMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.ShowSmetaMenuItem.Text = "История смет";
-            this.ShowSmetaMenuItem.Click += new System.EventHandler(this.ShowSmetaMenuItem_Click);
-            // 
-            // MaterialsListPanel
-            // 
-            this.MaterialsListPanel.AutoScroll = true;
-            this.MaterialsListPanel.Controls.Add(this.MaterialSelectedCheckBox);
-            this.MaterialsListPanel.Controls.Add(this.MaterialButton);
-            this.MaterialsListPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MaterialsListPanel.Location = new System.Drawing.Point(3, 18);
-            this.MaterialsListPanel.Name = "MaterialsListPanel";
-            this.MaterialsListPanel.Size = new System.Drawing.Size(321, 590);
-            this.MaterialsListPanel.TabIndex = 0;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -689,6 +690,8 @@
             this.MainSplitContainer.ResumeLayout(false);
             this.CalculateGroupBox.ResumeLayout(false);
             this.LeftGroupBox.ResumeLayout(false);
+            this.MaterialsListPanel.ResumeLayout(false);
+            this.MaterialsListPanel.PerformLayout();
             this.RightGroupBox.ResumeLayout(false);
             this.ResultGroupBox.ResumeLayout(false);
             this.ResultGroupBox.PerformLayout();
@@ -708,8 +711,6 @@
             this.MaterialGroupBox.ResumeLayout(false);
             this.MaterialGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MaterialPictureBox)).EndInit();
-            this.MaterialsListPanel.ResumeLayout(false);
-            this.MaterialsListPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -2,6 +2,7 @@
 
 using BuildCalculator.Classes;
 using BuildCalculator.Forms;
+using BuildCalculator.Properties;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -30,7 +31,7 @@ namespace BuildCalculator
         private int CurrentColumn;
         private int CurrentButtonIdx;
         public static string UserToken = "";
-        public static Settings pSettings = null;
+        public static ProgramSettings pSettings = null;
         private Dictionary<string, Bitmap> CachedImages;
         private Dictionary<int, JObject> CachedMaterials;
         private Dictionary<int, MaterialObject> SelectedMaterials;
@@ -46,7 +47,7 @@ namespace BuildCalculator
             SelectedMaterials = new Dictionary<int, MaterialObject>();
             CachedMaterials = new Dictionary<int, JObject>();
 
-            pSettings = new Settings("Settings.ini");
+            pSettings = new ProgramSettings("Settings.ini");
             pSettings.SaveVersion();
 
             FloatTextBox_TextChanged(BuildWidthTextBox, null);
@@ -661,6 +662,7 @@ namespace BuildCalculator
             if (button.Text == "Выход")
             {
                 button.Text = "Вход / Регистрация";
+                button.Image = Resources.Enter;
                 UserNameLabel.Text = "Не авторизован";
                 UserToken = "";
                 pSettings.Save("token", UserToken);
@@ -680,7 +682,8 @@ namespace BuildCalculator
                     pSettings.Save("token", UserToken);
                     pSettings.Save("username", form.UserLogin);
                     pSettings.Save("password", form.UserPassword);
-                    AuthorizeButton.Text = "Выход";
+                    button.Text = "Выход";
+                    button.Image = Resources.Exit;
                     UserCabinetMenuItem.Enabled = true;
                 }
                 form.DestroyIcon();
@@ -721,6 +724,7 @@ namespace BuildCalculator
                                 Invoke((MethodInvoker)delegate ()
                                 {
                                     AuthorizeButton.Text = "Выход";
+                                    AuthorizeButton.Image = Resources.Exit;
                                     UserCabinetMenuItem.Enabled = true;
                                 });
 
@@ -763,6 +767,7 @@ namespace BuildCalculator
                         Invoke((MethodInvoker)delegate ()
                         {
                             AuthorizeButton.Text = "Выход";
+                            AuthorizeButton.Image = Resources.Exit;
                             UserCabinetMenuItem.Enabled = true;
                         });
                         JObject UserData = Response["userInfo"] as JObject;

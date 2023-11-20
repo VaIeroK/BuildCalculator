@@ -4,7 +4,7 @@ using System.IO;
 
 namespace BuildCalculator.Classes
 {
-    public class Settings
+    public class ProgramSettings
     {
         private IniFile pSettings = null;
         private string sMainSect = "settings";
@@ -17,12 +17,12 @@ namespace BuildCalculator.Classes
             return vers == SETTINGS_VERS;
         }
 
-        public Settings(string IniPath = null)
+        public ProgramSettings(string IniPath = null)
         {
             pSettings = new IniFile(IniPath);
         }
 
-        public Settings(string IniPath = null, string init_write = null)
+        public ProgramSettings(string IniPath = null, string init_write = null)
         {
             pSettings = new IniFile(IniPath, init_write);
         }
