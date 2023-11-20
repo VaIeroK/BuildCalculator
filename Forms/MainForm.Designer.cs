@@ -68,8 +68,6 @@
             this.BuildSizeLabel = new System.Windows.Forms.Label();
             this.UserGroupBox = new System.Windows.Forms.GroupBox();
             this.UserNameLabel = new System.Windows.Forms.Label();
-            this.AuthorizeButton = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MaterialsListGroupBox = new System.Windows.Forms.GroupBox();
             this.MaterialsPanel = new System.Windows.Forms.Panel();
             this.MaterialGroupBox = new System.Windows.Forms.GroupBox();
@@ -78,6 +76,8 @@
             this.InputFirstComboBox = new System.Windows.Forms.ComboBox();
             this.InputFirstLabel = new System.Windows.Forms.Label();
             this.MaterialSelectButton = new System.Windows.Forms.Button();
+            this.AuthorizeButton = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MaterialPictureBox = new System.Windows.Forms.PictureBox();
             this.MainMenuToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitContainer)).BeginInit();
@@ -96,10 +96,10 @@
             this.BuildSizeGroupBox.SuspendLayout();
             this.BuildSizeResultGroupBox.SuspendLayout();
             this.UserGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.MaterialsListGroupBox.SuspendLayout();
             this.MaterialsPanel.SuspendLayout();
             this.MaterialGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaterialPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -181,6 +181,8 @@
             // 
             this.CalculateResultButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CalculateResultButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CalculateResultButton.Image = global::BuildCalculator.Properties.Resources.Smeta;
+            this.CalculateResultButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.CalculateResultButton.Location = new System.Drawing.Point(3, 16);
             this.CalculateResultButton.Name = "CalculateResultButton";
             this.CalculateResultButton.Size = new System.Drawing.Size(321, 34);
@@ -540,30 +542,6 @@
             this.UserNameLabel.TabIndex = 2;
             this.UserNameLabel.Text = "Не авторизован";
             // 
-            // AuthorizeButton
-            // 
-            this.AuthorizeButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.AuthorizeButton.Image = global::BuildCalculator.Properties.Resources.Enter;
-            this.AuthorizeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.AuthorizeButton.Location = new System.Drawing.Point(6, 68);
-            this.AuthorizeButton.Name = "AuthorizeButton";
-            this.AuthorizeButton.Size = new System.Drawing.Size(249, 35);
-            this.AuthorizeButton.TabIndex = 1;
-            this.AuthorizeButton.Text = "Вход / Регистрация";
-            this.AuthorizeButton.UseVisualStyleBackColor = true;
-            this.AuthorizeButton.Click += new System.EventHandler(this.AuthorizeButton_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::BuildCalculator.Properties.Resources.icon_user;
-            this.pictureBox1.Location = new System.Drawing.Point(6, 21);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
             // MaterialsListGroupBox
             // 
             this.MaterialsListGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -655,6 +633,30 @@
             this.MaterialSelectButton.Text = "Выбрать";
             this.MaterialSelectButton.UseVisualStyleBackColor = true;
             // 
+            // AuthorizeButton
+            // 
+            this.AuthorizeButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.AuthorizeButton.Image = global::BuildCalculator.Properties.Resources.Enter;
+            this.AuthorizeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.AuthorizeButton.Location = new System.Drawing.Point(6, 68);
+            this.AuthorizeButton.Name = "AuthorizeButton";
+            this.AuthorizeButton.Size = new System.Drawing.Size(249, 35);
+            this.AuthorizeButton.TabIndex = 1;
+            this.AuthorizeButton.Text = "Вход / Регистрация";
+            this.AuthorizeButton.UseVisualStyleBackColor = true;
+            this.AuthorizeButton.Click += new System.EventHandler(this.AuthorizeButton_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::BuildCalculator.Properties.Resources.icon_user;
+            this.pictureBox1.Location = new System.Drawing.Point(6, 21);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
             // MaterialPictureBox
             // 
             this.MaterialPictureBox.Location = new System.Drawing.Point(7, 49);
@@ -705,11 +707,11 @@
             this.BuildSizeResultGroupBox.PerformLayout();
             this.UserGroupBox.ResumeLayout(false);
             this.UserGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.MaterialsListGroupBox.ResumeLayout(false);
             this.MaterialsPanel.ResumeLayout(false);
             this.MaterialGroupBox.ResumeLayout(false);
             this.MaterialGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaterialPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

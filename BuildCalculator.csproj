@@ -144,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MainIcon.ico" />
+    <None Include="Resources\Smeta.png" />
     <None Include="Resources\Enter.png" />
     <None Include="Resources\Exit.png" />
     <Content Include="Resources\MainIcon.ico" />
