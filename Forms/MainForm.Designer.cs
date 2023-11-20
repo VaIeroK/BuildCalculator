@@ -275,18 +275,18 @@
             this.ResultRubLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ResultRubLabel.AutoSize = true;
             this.ResultRubLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ResultRubLabel.Location = new System.Drawing.Point(937, 17);
+            this.ResultRubLabel.Location = new System.Drawing.Point(971, 17);
             this.ResultRubLabel.Name = "ResultRubLabel";
-            this.ResultRubLabel.Size = new System.Drawing.Size(47, 24);
+            this.ResultRubLabel.Size = new System.Drawing.Size(21, 24);
             this.ResultRubLabel.TabIndex = 2;
-            this.ResultRubLabel.Text = "РУБ";
+            this.ResultRubLabel.Text = "₽";
             // 
             // ResultCostLabel
             // 
             this.ResultCostLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ResultCostLabel.AutoSize = true;
             this.ResultCostLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ResultCostLabel.Location = new System.Drawing.Point(916, 16);
+            this.ResultCostLabel.Location = new System.Drawing.Point(950, 16);
             this.ResultCostLabel.Name = "ResultCostLabel";
             this.ResultCostLabel.Size = new System.Drawing.Size(24, 25);
             this.ResultCostLabel.TabIndex = 1;

@@ -652,19 +652,19 @@ namespace BuildCalculator
                                 control.Text = control.Text.Substring(0, indexOfColon);
 
                             if (Results.ContainsKey(b_id))
-                                control.Text += $": {Results[b_id]} руб";
+                                control.Text += $": {Results[b_id]} ₽";
                         }
                     }
 
                     int symbol_step = 10;
                     ResultCostLabel.Text = $"{Results.Values.Sum()}";
-                    ResultCostLabel.Location = new Point((916 - (ResultCostLabel.Text.Length - 1) * symbol_step), 16);
+                    ResultCostLabel.Location = new Point((950 - (ResultCostLabel.Text.Length - 1) * symbol_step), 16);
                 }
             }
             else
             {
                 ResultCostLabel.Text = "0";
-                ResultCostLabel.Location = new Point(916, 16); // дефолтная позиция
+                ResultCostLabel.Location = new Point(950, 16); // дефолтная позиция
             }
         }
 
