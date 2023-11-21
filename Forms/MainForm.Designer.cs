@@ -32,11 +32,11 @@
             this.MainMenuToolStrip = new System.Windows.Forms.MenuStrip();
             this.UserCabinetMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ShowSmetaMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.HelpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutProgramMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainStatusStrip = new System.Windows.Forms.StatusStrip();
             this.MainSplitContainer = new System.Windows.Forms.SplitContainer();
             this.CalculateGroupBox = new System.Windows.Forms.GroupBox();
-            this.CalculateResultButton = new System.Windows.Forms.Button();
             this.LeftGroupBox = new System.Windows.Forms.GroupBox();
             this.MaterialsListPanel = new System.Windows.Forms.Panel();
             this.MaterialSelectedCheckBox = new System.Windows.Forms.CheckBox();
@@ -76,10 +76,10 @@
             this.InputFirstComboBox = new System.Windows.Forms.ComboBox();
             this.InputFirstLabel = new System.Windows.Forms.Label();
             this.MaterialSelectButton = new System.Windows.Forms.Button();
+            this.CalculateResultButton = new System.Windows.Forms.Button();
             this.AuthorizeButton = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.UserPictureBox = new System.Windows.Forms.PictureBox();
             this.MaterialPictureBox = new System.Windows.Forms.PictureBox();
-            this.HelpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitContainer)).BeginInit();
             this.MainSplitContainer.Panel1.SuspendLayout();
@@ -100,7 +100,7 @@
             this.MaterialsListGroupBox.SuspendLayout();
             this.MaterialsPanel.SuspendLayout();
             this.MaterialGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UserPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaterialPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -133,11 +133,19 @@
             this.ShowSmetaMenuItem.Text = "История смет";
             this.ShowSmetaMenuItem.Click += new System.EventHandler(this.ShowSmetaMenuItem_Click);
             // 
+            // HelpMenuItem
+            // 
+            this.HelpMenuItem.Name = "HelpMenuItem";
+            this.HelpMenuItem.Size = new System.Drawing.Size(70, 21);
+            this.HelpMenuItem.Text = "Справка";
+            this.HelpMenuItem.Click += new System.EventHandler(this.HelpMenuItem_Click);
+            // 
             // AboutProgramMenuItem
             // 
             this.AboutProgramMenuItem.Name = "AboutProgramMenuItem";
             this.AboutProgramMenuItem.Size = new System.Drawing.Size(102, 21);
             this.AboutProgramMenuItem.Text = "О программе";
+            this.AboutProgramMenuItem.Click += new System.EventHandler(this.AboutProgramMenuItem_Click);
             // 
             // MainStatusStrip
             // 
@@ -178,20 +186,6 @@
             this.CalculateGroupBox.Size = new System.Drawing.Size(327, 53);
             this.CalculateGroupBox.TabIndex = 1;
             this.CalculateGroupBox.TabStop = false;
-            // 
-            // CalculateResultButton
-            // 
-            this.CalculateResultButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CalculateResultButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CalculateResultButton.Image = global::BuildCalculator.Properties.Resources.Smeta;
-            this.CalculateResultButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.CalculateResultButton.Location = new System.Drawing.Point(3, 16);
-            this.CalculateResultButton.Name = "CalculateResultButton";
-            this.CalculateResultButton.Size = new System.Drawing.Size(321, 34);
-            this.CalculateResultButton.TabIndex = 2;
-            this.CalculateResultButton.Text = "Рассчитать полную смету";
-            this.CalculateResultButton.UseVisualStyleBackColor = true;
-            this.CalculateResultButton.Click += new System.EventHandler(this.CalculateResultButton_Click);
             // 
             // LeftGroupBox
             // 
@@ -524,7 +518,7 @@
             // 
             this.UserGroupBox.Controls.Add(this.UserNameLabel);
             this.UserGroupBox.Controls.Add(this.AuthorizeButton);
-            this.UserGroupBox.Controls.Add(this.pictureBox1);
+            this.UserGroupBox.Controls.Add(this.UserPictureBox);
             this.UserGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.UserGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.UserGroupBox.Location = new System.Drawing.Point(0, 0);
@@ -635,6 +629,20 @@
             this.MaterialSelectButton.Text = "Выбрать";
             this.MaterialSelectButton.UseVisualStyleBackColor = true;
             // 
+            // CalculateResultButton
+            // 
+            this.CalculateResultButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CalculateResultButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CalculateResultButton.Image = global::BuildCalculator.Properties.Resources.Smeta;
+            this.CalculateResultButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CalculateResultButton.Location = new System.Drawing.Point(3, 16);
+            this.CalculateResultButton.Name = "CalculateResultButton";
+            this.CalculateResultButton.Size = new System.Drawing.Size(321, 34);
+            this.CalculateResultButton.TabIndex = 2;
+            this.CalculateResultButton.Text = "Рассчитать полную смету";
+            this.CalculateResultButton.UseVisualStyleBackColor = true;
+            this.CalculateResultButton.Click += new System.EventHandler(this.CalculateResultButton_Click);
+            // 
             // AuthorizeButton
             // 
             this.AuthorizeButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -649,15 +657,15 @@
             this.AuthorizeButton.UseVisualStyleBackColor = true;
             this.AuthorizeButton.Click += new System.EventHandler(this.AuthorizeButton_Click);
             // 
-            // pictureBox1
+            // UserPictureBox
             // 
-            this.pictureBox1.Image = global::BuildCalculator.Properties.Resources.icon_user;
-            this.pictureBox1.Location = new System.Drawing.Point(6, 21);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.UserPictureBox.Image = global::BuildCalculator.Properties.Resources.icon_user;
+            this.UserPictureBox.Location = new System.Drawing.Point(6, 21);
+            this.UserPictureBox.Name = "UserPictureBox";
+            this.UserPictureBox.Size = new System.Drawing.Size(32, 32);
+            this.UserPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.UserPictureBox.TabIndex = 0;
+            this.UserPictureBox.TabStop = false;
             // 
             // MaterialPictureBox
             // 
@@ -667,12 +675,6 @@
             this.MaterialPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.MaterialPictureBox.TabIndex = 0;
             this.MaterialPictureBox.TabStop = false;
-            // 
-            // HelpMenuItem
-            // 
-            this.HelpMenuItem.Name = "HelpMenuItem";
-            this.HelpMenuItem.Size = new System.Drawing.Size(70, 21);
-            this.HelpMenuItem.Text = "Справка";
             // 
             // MainForm
             // 
@@ -719,7 +721,7 @@
             this.MaterialsPanel.ResumeLayout(false);
             this.MaterialGroupBox.ResumeLayout(false);
             this.MaterialGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UserPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaterialPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -754,7 +756,7 @@
         private System.Windows.Forms.Label FoundationLengthResultLabel;
         private System.Windows.Forms.Label BuildPerimeterResultLabel;
         private System.Windows.Forms.GroupBox UserGroupBox;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox UserPictureBox;
         private System.Windows.Forms.Button AuthorizeButton;
         private System.Windows.Forms.Label BuildLengthMeterLabel;
         private System.Windows.Forms.Label BuildWidthMeterLabel;

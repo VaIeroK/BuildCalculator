@@ -27,6 +27,7 @@ namespace BuildCalculator
 {
     public partial class MainForm : Form
     {
+        private const string ProgramVersion = "1.0";
         private const int GroupBoxMargin = 10;
         private int CurrentRow;
         private int CurrentColumn;
@@ -906,6 +907,16 @@ namespace BuildCalculator
             }
             else
                 MessageBox.Show("Ошибка. Пользователь не залогинен в аккаунт", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void HelpMenuItem_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void AboutProgramMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutProgramForm form = new AboutProgramForm(ProgramVersion);
+            form.ShowDialog();
         }
     }
 }
