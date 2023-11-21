@@ -5,6 +5,8 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildCalculator", "BuildCalculator.csproj", "{56823B51-12D3-4A9A-A406-B5A4660D8A67}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHubUpdate", "GitHubUpdate\GitHubUpdate.csproj", "{D3121CDD-5BBD-4EF9-A268-8F2C0FDB900A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{56823B51-12D3-4A9A-A406-B5A4660D8A67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56823B51-12D3-4A9A-A406-B5A4660D8A67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56823B51-12D3-4A9A-A406-B5A4660D8A67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3121CDD-5BBD-4EF9-A268-8F2C0FDB900A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3121CDD-5BBD-4EF9-A268-8F2C0FDB900A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3121CDD-5BBD-4EF9-A268-8F2C0FDB900A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3121CDD-5BBD-4EF9-A268-8F2C0FDB900A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -21,13 +21,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GitHubUpdate;
 
 // Шыша corporation © 2023
 namespace BuildCalculator
 {
     public partial class MainForm : Form
     {
-        private const string ProgramVersion = "1.0";
+        private const string ProgramVersion = "1.1";
         private const int GroupBoxMargin = 10;
         private int CurrentRow;
         private int CurrentColumn;
@@ -55,6 +56,8 @@ namespace BuildCalculator
 
             FloatTextBox_TextChanged(BuildWidthTextBox, null);
             FloatTextBox_TextChanged(BuildLengthTextBox, null);
+
+            AutoCheckUpdates();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -81,6 +84,44 @@ namespace BuildCalculator
             {
                 Controls["MainMenuToolStrip"].Visible = true;
             });
+        }
+
+        public void AutoCheckUpdates()
+        {
+            DateTime current_time = DateTime.Now;
+            DateTime last_update_time = pSettings.Load("LastUpdateTime", new System.DateTime(1970, 1, 1));
+
+            int days_passed = Convert.ToInt32((current_time - last_update_time).TotalDays);
+
+            if (days_passed >= 1)
+            {
+                string user = "VaIeroK";
+                string repo = "BuildCalculator";
+                string vers = ProgramVersion;
+                string asset = "Build.Calculator.";
+
+                try
+                {
+                    UpdateChecker checker;
+                    checker = new UpdateChecker(user, repo, vers);
+                    checker.CheckUpdate().ContinueWith((continuation) =>
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            if (continuation.Result != UpdateType.None)
+                            {
+                                var result = new UpdateNotifyDialog(checker).ShowDialog();
+                                if (result == DialogResult.Yes)
+                                {
+                                    checker.DownloadAsset(asset);
+                                }
+                            }
+                        }));
+                    });
+                }
+                catch (Exception) { }
+                pSettings.Save("LastUpdateTime", current_time);
+            }
         }
 
         private void LoadBuildInfo()
