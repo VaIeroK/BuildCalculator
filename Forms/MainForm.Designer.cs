@@ -39,9 +39,6 @@
             this.CalculateGroupBox = new System.Windows.Forms.GroupBox();
             this.CalculateResultButton = new System.Windows.Forms.Button();
             this.LeftGroupBox = new System.Windows.Forms.GroupBox();
-            this.MaterialsListPanel = new System.Windows.Forms.Panel();
-            this.MaterialSelectedCheckBox = new System.Windows.Forms.CheckBox();
-            this.MaterialButton = new System.Windows.Forms.Button();
             this.RightGroupBox = new System.Windows.Forms.GroupBox();
             this.ResultGroupBox = new System.Windows.Forms.GroupBox();
             this.ResultRubLabel = new System.Windows.Forms.Label();
@@ -80,6 +77,11 @@
             this.InputFirstLabel = new System.Windows.Forms.Label();
             this.MaterialSelectButton = new System.Windows.Forms.Button();
             this.MaterialPictureBox = new System.Windows.Forms.PictureBox();
+            this.MaterialsTabControl = new System.Windows.Forms.TabControl();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.MaterialButton = new System.Windows.Forms.Button();
+            this.MaterialSelectedCheckBox = new System.Windows.Forms.CheckBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.MainMenuToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitContainer)).BeginInit();
             this.MainSplitContainer.Panel1.SuspendLayout();
@@ -87,7 +89,6 @@
             this.MainSplitContainer.SuspendLayout();
             this.CalculateGroupBox.SuspendLayout();
             this.LeftGroupBox.SuspendLayout();
-            this.MaterialsListPanel.SuspendLayout();
             this.RightGroupBox.SuspendLayout();
             this.ResultGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InfoSplitContainer)).BeginInit();
@@ -102,6 +103,8 @@
             this.MaterialsPanel.SuspendLayout();
             this.MaterialGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MaterialPictureBox)).BeginInit();
+            this.MaterialsTabControl.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainMenuToolStrip
@@ -206,7 +209,7 @@
             this.LeftGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.LeftGroupBox.Controls.Add(this.MaterialsListPanel);
+            this.LeftGroupBox.Controls.Add(this.MaterialsTabControl);
             this.LeftGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.LeftGroupBox.Location = new System.Drawing.Point(3, 0);
             this.LeftGroupBox.Name = "LeftGroupBox";
@@ -214,45 +217,6 @@
             this.LeftGroupBox.TabIndex = 0;
             this.LeftGroupBox.TabStop = false;
             this.LeftGroupBox.Text = "Материалы";
-            // 
-            // MaterialsListPanel
-            // 
-            this.MaterialsListPanel.AutoScroll = true;
-            this.MaterialsListPanel.Controls.Add(this.MaterialSelectedCheckBox);
-            this.MaterialsListPanel.Controls.Add(this.MaterialButton);
-            this.MaterialsListPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MaterialsListPanel.Location = new System.Drawing.Point(3, 18);
-            this.MaterialsListPanel.Name = "MaterialsListPanel";
-            this.MaterialsListPanel.Size = new System.Drawing.Size(321, 590);
-            this.MaterialsListPanel.TabIndex = 0;
-            // 
-            // MaterialSelectedCheckBox
-            // 
-            this.MaterialSelectedCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.MaterialSelectedCheckBox.AutoSize = true;
-            this.MaterialSelectedCheckBox.Enabled = false;
-            this.MaterialSelectedCheckBox.Location = new System.Drawing.Point(290, 19);
-            this.MaterialSelectedCheckBox.Name = "MaterialSelectedCheckBox";
-            this.MaterialSelectedCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.MaterialSelectedCheckBox.TabIndex = 1;
-            this.MaterialSelectedCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // MaterialButton
-            // 
-            this.MaterialButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.MaterialButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.MaterialButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.MaterialButton.Location = new System.Drawing.Point(8, 9);
-            this.MaterialButton.Name = "MaterialButton";
-            this.MaterialButton.Size = new System.Drawing.Size(305, 33);
-            this.MaterialButton.TabIndex = 0;
-            this.MaterialButton.Tag = "0";
-            this.MaterialButton.Text = "1. Test";
-            this.MaterialButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.MaterialButton.UseVisualStyleBackColor = true;
-            this.MaterialButton.Visible = false;
-            this.MaterialButton.Click += new System.EventHandler(this.ButtonsList_Click);
             // 
             // RightGroupBox
             // 
@@ -676,6 +640,69 @@
             this.MaterialPictureBox.TabIndex = 0;
             this.MaterialPictureBox.TabStop = false;
             // 
+            // MaterialsTabControl
+            // 
+            this.MaterialsTabControl.Controls.Add(this.tabPage1);
+            this.MaterialsTabControl.Controls.Add(this.tabPage2);
+            this.MaterialsTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MaterialsTabControl.Location = new System.Drawing.Point(3, 18);
+            this.MaterialsTabControl.Name = "MaterialsTabControl";
+            this.MaterialsTabControl.SelectedIndex = 0;
+            this.MaterialsTabControl.Size = new System.Drawing.Size(321, 590);
+            this.MaterialsTabControl.TabIndex = 0;
+            this.MaterialsTabControl.SelectedIndexChanged += new System.EventHandler(this.MaterialsTabControl_SelectedIndexChanged);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(313, 561);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "SecondPage";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // MaterialButton
+            // 
+            this.MaterialButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.MaterialButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.MaterialButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.MaterialButton.Location = new System.Drawing.Point(6, 6);
+            this.MaterialButton.Name = "MaterialButton";
+            this.MaterialButton.Size = new System.Drawing.Size(301, 33);
+            this.MaterialButton.TabIndex = 0;
+            this.MaterialButton.Tag = "0";
+            this.MaterialButton.Text = "1. Test";
+            this.MaterialButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.MaterialButton.UseVisualStyleBackColor = true;
+            this.MaterialButton.Visible = false;
+            this.MaterialButton.Click += new System.EventHandler(this.ButtonsList_Click);
+            // 
+            // MaterialSelectedCheckBox
+            // 
+            this.MaterialSelectedCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.MaterialSelectedCheckBox.AutoSize = true;
+            this.MaterialSelectedCheckBox.Enabled = false;
+            this.MaterialSelectedCheckBox.Location = new System.Drawing.Point(284, 16);
+            this.MaterialSelectedCheckBox.Name = "MaterialSelectedCheckBox";
+            this.MaterialSelectedCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.MaterialSelectedCheckBox.TabIndex = 1;
+            this.MaterialSelectedCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.AutoScroll = true;
+            this.tabPage1.Controls.Add(this.MaterialSelectedCheckBox);
+            this.tabPage1.Controls.Add(this.MaterialButton);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(313, 561);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "FirstPage";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -702,8 +729,6 @@
             this.MainSplitContainer.ResumeLayout(false);
             this.CalculateGroupBox.ResumeLayout(false);
             this.LeftGroupBox.ResumeLayout(false);
-            this.MaterialsListPanel.ResumeLayout(false);
-            this.MaterialsListPanel.PerformLayout();
             this.RightGroupBox.ResumeLayout(false);
             this.ResultGroupBox.ResumeLayout(false);
             this.ResultGroupBox.PerformLayout();
@@ -723,6 +748,9 @@
             this.MaterialGroupBox.ResumeLayout(false);
             this.MaterialGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MaterialPictureBox)).EndInit();
+            this.MaterialsTabControl.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -737,7 +765,6 @@
         private System.Windows.Forms.GroupBox LeftGroupBox;
         private System.Windows.Forms.GroupBox RightGroupBox;
         private System.Windows.Forms.GroupBox MaterialsListGroupBox;
-        private System.Windows.Forms.Button MaterialButton;
         private System.Windows.Forms.GroupBox BuildSizeGroupBox;
         private System.Windows.Forms.TextBox BuildWidthTextBox;
         private System.Windows.Forms.Label BuildSizeLabel;
@@ -770,7 +797,6 @@
         private System.Windows.Forms.ComboBox InputSecondComboBox;
         private System.Windows.Forms.Label InputSecondLabel;
         private System.Windows.Forms.Label UserNameLabel;
-        private System.Windows.Forms.CheckBox MaterialSelectedCheckBox;
         private System.Windows.Forms.Button CalculateResultButton;
         private System.Windows.Forms.GroupBox CalculateGroupBox;
         private System.Windows.Forms.GroupBox ResultGroupBox;
@@ -779,8 +805,12 @@
         private System.Windows.Forms.Label ResultRubLabel;
         private System.Windows.Forms.ToolStripMenuItem UserCabinetMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ShowSmetaMenuItem;
-        private System.Windows.Forms.Panel MaterialsListPanel;
         private System.Windows.Forms.ToolStripMenuItem HelpMenuItem;
+        private System.Windows.Forms.TabControl MaterialsTabControl;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.CheckBox MaterialSelectedCheckBox;
+        private System.Windows.Forms.Button MaterialButton;
+        private System.Windows.Forms.TabPage tabPage2;
     }
 }
 

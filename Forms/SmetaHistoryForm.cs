@@ -83,14 +83,21 @@ namespace BuildCalculator.Forms
                         view_button.Tag = button["id"].ToString();
                         view_button.Click += ButtonsList_Click;
 
-                        byte[] imageBytes = Convert.FromBase64String(button["icon"].ToString());
-                        Bitmap bitmap;
-                        using (MemoryStream ms = new MemoryStream(imageBytes))
+                        try
                         {
-                            bitmap = new Bitmap(ms);
+                            byte[] imageBytes = Convert.FromBase64String(button["icon"].ToString());
+                            Bitmap bitmap;
+                            using (MemoryStream ms = new MemoryStream(imageBytes))
+                            {
+                                bitmap = new Bitmap(ms);
+                            }
+                            view_button.Image = bitmap;
+                            view_button.ImageAlign = MaterialButton.ImageAlign;
                         }
-                        view_button.Image = bitmap;
-                        view_button.ImageAlign = MaterialButton.ImageAlign;
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Ошибка при загрузке изображения: {ex.Message}", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
 
                         Invoke((MethodInvoker)delegate ()
                         {

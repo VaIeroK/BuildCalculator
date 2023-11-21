@@ -37,8 +37,8 @@ namespace BuildCalculator
         public static int UserId = -1;
         public static ProgramSettings pSettings = null;
         private Dictionary<string, Bitmap> CachedImages;
-        private Dictionary<int, JObject> CachedMaterials;
-        private Dictionary<int, MaterialObject> SelectedMaterials;
+        private Dictionary<string, JObject> CachedMaterials;
+        private Dictionary<string, MaterialObject> SelectedMaterials; // key: button_id, tab_id
         private Thread LoaderThread;
 
         public MainForm()
@@ -48,8 +48,8 @@ namespace BuildCalculator
 
             CurrentButtonIdx = -1;
             CachedImages = new Dictionary<string, Bitmap>();
-            SelectedMaterials = new Dictionary<int, MaterialObject>();
-            CachedMaterials = new Dictionary<int, JObject>();
+            SelectedMaterials = new Dictionary<string, MaterialObject>();
+            CachedMaterials = new Dictionary<string, JObject>();
 
             pSettings = new ProgramSettings("Settings.ini");
             pSettings.SaveVersion();
@@ -77,7 +77,7 @@ namespace BuildCalculator
 
             ClearMaterials();
 
-            LoadMaterialButtons();
+            LoadBuildTabs();
             LoadBuildInfo();
             LoadAnimation.StopAnimation();
             Invoke((MethodInvoker)delegate ()
@@ -153,16 +153,65 @@ namespace BuildCalculator
             }
         }
 
-        private void LoadMaterialButtons()
+        private void LoadBuildTabs()
         {
             LoadAnimation.IncrementBar();
             Invoke((MethodInvoker)delegate ()
             {
-                MaterialsListPanel.Controls.Clear();
+                MaterialsTabControl.Controls.Clear();
             });
-            SelectedMaterials.Clear();
 
-            JObject JsonObject = Net.GetRequest("api/buttons", out _);
+            JObject JsonObject = Net.GetRequest("api/tabs", out _);
+            if (JsonObject != null && JsonObject["help_list"] != null)
+            {
+                JArray tabs = JsonObject["help_list"] as JArray;
+
+                bool hasInvalidData = tabs.Any(tab => tab["id"] == null || tab["name"] == null);
+
+                if (!hasInvalidData)
+                {
+                    tabs = new JArray(
+                        from tab in tabs
+                        orderby (int)tab["id"]
+                        select tab
+                    );
+
+                    foreach (JToken tab in tabs)
+                    {
+                        TabPage tabPage = new TabPage();
+                        tabPage.Tag = tab["id"].ToString();
+                        tabPage.Name = $"MaterialPage_{tab["id"]}";
+                        tabPage.Text = tab["name"].ToString();
+                        Invoke((MethodInvoker)delegate ()
+                        {
+                            MaterialsTabControl.TabPages.Add(tabPage);
+                        });
+                    }
+                    Invoke((MethodInvoker)delegate ()
+                    {
+                        MaterialsTabControl.SelectedIndex = 0;
+                    });
+                    LoadMaterialButtons();
+                }
+            }
+        }
+
+        private void LoadMaterialButtons()
+        {
+            if (CurrentTab() == null) return;
+
+            Invoke((MethodInvoker)delegate ()
+            {
+                CurrentTab().Controls.Clear();
+            });
+
+            int tab = CurrentTabId();
+            var TabId = new
+            {
+                tabID = tab
+            };
+
+            JObject JsonObject = Net.GetRequest("api/buttons", out _, JObject.Parse(JsonConvert.SerializeObject(TabId, Formatting.Indented)));
             if (JsonObject != null && JsonObject["buttons"] != null)
             {
                 JArray buttons = JsonObject["buttons"] as JArray;
@@ -177,12 +226,13 @@ namespace BuildCalculator
                         select button
                     );
 
+                    int ui_bidx = 0;
                     foreach (JToken button in buttons)
                     {
                         CheckBox view_checkbox = new CheckBox();
                         view_checkbox.Name = "MaterialSelectCheckBox_" + button["id"].ToString();
                         view_checkbox.Size = MaterialSelectedCheckBox.Size;
-                        view_checkbox.Location = new Point(MaterialSelectedCheckBox.Location.X, MaterialSelectedCheckBox.Location.Y + (MaterialSelectedCheckBox.Size.Height + 25) * (int)button["id"]);
+                        view_checkbox.Location = new Point(MaterialSelectedCheckBox.Location.X, MaterialSelectedCheckBox.Location.Y + (MaterialSelectedCheckBox.Size.Height + 25) * ui_bidx);
                         view_checkbox.Anchor = MaterialSelectedCheckBox.Anchor;
                         view_checkbox.Tag = button["id"].ToString();
                         view_checkbox.Enabled = MaterialSelectedCheckBox.Enabled;
@@ -190,31 +240,48 @@ namespace BuildCalculator
                         Button view_button = new Button();
                         view_button.Name = "MaterialButton_" + button["id"].ToString();
                         view_button.Size = MaterialButton.Size;
-                        view_button.Location = new Point(MaterialButton.Location.X, MaterialButton.Location.Y + (MaterialButton.Size.Height + 6) * (int)button["id"]);
+                        view_button.Location = new Point(MaterialButton.Location.X, MaterialButton.Location.Y + (MaterialButton.Size.Height + 6) * ui_bidx);
                         view_button.Anchor = MaterialButton.Anchor;
                         view_button.Font = MaterialButton.Font;
-                        view_button.Text = $"         {(int)button["id"] + 1}. {button["name"]}";
+                        view_button.Text = $"         {ui_bidx + 1}. {button["name"]}";
                         view_button.TextAlign = MaterialButton.TextAlign;
                         view_button.Tag = button["id"].ToString();
                         view_button.Click += ButtonsList_Click;
 
-                        byte[] imageBytes = Convert.FromBase64String(button["icon"].ToString());
-                        Bitmap bitmap;
-                        using (MemoryStream ms = new MemoryStream(imageBytes))
+                        if (button["icon"].ToString() != "")
                         {
-                            bitmap = new Bitmap(ms);
+                            try
+                            {
+                                byte[] imageBytes = Convert.FromBase64String(button["icon"].ToString());
+                                Bitmap bitmap;
+                                using (MemoryStream ms = new MemoryStream(imageBytes))
+                                {
+                                    bitmap = new Bitmap(ms);
+                                }
+                                view_button.Image = bitmap;
+                                view_button.ImageAlign = MaterialButton.ImageAlign;
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show($"Ошибка при загрузке изображения: {ex.Message}", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
-                        view_button.Image = bitmap;
-                        view_button.ImageAlign = MaterialButton.ImageAlign;
 
                         Invoke((MethodInvoker)delegate ()
                         {
-                            MaterialsListPanel.Controls.Add(view_checkbox);
-                            MaterialsListPanel.Controls.Add(view_button);
+                            CurrentTab().Controls.Add(view_checkbox);
+                            CurrentTab().Controls.Add(view_button);
                         });
-                        SelectedMaterials.Add((int)button["id"], new MaterialObject());
+                        if (!SelectedMaterials.ContainsKey(MaterialKey((int)button["id"], tab)))
+                            SelectedMaterials.Add(MaterialKey((int)button["id"], tab), new MaterialObject());
+                        else
+                        {
+                            SelectedMaterials[MaterialKey((int)button["id"], tab)].MaterialId = -1;
+                            SelectedMaterials[MaterialKey((int)button["id"], tab)].FirstInputValue = -1.0f;
+                            SelectedMaterials[MaterialKey((int)button["id"], tab)].SecondInputValue = -1.0f;
+                        }
 
-                        if (!CachedMaterials.ContainsKey((int)button["id"]))
+                        if (!CachedMaterials.ContainsKey(MaterialKey((int)button["id"], tab)))
                         {
                             JObject jsonObject = new JObject(
                                 new JProperty("id", (int)button["id"])
@@ -222,8 +289,10 @@ namespace BuildCalculator
                             HttpStatusCode Status;
                             var Response = Net.GetRequest("api/material", out Status, jsonObject);
                             if (Status == HttpStatusCode.OK)
-                                CachedMaterials.Add((int)button["id"], Response);
+                                CachedMaterials.Add(MaterialKey((int)button["id"], tab), Response);
                         }
+
+                        ui_bidx++;
                     }
                 }
             }
@@ -284,7 +353,7 @@ namespace BuildCalculator
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Ошибка при загрузке изображения: {ex.Message}");
+                    MessageBox.Show($"Ошибка при загрузке изображения: {ex.Message}", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
@@ -300,7 +369,7 @@ namespace BuildCalculator
             button.Click += MaterialSelectButton_Click;
             button.Tag = body["id"].ToString();
 
-            if (SelectedMaterials[CurrentButtonIdx].MaterialId == (int)body["id"])
+            if (SelectedMaterials[MaterialKey(CurrentButtonIdx, CurrentTabId())].MaterialId == (int)body["id"])
                 button.BackColor = Color.FromArgb(80, 0, 120, 215);
 
             groupBox.Controls.Add(button);
@@ -390,46 +459,46 @@ namespace BuildCalculator
                 }
             }
 
-            var CheckBox = MaterialsListPanel.Controls["MaterialSelectCheckBox_" + CurrentButtonIdx] as CheckBox;
-            if (SelectedMaterials[CurrentButtonIdx].MaterialId != material_id)
+            var CheckBox = CurrentTab().Controls["MaterialSelectCheckBox_" + CurrentButtonIdx] as CheckBox;
+            if (SelectedMaterials[MaterialKey(CurrentButtonIdx, CurrentTabId())].MaterialId != material_id)
             {
                 ComboBox FirstComboBox = MaterialsPanel.Controls["MaterialGroupBox_" + material_id].Controls["MaterialInputFirstComboBox_" + material_id] as ComboBox;
                 if (FirstComboBox != null)
                 {
                     if (MathHelper.IsFloat(FirstComboBox.Items[FirstComboBox.SelectedIndex].ToString()))
-                        SelectedMaterials[CurrentButtonIdx].FirstInputValue = Convert.ToSingle(FirstComboBox.Items[FirstComboBox.SelectedIndex].ToString());
+                        SelectedMaterials[MaterialKey(CurrentButtonIdx, CurrentTabId())].FirstInputValue = Convert.ToSingle(FirstComboBox.Items[FirstComboBox.SelectedIndex].ToString());
                     else
                     {
                         MessageBox.Show($"Ошибка сервера. Первое входное значение не является числом", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        SelectedMaterials[CurrentButtonIdx].FirstInputValue = 0.0f;
+                        SelectedMaterials[MaterialKey(CurrentButtonIdx, CurrentTabId())].FirstInputValue = 0.0f;
                     }
                 }
                 else
-                    SelectedMaterials[CurrentButtonIdx].FirstInputValue = -1.0f;
+                    SelectedMaterials[MaterialKey(CurrentButtonIdx, CurrentTabId())].FirstInputValue = -1.0f;
 
                 ComboBox SecondComboBox = MaterialsPanel.Controls["MaterialGroupBox_" + material_id].Controls["MaterialInputSecondComboBox_" + material_id] as ComboBox;
                 if (SecondComboBox != null)
                 {
                     if (MathHelper.IsFloat(SecondComboBox.Items[SecondComboBox.SelectedIndex].ToString()))
-                        SelectedMaterials[CurrentButtonIdx].SecondInputValue = Convert.ToSingle(SecondComboBox.Items[SecondComboBox.SelectedIndex].ToString());
+                        SelectedMaterials[MaterialKey(CurrentButtonIdx, CurrentTabId())].SecondInputValue = Convert.ToSingle(SecondComboBox.Items[SecondComboBox.SelectedIndex].ToString());
                     else
                     {
                         MessageBox.Show($"Ошибка сервера. Второе входное значение не является числом", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        SelectedMaterials[CurrentButtonIdx].SecondInputValue = 0.0f;
+                        SelectedMaterials[MaterialKey(CurrentButtonIdx, CurrentTabId())].SecondInputValue = 0.0f;
                     }
                 }
                 else
-                    SelectedMaterials[CurrentButtonIdx].SecondInputValue = -1.0f;
+                    SelectedMaterials[MaterialKey(CurrentButtonIdx, CurrentTabId())].SecondInputValue = -1.0f;
 
-                SelectedMaterials[CurrentButtonIdx].MaterialId = material_id;
+                SelectedMaterials[MaterialKey(CurrentButtonIdx, CurrentTabId())].MaterialId = material_id;
                 button.BackColor = Color.FromArgb(80, 0, 120, 215);
                 CheckBox.Checked = true;
             }
             else
             {
-                SelectedMaterials[CurrentButtonIdx].MaterialId = -1;
-                SelectedMaterials[CurrentButtonIdx].FirstInputValue = -1.0f;
-                SelectedMaterials[CurrentButtonIdx].SecondInputValue = -1.0f;
+                SelectedMaterials[MaterialKey(CurrentButtonIdx, CurrentTabId())].MaterialId = -1;
+                SelectedMaterials[MaterialKey(CurrentButtonIdx, CurrentTabId())].FirstInputValue = -1.0f;
+                SelectedMaterials[MaterialKey(CurrentButtonIdx, CurrentTabId())].SecondInputValue = -1.0f;
                 CheckBox.Checked = false;
             }
 
@@ -441,9 +510,9 @@ namespace BuildCalculator
             ComboBox ComboBox = sender as ComboBox;
             int material_id = Convert.ToInt32(ComboBox.Tag);
 
-            if (SelectedMaterials[CurrentButtonIdx].MaterialId == material_id)
+            if (SelectedMaterials[MaterialKey(CurrentButtonIdx, CurrentTabId())].MaterialId == material_id)
             {
-                SelectedMaterials[CurrentButtonIdx].FirstInputValue = Convert.ToSingle(ComboBox.Items[ComboBox.SelectedIndex].ToString());
+                SelectedMaterials[MaterialKey(CurrentButtonIdx, CurrentTabId())].FirstInputValue = Convert.ToSingle(ComboBox.Items[ComboBox.SelectedIndex].ToString());
                 RecalcCostInfo();
             }
         }
@@ -453,9 +522,9 @@ namespace BuildCalculator
             ComboBox ComboBox = sender as ComboBox;
             int material_id = Convert.ToInt32(ComboBox.Tag);
 
-            if (SelectedMaterials[CurrentButtonIdx].MaterialId == material_id)
+            if (SelectedMaterials[MaterialKey(CurrentButtonIdx, CurrentTabId())].MaterialId == material_id)
             {
-                SelectedMaterials[CurrentButtonIdx].SecondInputValue = Convert.ToSingle(ComboBox.Items[ComboBox.SelectedIndex].ToString());
+                SelectedMaterials[MaterialKey(CurrentButtonIdx, CurrentTabId())].SecondInputValue = Convert.ToSingle(ComboBox.Items[ComboBox.SelectedIndex].ToString());
                 RecalcCostInfo();
             }
         }
@@ -515,7 +584,7 @@ namespace BuildCalculator
 
         private void ButtonsList_Click(object sender, EventArgs e)
         {
-            foreach (Control control in MaterialsListPanel.Controls)
+            foreach (Control control in CurrentTab().Controls)
             {
                 if (control is Button)
                     control.BackColor = Color.White;
@@ -550,8 +619,8 @@ namespace BuildCalculator
         {
             JObject Response = null;
 
-            if (CachedMaterials.ContainsKey(CurrentButtonIdx))
-                Response = CachedMaterials[CurrentButtonIdx];
+            if (CachedMaterials.ContainsKey(MaterialKey(CurrentButtonIdx, CurrentTabId())))
+                Response = CachedMaterials[MaterialKey(CurrentButtonIdx, CurrentTabId())];
             else
             {
                 JObject jsonObject = new JObject(
@@ -682,7 +751,7 @@ namespace BuildCalculator
                             Results.Add((int)material["material_type_id"], (float)material["price"]);
                     }
 
-                    foreach (Control control in MaterialsListPanel.Controls)
+                    foreach (Control control in CurrentTab().Controls)
                     {
                         if (control is Button)
                         {
@@ -857,7 +926,7 @@ namespace BuildCalculator
 
         private void CalculateResultButton_Click(object sender, EventArgs e)
         {
-            if (!SelectedMaterials.Values.Any(value => value.MaterialId == -1))
+            if (!SelectedMaterials.Any(kv => kv.Value.MaterialId == -1 && kv.Key.Split('_')[1] == CurrentTabId().ToString()))
             {
                 if (UserId != -1)
                 {
@@ -892,7 +961,7 @@ namespace BuildCalculator
 
                     for (int i = 0; i < SelectedMaterials.Count; i++)
                     {
-                        int materialTypeId = SelectedMaterials.ElementAt(i).Key;
+                        int materialTypeId = SelectedMaterials.ElementAt(i).Key[0];
                         int selectedMaterialId = SelectedMaterials.ElementAt(i).Value.MaterialId;
 
                         if (selectedMaterialId == -1)
@@ -959,6 +1028,33 @@ namespace BuildCalculator
         {
             AboutProgramForm form = new AboutProgramForm(ProgramVersion);
             form.ShowDialog();
+        }
+
+        private Control CurrentTab()
+        {
+            Control control = null;
+            Invoke((MethodInvoker)delegate ()
+            {
+                if (MaterialsTabControl.SelectedIndex != -1)
+                    control =  MaterialsTabControl.Controls[MaterialsTabControl.SelectedIndex];
+            });
+            return control;
+        }
+
+        private int CurrentTabId()
+        {
+            return Convert.ToInt32(CurrentTab().Tag.ToString());
+        }
+
+        private void MaterialsTabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ClearMaterials();
+            LoadMaterialButtons();
+        }
+
+        private string MaterialKey(int button_id, int tab_id)
+        {
+            return $"{button_id}_{tab_id}";
         }
     }
 }
