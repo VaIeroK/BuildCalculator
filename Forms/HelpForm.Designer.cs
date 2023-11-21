@@ -163,6 +163,7 @@
             this.Name = "HelpForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Справка";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.HelpForm_FormClosing);
             this.Load += new System.EventHandler(this.HelpForm_Load);
             this.MainGroupBox.ResumeLayout(false);
             this.ButtonsGroupBox.ResumeLayout(false);

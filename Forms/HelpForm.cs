@@ -145,5 +145,10 @@ namespace BuildCalculator.Forms
                 DescriptionRichTextBox.Text = "";
             }
         }
+
+        private void HelpForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            LoaderThread.Abort();
+        }
     }
 }
