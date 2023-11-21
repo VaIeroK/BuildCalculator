@@ -35,10 +35,10 @@
             this.MaterialsListPanel = new System.Windows.Forms.Panel();
             this.MaterialButton = new System.Windows.Forms.Button();
             this.InformationGroupBox = new System.Windows.Forms.GroupBox();
+            this.MaterialNameLabel = new System.Windows.Forms.Label();
             this.ResultGroupBox = new System.Windows.Forms.GroupBox();
             this.ResultLabel = new System.Windows.Forms.Label();
             this.MaterialPictureBox = new System.Windows.Forms.PictureBox();
-            this.MaterialNameLabel = new System.Windows.Forms.Label();
             this.HistoryGroupBox.SuspendLayout();
             this.MaterialsListGroupBox.SuspendLayout();
             this.MaterialsListPanel.SuspendLayout();
@@ -126,6 +126,16 @@
             this.InformationGroupBox.TabStop = false;
             this.InformationGroupBox.Text = "Информация";
             // 
+            // MaterialNameLabel
+            // 
+            this.MaterialNameLabel.AutoSize = true;
+            this.MaterialNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.MaterialNameLabel.Location = new System.Drawing.Point(3, 164);
+            this.MaterialNameLabel.Name = "MaterialNameLabel";
+            this.MaterialNameLabel.Size = new System.Drawing.Size(47, 24);
+            this.MaterialNameLabel.TabIndex = 11;
+            this.MaterialNameLabel.Text = "Text";
+            // 
             // ResultGroupBox
             // 
             this.ResultGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -154,21 +164,11 @@
             this.MaterialPictureBox.Location = new System.Drawing.Point(6, 21);
             this.MaterialPictureBox.Name = "MaterialPictureBox";
             this.MaterialPictureBox.Size = new System.Drawing.Size(329, 140);
-            this.MaterialPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.MaterialPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.MaterialPictureBox.TabIndex = 1;
             this.MaterialPictureBox.TabStop = false;
             // 
-            // MaterialNameLabel
-            // 
-            this.MaterialNameLabel.AutoSize = true;
-            this.MaterialNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.MaterialNameLabel.Location = new System.Drawing.Point(3, 164);
-            this.MaterialNameLabel.Name = "MaterialNameLabel";
-            this.MaterialNameLabel.Size = new System.Drawing.Size(47, 24);
-            this.MaterialNameLabel.TabIndex = 11;
-            this.MaterialNameLabel.Text = "Text";
-            // 
-            // SmetaHistory
+            // SmetaHistoryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -180,7 +180,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "SmetaHistory";
+            this.Name = "SmetaHistoryForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "История";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SmetaHistory_FormClosing);
