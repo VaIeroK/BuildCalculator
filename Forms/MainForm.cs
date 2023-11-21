@@ -911,6 +911,8 @@ namespace BuildCalculator
 
         private void HelpMenuItem_Click(object sender, EventArgs e)
         {
+            HelpForm form = new HelpForm();
+            form.ShowDialog();
         }
 
         private void AboutProgramMenuItem_Click(object sender, EventArgs e)
