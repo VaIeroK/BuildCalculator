@@ -1,4 +1,5 @@
 ﻿using BuildCalculator.Classes;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,30 @@ namespace BuildCalculator.Forms
         private Dictionary<string, Bitmap> CachedImages;
         private Dictionary<int, JObject> CachedMaterials;
         private int CurrentButtonIdx;
+
+        public class Order
+        {
+            public int order_id { get; set; }
+            public string price { get; set; }
+            public int material_id { get; set; }
+            public string material_name { get; set; }
+            public int material_type_id { get; set; }
+            public string material_type_name { get; set; }
+            public string material_img { get; set; }
+            public int price_item { get; set; }
+            public DateTime adjusted_order_date { get; set; }
+        }
+
+        public class RootObject
+        {
+            public List<Order> orderHistory { get; set; }
+        }
+
+        public class OrderGroup
+        {
+            public int order_id { get; set; }
+            public List<Order> orders { get; set; }
+        }
 
         public SmetaHistoryForm()
         {
@@ -45,6 +70,86 @@ namespace BuildCalculator.Forms
         {
             LoadMaterialButtons();
             LoadAnimation.StopAnimation();
+        }
+
+        private void Parser()
+        {
+            string jsonString = @"{
+            ""orderHistory"": [
+                {
+                    ""order_id"": 76,
+                    ""price"": ""175.99999999999997"",
+                    ""material_id"": 11,
+                    ""material_name"": ""Двери"",
+                    ""material_type_id"": 8,
+                    ""material_img"": """",
+                    ""price_item"": 3,
+                    ""adjusted_order_date"": ""2023-11-21T18:51:37.156Z""
+                },
+                {
+                    ""order_id"": 76,
+                    ""price"": ""175.99999999999997"",
+                    ""material_id"": 11,
+                    ""material_name"": ""Двери"",
+                    ""material_type_id"": 8,
+                    ""material_img"": """",
+                    ""price_item"": 1,
+                    ""adjusted_order_date"": ""2023-11-21T18:51:37.156Z""
+                },
+                {
+                    ""order_id"": 76,
+                    ""price"": ""175.99999999999997"",
+                    ""material_id"": 11,
+                    ""material_name"": ""Двери"",
+                    ""material_type_id"": 8,
+                    ""material_img"": """",
+                    ""price_item"": 6,
+                    ""adjusted_order_date"": ""2023-11-21T18:51:37.156Z""
+                },
+                {
+                    ""order_id"": 45,
+                    ""price"": ""175.99999999999997"",
+                    ""material_id"": 11,
+                    ""material_name"": ""Двери"",
+                    ""material_type_id"": 8,
+                    ""material_img"": """",
+                    ""price_item"": 2,
+                    ""adjusted_order_date"": ""2023-11-21T18:51:37.156Z""
+                },
+                {
+                    ""order_id"": 45,
+                    ""price"": ""175.99999999999997"",
+                    ""material_id"": 11,
+                    ""material_name"": ""Двери"",
+                    ""material_type_id"": 8,
+                    ""material_img"": """",
+                    ""price_item"": 4,
+                    ""adjusted_order_date"": ""2023-11-21T18:51:37.156Z""
+                }
+            ]
+        }";
+
+            var jsonObject = JsonConvert.DeserializeObject<RootObject>(jsonString);
+
+            var groupedOrders = jsonObject.orderHistory
+                .GroupBy(o => o.order_id)
+                .Select(g => new OrderGroup
+                {
+                    order_id = g.Key,
+                    orders = g.ToList()
+                })
+                .ToList();
+
+            foreach (var orderGroup in groupedOrders)
+            {
+                Console.WriteLine($"Order ID: {orderGroup.order_id}");
+                foreach (var order in orderGroup.orders)
+                {
+                    Console.WriteLine($"  Material Name: {order.material_name}, Price: {order.price_item}");
+                }
+                Console.WriteLine();
+            }
+            Console.ReadKey();
         }
 
         private void LoadMaterialButtons()
