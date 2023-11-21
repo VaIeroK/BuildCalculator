@@ -961,7 +961,10 @@ namespace BuildCalculator
 
                     for (int i = 0; i < SelectedMaterials.Count; i++)
                     {
-                        int materialTypeId = SelectedMaterials.ElementAt(i).Key[0];
+                        if (Convert.ToInt32(SelectedMaterials.ElementAt(i).Key.Split('_')[1]) != CurrentTabId())
+                            continue;
+
+                        int materialTypeId = Convert.ToInt32(SelectedMaterials.ElementAt(i).Key.Split('_')[0]);
                         int selectedMaterialId = SelectedMaterials.ElementAt(i).Value.MaterialId;
 
                         if (selectedMaterialId == -1)
