@@ -15,14 +15,14 @@ using System.Windows.Forms;
 
 namespace BuildCalculator.Forms
 {
-    public partial class SmetaHistory : Form
+    public partial class SmetaHistoryForm : Form
     {
         private Thread LoaderThread;
         private Dictionary<string, Bitmap> CachedImages;
         private Dictionary<int, JObject> CachedMaterials;
         private int CurrentButtonIdx;
 
-        public SmetaHistory()
+        public SmetaHistoryForm()
         {
             InitializeComponent();
 

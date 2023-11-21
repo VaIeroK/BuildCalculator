@@ -1,6 +1,6 @@
 ﻿namespace BuildCalculator.Forms
 {
-    partial class SmetaHistory
+    partial class SmetaHistoryForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SmetaHistory));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SmetaHistoryForm));
             this.HistoryGroupBox = new System.Windows.Forms.GroupBox();
             this.HistoryListBox = new System.Windows.Forms.ListBox();
             this.MaterialsListGroupBox = new System.Windows.Forms.GroupBox();

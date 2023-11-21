@@ -863,7 +863,6 @@ namespace BuildCalculator
                 {
                     var Response = GetResultResponse(true);
 
-
                     var user = new
                     {
                         userID = UserId
@@ -943,7 +942,7 @@ namespace BuildCalculator
         {
             if (UserToken != "")
             {
-                SmetaHistory smetaHistory = new SmetaHistory();
+                SmetaHistoryForm smetaHistory = new SmetaHistoryForm();
                 smetaHistory.ShowDialog();
             }
             else

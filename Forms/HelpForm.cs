@@ -65,31 +65,31 @@ namespace BuildCalculator.Forms
             {
                 JArray buttons = JsonObject["help_list"] as JArray;
 
-                bool hasInvalidData = buttons.Any(button => button["button_id"] == null || button["button_name"] == null || button["icon"] == null || button["text"] == null);
+                bool hasInvalidData = buttons.Any(button => button["id"] == null || button["name"] == null || button["icon"] == null || button["text"] == null);
 
                 if (!hasInvalidData)
                 {
                     buttons = new JArray(
                         from button in buttons
-                        orderby (int)button["button_id"] descending
+                        orderby (int)button["id"] descending
                         select button
                     );
 
                     foreach (JToken button in buttons)
                     {
                         HelpTab helpTab = new HelpTab();
-                        helpTab.Name = button["button_name"].ToString();
+                        helpTab.Name = button["name"].ToString();
                         helpTab.Description = button["text"].ToString();
 
                         Button view_button = new Button();
-                        view_button.Name = "MaterialButton_" + button["button_id"].ToString();
+                        view_button.Name = "MaterialButton_" + button["id"].ToString();
                         view_button.Size = HelpButton.Size;
-                        view_button.Location = new Point(HelpButton.Location.X, HelpButton.Location.Y + (HelpButton.Size.Height + 6) * (int)button["button_id"]);
+                        view_button.Location = new Point(HelpButton.Location.X, HelpButton.Location.Y + (HelpButton.Size.Height + 6) * (int)button["id"]);
                         view_button.Dock = DockStyle.Top;
                         view_button.Font = HelpButton.Font;
-                        view_button.Text = $"{(int)button["button_id"] + 1}. {button["button_name"]}";
+                        view_button.Text = $"{(int)button["id"] + 1}. {button["name"]}";
                         view_button.TextAlign = HelpButton.TextAlign;
-                        view_button.Tag = button["button_id"].ToString();
+                        view_button.Tag = button["id"].ToString();
                         view_button.Click += HelpButton_Click;
 
                         try
@@ -113,7 +113,7 @@ namespace BuildCalculator.Forms
                             ButtonsPanel.Controls.Add(view_button);
                         });
 
-                        HelpList.Add((int)button["button_id"], helpTab);
+                        HelpList.Add((int)button["id"], helpTab);
                     }
                 }
             }
