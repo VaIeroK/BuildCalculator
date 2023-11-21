@@ -672,7 +672,7 @@
             this.MaterialPictureBox.Location = new System.Drawing.Point(7, 49);
             this.MaterialPictureBox.Name = "MaterialPictureBox";
             this.MaterialPictureBox.Size = new System.Drawing.Size(215, 90);
-            this.MaterialPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.MaterialPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.MaterialPictureBox.TabIndex = 0;
             this.MaterialPictureBox.TabStop = false;
             // 

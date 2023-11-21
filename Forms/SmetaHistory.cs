@@ -33,7 +33,7 @@ namespace BuildCalculator.Forms
 
         private void SmetaHistory_Load(object sender, EventArgs e)
         {
-            var gb = LoadAnimation.StartAnimation(5, 1.0f, 3, this);
+            var gb = LoadAnimation.StartAnimation(5, 1.0f, 1, this);
             Controls.Add(gb);
             Controls.SetChildIndex(gb, 0);
 
