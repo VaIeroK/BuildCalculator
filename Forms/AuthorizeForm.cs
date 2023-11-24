@@ -141,7 +141,7 @@ namespace BuildCalculator.Forms
                     AutoClosingMessageBox.Show("Неверный логин или пароль!", "", 2000, MessageBoxIcon.Error);
                     break;
                 case HttpStatusCode.InternalServerError:
-                    MessageBox.Show($"Неудается связаться с сервером.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Не удается связаться с сервером.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
                 default:
                     MessageBox.Show($"Ошибка {Status}. Невозможно войти в аккаунт!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -269,7 +269,7 @@ namespace BuildCalculator.Forms
                     AutoClosingMessageBox.Show("Пользователь с таким логином уже существует!", "", 2000, MessageBoxIcon.Error);
                     break;
                 case HttpStatusCode.InternalServerError:
-                    MessageBox.Show($"Неудается связаться с сервером.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Не удается связаться с сервером.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
                 default:
                     MessageBox.Show($"Ошибка {Status}. Невозможно войти в аккаунт!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
