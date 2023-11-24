@@ -641,7 +641,7 @@
             this.MaterialGroupBox.Size = new System.Drawing.Size(228, 283);
             this.MaterialGroupBox.TabIndex = 0;
             this.MaterialGroupBox.TabStop = false;
-            this.MaterialGroupBox.Text = "Улиточная слизь";
+            this.MaterialGroupBox.Text = "Test";
             this.MaterialGroupBox.Visible = false;
             // 
             // InputSecondComboBox

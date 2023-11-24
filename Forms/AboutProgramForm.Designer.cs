@@ -74,8 +74,8 @@
             this.InfoRichTextBox.ReadOnly = true;
             this.InfoRichTextBox.Size = new System.Drawing.Size(464, 153);
             this.InfoRichTextBox.TabIndex = 3;
-            this.InfoRichTextBox.Text = "Code:\nРазработка приложения - ValeroK\nРазработка серверной части - culcat\nГде жаж" +
-    "да деятельности? - Вадик\n\nLibraries:\nNewtonsoft.Json\nOctokit\nSemver\nGitHubUpdate" +
+            this.InfoRichTextBox.Text = "Code:\nРазработка приложения - ValeroK\nРазработка серверной части - culcat\nПомощь " +
+    "серверной части - Sh1fue\n\nLibraries:\nNewtonsoft.Json\nOctokit\nSemver\nGitHubUpdate" +
     "";
             // 
             // VersionLabel
