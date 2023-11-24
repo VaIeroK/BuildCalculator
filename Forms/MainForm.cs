@@ -54,8 +54,8 @@ namespace BuildCalculator
 
             pSettings = new ProgramSettings("Settings.ini");
             pSettings.SaveVersion();
-            pSettings.Save("ApiKey_OnlyForDebugging_NotReleaseVersion", Net.api);
             Net.api = pSettings.Load("ApiKey_OnlyForDebugging_NotReleaseVersion", Net.api);
+            pSettings.Save("ApiKey_OnlyForDebugging_NotReleaseVersion", Net.api);
             FloatTextBox_TextChanged(BuildWidthTextBox, null);
             FloatTextBox_TextChanged(BuildLengthTextBox, null);
 
