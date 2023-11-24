@@ -13,15 +13,22 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static BuildCalculator.Forms.SmetaHistoryForm;
 
 namespace BuildCalculator.Forms
 {
     public partial class SmetaHistoryForm : Form
     {
         private Thread LoaderThread;
-        private Dictionary<string, Bitmap> CachedImages;
-        private Dictionary<int, JObject> CachedMaterials;
         private int CurrentButtonIdx;
+        List<OrderGroup> GroupedOrders;
+        Dictionary<int, string> ButtonsLocalization;
+
+        class ButtonLocalizedItem
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+        }
 
         public class Order
         {
@@ -52,8 +59,17 @@ namespace BuildCalculator.Forms
             InitializeComponent();
 
             CurrentButtonIdx = -1;
-            CachedImages = new Dictionary<string, Bitmap>();
-            CachedMaterials = new Dictionary<int, JObject>();
+            GroupedOrders = new List<OrderGroup>();
+            ButtonsLocalization = new Dictionary<int, string>();
+
+            ClearInfo();
+            MaterialsListPanel.Controls.Clear();
+        }
+
+        private void ClearInfo()
+        {
+            MaterialPictureBox.Image = null;
+            MaterialNameLabel.Text = "";
         }
 
         private void SmetaHistory_Load(object sender, EventArgs e)
@@ -68,158 +84,98 @@ namespace BuildCalculator.Forms
 
         private void LoadServerInfo()
         {
-            LoadMaterialButtons();
+            ParseHistoryList();
             LoadAnimation.StopAnimation();
         }
 
-        private void Parser()
+        private void LoadButtons()
         {
-            string jsonString = @"{
-            ""orderHistory"": [
+            CurrentButtonIdx = -1;
+            MaterialsListPanel.Controls.Clear();
+
+            if (HistoryListBox.SelectedIndex == -1) return;
+
+            var orderGroup = GroupedOrders[HistoryListBox.SelectedIndex];
+            {
+                if (orderGroup.orders.Count > 0)
                 {
-                    ""order_id"": 76,
-                    ""price"": ""175.99999999999997"",
-                    ""material_id"": 11,
-                    ""material_name"": ""Двери"",
-                    ""material_type_id"": 8,
-                    ""material_img"": """",
-                    ""price_item"": 3,
-                    ""adjusted_order_date"": ""2023-11-21T18:51:37.156Z""
-                },
-                {
-                    ""order_id"": 76,
-                    ""price"": ""175.99999999999997"",
-                    ""material_id"": 11,
-                    ""material_name"": ""Двери"",
-                    ""material_type_id"": 8,
-                    ""material_img"": """",
-                    ""price_item"": 1,
-                    ""adjusted_order_date"": ""2023-11-21T18:51:37.156Z""
-                },
-                {
-                    ""order_id"": 76,
-                    ""price"": ""175.99999999999997"",
-                    ""material_id"": 11,
-                    ""material_name"": ""Двери"",
-                    ""material_type_id"": 8,
-                    ""material_img"": """",
-                    ""price_item"": 6,
-                    ""adjusted_order_date"": ""2023-11-21T18:51:37.156Z""
-                },
-                {
-                    ""order_id"": 45,
-                    ""price"": ""175.99999999999997"",
-                    ""material_id"": 11,
-                    ""material_name"": ""Двери"",
-                    ""material_type_id"": 8,
-                    ""material_img"": """",
-                    ""price_item"": 2,
-                    ""adjusted_order_date"": ""2023-11-21T18:51:37.156Z""
-                },
-                {
-                    ""order_id"": 45,
-                    ""price"": ""175.99999999999997"",
-                    ""material_id"": 11,
-                    ""material_name"": ""Двери"",
-                    ""material_type_id"": 8,
-                    ""material_img"": """",
-                    ""price_item"": 4,
-                    ""adjusted_order_date"": ""2023-11-21T18:51:37.156Z""
+                    foreach (var order in orderGroup.orders)
+                    {
+                        Button view_button = new Button();
+                        view_button.Name = "MaterialButton_" + order.material_type_id;
+                        view_button.Size = MaterialButton.Size;
+                        view_button.Dock = DockStyle.Top;
+                        view_button.Font = MaterialButton.Font;
+                        if (ButtonsLocalization.ContainsKey(order.material_type_id))
+                            view_button.Text = $"{ButtonsLocalization[order.material_type_id]}: {order.price_item} ₽";
+                        else
+                            view_button.Text = $"ID: {order.material_type_id} - Перевод не найден";
+                        view_button.TextAlign = MaterialButton.TextAlign;
+                        view_button.Tag = order.material_type_id.ToString();
+                        view_button.Click += ButtonsList_Click;
+
+                        MaterialsListPanel.Controls.Add(view_button);
+                    }
                 }
-            ]
-        }";
+            }
+        }
 
-            var jsonObject = JsonConvert.DeserializeObject<RootObject>(jsonString);
+        private void ParseHistoryList()
+        {
+            var user = new
+            {
+                userID = MainForm.UserId
+            };
+            string json = JsonConvert.SerializeObject(user, Formatting.Indented);
+            var Response = Net.GetRequestString("api/orderhistory", out _, JObject.Parse(json));
 
-            var groupedOrders = jsonObject.orderHistory
+            if (Response != null)
+            {
+                RootObject jsonObject = null;
+                try
+                {
+                    jsonObject = JsonConvert.DeserializeObject<RootObject>(Response);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при загрузке истории: {ex}", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                GroupedOrders = jsonObject.orderHistory
                 .GroupBy(o => o.order_id)
                 .Select(g => new OrderGroup
                 {
                     order_id = g.Key,
-                    orders = g.ToList()
-                })
-                .ToList();
+                    orders = g.OrderByDescending(o => o.material_type_id).ToList()
+                }).ToList();
 
-            foreach (var orderGroup in groupedOrders)
-            {
-                Console.WriteLine($"Order ID: {orderGroup.order_id}");
-                foreach (var order in orderGroup.orders)
+                HistoryListBox.Controls.Clear();
+
+                foreach (var orderGroup in GroupedOrders)
                 {
-                    Console.WriteLine($"  Material Name: {order.material_name}, Price: {order.price_item}");
+                    if (orderGroup.orders.Count > 0)
+                        HistoryListBox.Items.Add($"{orderGroup.orders[0].adjusted_order_date.ToShortDateString().Replace('/', '.')} - {orderGroup.orders[0].adjusted_order_date.ToString("HH:mm:ss")}");
                 }
-                Console.WriteLine();
-            }
-            Console.ReadKey();
-        }
 
-        private void LoadMaterialButtons()
-        {
-            LoadAnimation.IncrementBar();
-            Invoke((MethodInvoker)delegate ()
-            {
-                MaterialsListPanel.Controls.Clear();
-            });
+                var LocalizeResponse = Net.GetRequestString("api/buttonsData", out _);
 
-            JObject JsonObject = Net.GetRequest("api/buttons", out _);
-            if (JsonObject != null && JsonObject["buttons"] != null)
-            {
-                JArray buttons = JsonObject["buttons"] as JArray;
-
-                bool hasInvalidData = buttons.Any(button => button["id"] == null || button["name"] == null || button["icon"] == null);
-
-                if (!hasInvalidData)
+                if (LocalizeResponse != null)
                 {
-                    buttons = new JArray(
-                        from button in buttons
-                        orderby (int)button["id"] descending
-                        select button
-                    );
+                    List<ButtonLocalizedItem> items = null;
 
-                    foreach (JToken button in buttons)
+                    try
                     {
-                        Button view_button = new Button();
-                        view_button.Name = "MaterialButton_" + button["id"].ToString();
-                        view_button.Size = MaterialButton.Size;
-                        view_button.Location = new Point(MaterialButton.Location.X, MaterialButton.Location.Y + (MaterialButton.Size.Height + 6) * (int)button["id"]);
-                        view_button.Dock = DockStyle.Top;
-                        view_button.Font = MaterialButton.Font;
-                        view_button.Text = $"         {(int)button["id"] + 1}. {button["name"]}";
-                        view_button.TextAlign = MaterialButton.TextAlign;
-                        view_button.Tag = button["id"].ToString();
-                        view_button.Click += ButtonsList_Click;
-
-                        try
-                        {
-                            byte[] imageBytes = Convert.FromBase64String(button["icon"].ToString());
-                            Bitmap bitmap;
-                            using (MemoryStream ms = new MemoryStream(imageBytes))
-                            {
-                                bitmap = new Bitmap(ms);
-                            }
-                            view_button.Image = bitmap;
-                            view_button.ImageAlign = MaterialButton.ImageAlign;
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Ошибка при загрузке изображения: {ex.Message}", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-
-                        Invoke((MethodInvoker)delegate ()
-                        {
-                            MaterialsListPanel.Controls.Add(view_button);
-                        });
-
-                        if (!CachedMaterials.ContainsKey((int)button["id"]))
-                        {
-                            JObject jsonObject = new JObject(
-                                new JProperty("id", (int)button["id"])
-                            );
-                            HttpStatusCode Status;
-                            var Response = Net.GetRequest("api/material", out Status, jsonObject);
-                            if (Status == HttpStatusCode.OK)
-                                CachedMaterials.Add((int)button["id"], Response);
-                        }
+                        items = JsonConvert.DeserializeObject<List<ButtonLocalizedItem>>(LocalizeResponse);
                     }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ошибка при загрузке локализации кнопок: {ex}", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    ButtonsLocalization.Clear();
+
+                    foreach (var item in items)
+                        ButtonsLocalization.Add(item.Id, item.Name);
                 }
             }
         }
@@ -235,31 +191,67 @@ namespace BuildCalculator.Forms
             int OldButtonIdx = CurrentButtonIdx;
             CurrentButtonIdx = Convert.ToByte(cur_button.Tag.ToString());
             if (OldButtonIdx == CurrentButtonIdx)
-            {
                 CurrentButtonIdx = -1;
-                MaterialsListGroupBox.Text = "";
-            }
             else
-            {
                 cur_button.BackColor = Color.FromArgb(80, 0, 120, 215);
-                string gb_text = cur_button.Text.Substring(cur_button.Text.IndexOf('.') + 2).Trim();
-                int indexOfColon = gb_text.IndexOf(':');
-                if (indexOfColon != -1)
-                    gb_text = gb_text.Substring(0, indexOfColon);
-                MaterialsListGroupBox.Text = gb_text;
-            }
 
-            //ClearMaterials();
-            //if (CurrentButtonIdx != -1)
-            //{
-            //    LoadMaterials();
-            //    RepositionGroupBoxes();
-            //}
+            if (CurrentButtonIdx != -1)
+                LoadMaterial();
+        }
+
+        private void LoadMaterial()
+        {
+            if (HistoryListBox.SelectedIndex == -1) return;
+            var orderGroup = GroupedOrders[HistoryListBox.SelectedIndex];
+            var order = orderGroup.orders.FirstOrDefault(x => x.material_type_id == CurrentButtonIdx);
+            if (order == null) return;
+
+            MaterialNameLabel.Text = order.material_name;
+
+            try
+            {
+                WebClient client = new WebClient();
+                byte[] imageData = client.DownloadData(order.material_img);
+
+                using (var stream = new System.IO.MemoryStream(imageData))
+                {
+                    Bitmap bitmap = new Bitmap(stream);
+                    MaterialPictureBox.Image = bitmap;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке изображения: {ex.Message}", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MaterialPictureBox.Image = null;
+            }
         }
 
         private void SmetaHistory_FormClosing(object sender, FormClosingEventArgs e)
         {
             LoaderThread.Abort();
+        }
+
+        private void HistoryListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ClearInfo();
+            LoadButtons();
+
+            if (HistoryListBox.SelectedIndex == -1)
+            {
+                ResultLabel.Text = "0 ₽";
+                return;
+            }
+
+            var orderGroup = GroupedOrders[HistoryListBox.SelectedIndex];
+            if (orderGroup.orders.Count > 0)
+            {
+                if (MathHelper.IsFloat(orderGroup.orders[0].price))
+                    ResultLabel.Text = $"{Convert.ToSingle(orderGroup.orders[0].price).ToString("0.00")} ₽";
+                else
+                    ResultLabel.Text = "0 ₽";
+            }
+            else
+                ResultLabel.Text = "0 ₽";
         }
     }
 }

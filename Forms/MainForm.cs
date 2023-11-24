@@ -797,6 +797,7 @@ namespace BuildCalculator
                 pSettings.Save("token", UserToken);
                 pSettings.Save("username", "");
                 pSettings.Save("password", "");
+                UserId = -1;
                 UserCabinetMenuItem.Enabled = false;
             }
             else
@@ -921,7 +922,8 @@ namespace BuildCalculator
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            LoaderThread.Abort();
+            if (LoaderThread != null)
+                LoaderThread.Abort();
         }
 
         private void CalculateResultButton_Click(object sender, EventArgs e)
@@ -930,16 +932,8 @@ namespace BuildCalculator
             {
                 if (UserId != -1)
                 {
-                    var Response = GetResultResponse(true);
-
-                    var user = new
-                    {
-                        userID = UserId
-                    };
-                    string json = JsonConvert.SerializeObject(user, Formatting.Indented);
-                    var rResponse = Net.GetRequest("api/orderhistory", out _, JObject.Parse(json));
-                    if (rResponse != null)
-                        Clipboard.SetText(rResponse.ToString());
+                    GetResultResponse(true);
+                    AutoClosingMessageBox.Show("Смета сохранена в личный кабинет!", "", 2500, MessageBoxIcon.Information);
                 }
                 else
                     MessageBox.Show("Для рассчета сметы необходима авторизация", "", MessageBoxButtons.OK, MessageBoxIcon.Information);

@@ -31,6 +31,22 @@ namespace BuildCalculator.Classes
             }
         }
 
+        public static string GetRequestString(string url, out HttpStatusCode status, JObject url_body = null)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string queryString = (url_body != null) ? ToQueryString(url_body) : string.Empty;
+
+                HttpResponseMessage response = client.GetAsync(api + url + queryString).Result;
+                status = response.StatusCode;
+
+                if (response.IsSuccessStatusCode)
+                    return response.Content.ReadAsStringAsync().Result;
+                else
+                    return null;
+            }
+        }
+
         public static JObject PostRequest(string url, out HttpStatusCode status, JObject body = null, JObject url_body = null)
         {
             using (HttpClient client = new HttpClient())
